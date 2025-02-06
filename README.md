@@ -5,7 +5,9 @@ The basic ideea of the project is a **"production-ready" banking app (aka Revolu
 
 #### TODO next:
 <ul>
-<li> setup different environments (dev, staging, prod)
+<li> setup the first screens
+<li> add app icon
+<li> temporarily force light theme and setup the colors
 </ul>
 
 ##### Wanted features:

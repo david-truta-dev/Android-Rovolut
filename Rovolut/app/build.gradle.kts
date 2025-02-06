@@ -8,7 +8,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.tdavidc.dev"
+        applicationId = "com.rovolut.pro"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
@@ -29,6 +29,22 @@ android {
             )
         }
     }
+
+    setFlavorDimensions(arrayListOf("environment"))
+    productFlavors {
+        create("dev") {
+            dimension = "environment"
+            applicationIdSuffix = ".dev"
+        }
+        create("stage") {
+            dimension = "environment"
+            applicationIdSuffix = ".stage"
+        }
+        create("prod") {
+            dimension = "environment"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
