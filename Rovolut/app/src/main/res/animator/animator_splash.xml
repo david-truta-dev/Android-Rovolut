@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--  Zoom R letter in  -->
+    <objectAnimator
+        android:startOffset="300"
+        android:duration="150"
+        android:propertyName="scaleX"
+        android:valueFrom="0.5"
+        android:valueTo="0.7" />
+
+    <objectAnimator
+        android:startOffset="300"
+        android:duration="150"
+        android:propertyName="scaleY"
+        android:valueFrom="0.5"
+        android:valueTo="0.7" />
+
+    <objectAnimator
+        android:startOffset="300"
+        android:duration="150"
+        android:propertyName="translateX"
+        android:valueFrom="0"
+        android:valueTo="-100" />
+
+    <objectAnimator
+        android:startOffset="300"
+        android:duration="150"
+        android:propertyName="translateY"
+        android:valueFrom="0"
+        android:valueTo="-100" />
+
+    <!--  Zoom R letter out  -->
+
+    <objectAnimator
+        android:startOffset="450"
+        android:duration="150"
+        android:propertyName="scaleX"
+        android:valueFrom="0.7"
+        android:valueTo="0.5" />
+
+    <objectAnimator
+        android:startOffset="450"
+        android:duration="150"
+        android:propertyName="scaleY"
+        android:valueFrom="0.7"
+        android:valueTo="0.5" />
+
+    <objectAnimator
+        android:startOffset="450"
+        android:duration="150"
+        android:propertyName="translateX"
+        android:valueFrom="-100"
+        android:valueTo="0" />
+
+    <objectAnimator
+        android:startOffset="450"
+        android:duration="150"
+        android:propertyName="translateY"
+        android:valueFrom="-100"
+        android:valueTo="0" />
+
+    <!--  Zoom R letter out completely -->
+
+    <objectAnimator
+        android:startOffset="900"
+        android:duration="400"
+        android:propertyName="scaleX"
+        android:valueFrom="0.5"
+        android:valueTo="0" />
+
+    <objectAnimator
+        android:startOffset="900"
+        android:duration="400"
+        android:propertyName="scaleY"
+        android:valueFrom="0.5"
+        android:valueTo="0" />
+
+    <objectAnimator
+        android:startOffset="900"
+        android:duration="400"
+        android:propertyName="translateX"
+        android:valueFrom="0"
+        android:valueTo="256" />
+
+    <objectAnimator
+        android:startOffset="900"
+        android:duration="400"
+        android:propertyName="translateY"
+        android:valueFrom="0"
+        android:valueTo="256" />
+
+</set>
