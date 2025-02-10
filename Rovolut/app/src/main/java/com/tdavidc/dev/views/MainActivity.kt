@@ -1,20 +1,25 @@
 package com.tdavidc.dev.views
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.ViewTreeObserver
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.viewModels
 import com.tdavidc.dev.databinding.ActivityMainBinding
+import com.tdavidc.dev.viewmodels.MainViewModel
+import com.tdavidc.dev.views.base.BaseActivity
 
 // MainActivity is used only as the initial cold start of the application!
 // Do not navigate back to it!
-class MainActivity : AppCompatActivity() {
-    private var continueAfterSplashAnimation = false
+class MainActivity : BaseActivity() {
+    private val viewModel: MainViewModel by viewModels()
 
     private lateinit var binding: ActivityMainBinding
+
+    private var continueAfterSplashAnimation = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -25,9 +30,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //TODO: add logged in / logged out logic
         //TODO: add app update mechanism logic
-        //TODO: add viewModels, BaseActivity, and so on..
     }
 
     private fun delayFirstDrawForSplashAnimation() {
@@ -47,6 +50,25 @@ class MainActivity : AppCompatActivity() {
             })
         Handler(Looper.getMainLooper()).postDelayed({
             continueAfterSplashAnimation = true
+            goToAuthorize()
         }, 1000)
     }
+
+    override fun onStart() {
+        super.onStart()
+
+        //TODO: add authentication check
+        goToAuthorize()
+    }
+
+    private fun goToAuthorize() {
+        if (!continueAfterSplashAnimation) return
+
+        Intent(this, AuthorizeActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        }.also {
+            startActivity(it)
+        }
+    }
+
 }
