@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/invest"
+        android:icon="@drawable/ic_invest"
+        android:title="Invest" />
+    <item
+        android:id="@+id/payment"
+        android:icon="@drawable/ic_payment"
+        android:title="Payment" />
+    <item
+        android:id="@+id/crypto"
+        android:icon="@drawable/ic_crypto"
+        android:title="Crypto" />
+    <item
+        android:id="@+id/rovPoints"
+        android:icon="@drawable/ic_points"
+        android:title="RovPoints" />
+</menu>

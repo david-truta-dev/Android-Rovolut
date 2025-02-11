@@ -8,6 +8,7 @@ import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import com.tdavidc.dev.databinding.ActivityAuthorizeBinding
 import com.tdavidc.dev.views.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.Executor
 
 class AuthorizeActivity : BaseActivity() {
@@ -29,7 +30,7 @@ class AuthorizeActivity : BaseActivity() {
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                     super.onAuthenticationSucceeded(result)
 
-                    Intent(this@AuthorizeActivity, HomeFragment::class.java).apply {
+                    Intent(this@AuthorizeActivity, MainActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     }.also {
                         startActivity(it)
