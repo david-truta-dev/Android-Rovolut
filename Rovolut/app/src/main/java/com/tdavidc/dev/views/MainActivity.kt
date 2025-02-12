@@ -15,6 +15,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        window.navigationBarColor
         window.navigationBarColor = getColor(R.color.black2)
     }
 }
