@@ -3,33 +3,40 @@ package com.tdavidc.dev.views
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.view.ViewTreeObserver
+import androidx.activity.viewModels
+import com.tdavidc.dev.R
 import com.tdavidc.dev.databinding.ActivityLauncherBinding
+import com.tdavidc.dev.viewmodels.LauncherViewModel
 import com.tdavidc.dev.views.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
-// MainActivity is used only as the initial cold start of the application!
-// Do not navigate back to it!
+// LauncherActivity is used only as the initial cold start of the application!
+// Therefore, please DO NOT navigate back to it!
 @AndroidEntryPoint
-class LauncherActivity : BaseActivity() {
+class LauncherActivity : BaseActivity<ActivityLauncherBinding>() {
+    private val viewModel: LauncherViewModel by viewModels()
 
-    private lateinit var binding: ActivityLauncherBinding
-
-    private var continueAfterSplashAnimation = false
+    override fun inflateView(): ActivityLauncherBinding =
+        ActivityLauncherBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             delayFirstDrawForSplashAnimation()
         }
 
-        super.onCreate(savedInstanceState)
-        binding = ActivityLauncherBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        viewModel.viewIsCreated()
+    }
 
-        //TODO: add app update mechanism logic
+     override fun bindViewModel() {
+        viewModel.continueAfterSplashAnimation.observe(this) {
+            if (it) {
+                goToAuthorize()
+            }
+        }
     }
 
     private fun delayFirstDrawForSplashAnimation() {
@@ -37,37 +44,22 @@ class LauncherActivity : BaseActivity() {
         content.viewTreeObserver.addOnPreDrawListener(
             object : ViewTreeObserver.OnPreDrawListener {
                 override fun onPreDraw(): Boolean {
-                    return if (continueAfterSplashAnimation) {
-                        // The content is ready. Start drawing.
+                    return if (viewModel.continueAfterSplashAnimation.value == true) {
                         content.viewTreeObserver.removeOnPreDrawListener(this)
-                        true
+                        true // Start drawing.
                     } else {
-                        // The content isn't ready. Suspend.
-                        false
+                        false // Suspend.
                     }
                 }
             })
-        Handler(Looper.getMainLooper()).postDelayed({
-            continueAfterSplashAnimation = true
-            goToAuthorize()
-        }, 1000)
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        //TODO: add authentication check
-        goToAuthorize()
     }
 
     private fun goToAuthorize() {
-        if (!continueAfterSplashAnimation) return
-
         Intent(this, AuthorizeActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         }.also {
             startActivity(it)
+            overridePendingTransition(R.anim.slide_from_bottom, R.anim.fade_out)
         }
     }
-
 }

@@ -10,7 +10,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.rovolut.pro"
+        applicationId = "my.rovolut.ro"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
@@ -37,13 +37,16 @@ android {
         create("dev") {
             dimension = "environment"
             applicationIdSuffix = ".dev"
+            manifestPlaceholders["appName"] = "Rovolut Dev"
         }
         create("stage") {
             dimension = "environment"
             applicationIdSuffix = ".stage"
+            manifestPlaceholders["appName"] = "Rovolut Stage"
         }
         create("prod") {
             dimension = "environment"
+            manifestPlaceholders["appName"] = "Rovolut"
         }
     }
 

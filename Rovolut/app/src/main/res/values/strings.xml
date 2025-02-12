@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">Rovolut</string>
     <string name="welcome_to_rovolut">Welcome to</string>
+    <string name="biometric_authorization_text">Unlock with your fingerprint</string>
+    <string name="cancel_biometric_authorization">Cancel</string>
 </resources>
