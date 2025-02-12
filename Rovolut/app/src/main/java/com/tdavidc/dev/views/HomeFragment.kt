@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.tdavidc.dev.databinding.FragmentHomeBinding
 import com.tdavidc.dev.views.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment() {
 
     private lateinit var binding: FragmentHomeBinding

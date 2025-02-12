@@ -6,6 +6,7 @@ import com.tdavidc.dev.databinding.ActivityMainBinding
 import com.tdavidc.dev.views.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding

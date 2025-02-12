@@ -11,6 +11,7 @@ import com.tdavidc.dev.views.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.Executor
 
+@AndroidEntryPoint
 class AuthorizeActivity : BaseActivity() {
 
     private lateinit var binding: ActivityAuthorizeBinding

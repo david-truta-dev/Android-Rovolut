@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 // MainActivity is used only as the initial cold start of the application!
 // Do not navigate back to it!
+@AndroidEntryPoint
 class LauncherActivity : BaseActivity() {
 
     private lateinit var binding: ActivityLauncherBinding
