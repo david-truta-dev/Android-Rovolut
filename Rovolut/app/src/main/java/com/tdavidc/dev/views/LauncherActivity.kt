@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import com.tdavidc.dev.R
 import com.tdavidc.dev.databinding.ActivityLauncherBinding
 import com.tdavidc.dev.viewmodels.LauncherViewModel
+import com.tdavidc.dev.views.authorize.AuthorizeActivity
 import com.tdavidc.dev.views.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 

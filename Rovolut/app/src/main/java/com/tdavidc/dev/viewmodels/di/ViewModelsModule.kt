@@ -1,6 +1,6 @@
 package com.tdavidc.dev.viewmodels.di
 
-import com.tdavidc.dev.viewmodels.MainViewModel
+import com.tdavidc.dev.viewmodels.main.MainViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
