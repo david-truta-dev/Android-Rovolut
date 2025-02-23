@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.HapticFeedbackConstants
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.core.view.children
 import com.tdavidc.dev.R
 import com.tdavidc.dev.databinding.ViewNumericKeyboardBinding
@@ -61,6 +62,26 @@ class NumericKeyboardView @JvmOverloads constructor(
             keyboardBottomRightBtn.setOnClickListener {
                 it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 onBackspaceClicked?.invoke()
+            }
+        }
+    }
+
+    fun disable() {
+        binding.numericKeyboardLayout.children.forEach { view ->
+            if (view is Button) {
+                view.isEnabled = false
+            } else if (view is ImageButton) {
+                (view).isEnabled = false
+            }
+        }
+    }
+
+    fun enable() {
+        binding.numericKeyboardLayout.children.forEach { view ->
+            if (view is Button) {
+                view.isEnabled = true
+            } else if (view is ImageButton) {
+                (view).isEnabled = true
             }
         }
     }

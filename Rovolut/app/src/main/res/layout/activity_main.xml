@@ -5,15 +5,26 @@
     android:layout_height="match_parent"
     android:background="@color/black2">
 
+    <com.tdavidc.dev.views.main.views.TopNavigationBarView
+        android:id="@+id/top_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black3"
+        android:fitsSystemWindows="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/main_container"
         android:name="com.tdavidc.dev.views.main.HomeFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/black3"
         app:layout_constraintBottom_toTopOf="@id/main_bottom_navigation_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/top_navigation_bar" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/main_bottom_navigation_bar"
@@ -22,11 +33,11 @@
         android:background="@color/black2"
         android:minHeight="@dimen/bottom_navigation_bar_height"
         app:itemActiveIndicatorStyle="@null"
-        app:itemIconTint="@color/bottom_nav_item_color"
+        app:itemIconTint="@color/color_bottom_nav_item"
         app:itemPaddingBottom="10dp"
         app:itemPaddingTop="10dp"
         app:itemTextAppearanceActiveBoldEnabled="false"
-        app:itemTextColor="@color/bottom_nav_item_color"
+        app:itemTextColor="@color/color_bottom_nav_item"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

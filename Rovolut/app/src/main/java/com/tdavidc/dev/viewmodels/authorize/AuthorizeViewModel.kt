@@ -60,7 +60,7 @@ class AuthorizeViewModel : BaseViewModel() {
     private fun validatePasscode() {
         viewModelScope.launch {
             _isAuthorized.value = UIModel.Loading()
-            delay(500) // add fake delay for now
+            delay(300) // add fake delay for now
             if (_passcode.value == "123456") {
                 _isAuthorized.value = UIModel.Success(AuthorizationStatus.AUTHORIZED)
             } else {

@@ -43,6 +43,14 @@ class DotsSequenceView @JvmOverloads constructor(
                 animateColor(it, R.color.white, R.color.gray2)
             }
         }
+        ObjectAnimator.ofFloat(
+            this,
+            "translationX",
+            0f, 40f, -40f, 40f, -40f, 40f, -40f, 0f
+        ).apply {
+            duration = ANIMATION_DURATION * 5
+            start()
+        }
     }
 
     private fun animateScale(view: ImageView, scaleProperty: String) {

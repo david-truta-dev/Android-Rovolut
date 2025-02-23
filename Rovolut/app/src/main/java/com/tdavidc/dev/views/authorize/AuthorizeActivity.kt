@@ -56,7 +56,6 @@ class AuthorizeActivity : BaseActivity<ActivityAuthorizeBinding>() {
         viewModel.isAuthorized.observe(this) {
             when (it) {
                 is UIModel.Success -> {
-                    hideLoading()
                     when (it.data) {
                         AuthorizationStatus.AUTHORIZED -> {
                             Intent(this@AuthorizeActivity, MainActivity::class.java).apply {
@@ -69,7 +68,6 @@ class AuthorizeActivity : BaseActivity<ActivityAuthorizeBinding>() {
                         }
 
                         AuthorizationStatus.REJECTED -> {
-                            //TODO: add shake animation
                             binding.passcodeView.unHighlightAllDots()
                             showFingerprintBtn()
                         }
@@ -81,10 +79,12 @@ class AuthorizeActivity : BaseActivity<ActivityAuthorizeBinding>() {
 
                         AuthorizationStatus.BIOMETRIC_CANCELLED -> showHidePasscodeViews(true)
                     }
+                    binding.numericKeyboardView.enable()
                 }
 
-                is UIModel.Error -> hideLoading()
-                is UIModel.Loading -> showLoading()
+                is UIModel.Error -> binding.numericKeyboardView.enable()
+
+                is UIModel.Loading -> binding.numericKeyboardView.disable()
             }
         }
     }

@@ -3,4 +3,5 @@
     <string name="biometric_authorization_text">Unlock with your fingerprint</string>
     <string name="cancel_biometric_authorization">Cancel</string>
     <string name="authorize_welcoming_text">Good evening, David</string>
+    <string name="top_navigation_bar_search">Search</string>
 </resources>
