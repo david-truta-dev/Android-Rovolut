@@ -2,6 +2,7 @@ package com.tdavidc.dev.views.authorize.views
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.HapticFeedbackConstants
 import android.widget.Button
 import androidx.core.view.children
 import com.tdavidc.dev.R
@@ -24,10 +25,14 @@ class NumericKeyboardView @JvmOverloads constructor(
     init {
         binding.numericKeyboardLayout.children.forEach { view ->
             if (view is Button) {
-                view.setOnClickListener { onDigitClicked?.invoke(view.text.toString()) }
+                view.setOnClickListener {
+                    it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                    onDigitClicked?.invoke(view.text.toString())
+                }
             }
         }
         binding.keyboardBottomRightBtn.setOnClickListener {
+            it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             onBackspaceClicked?.invoke()
         }
     }
@@ -43,14 +48,20 @@ class NumericKeyboardView @JvmOverloads constructor(
     fun setBottomRightButton(icon: Int, onClick: () -> Unit) {
         binding.apply {
             keyboardBottomRightBtn.setImageResource(icon)
-            keyboardBottomRightBtn.setOnClickListener { onClick() }
+            keyboardBottomRightBtn.setOnClickListener {
+                it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                onClick()
+            }
         }
     }
 
     fun resetBottomRightButton() {
         binding.apply {
             keyboardBottomRightBtn.setImageResource(R.drawable.ic_backspace)
-            keyboardBottomRightBtn.setOnClickListener { onBackspaceClicked?.invoke() }
+            keyboardBottomRightBtn.setOnClickListener {
+                it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                onBackspaceClicked?.invoke()
+            }
         }
     }
 }

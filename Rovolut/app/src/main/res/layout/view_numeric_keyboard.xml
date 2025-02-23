@@ -4,76 +4,75 @@
     android:id="@+id/numericKeyboardLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="24dp"
     android:columnCount="3"
     android:columnOrderPreserved="true"
     android:rowCount="4"
     android:rowOrderPreserved="true">
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         style="@style/NumericKeyboardBtnStyle"
         android:layout_row="0"
         android:layout_column="0"
         android:text="1"
         tools:ignore="HardcodedText" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         style="@style/NumericKeyboardBtnStyle"
         android:layout_row="0"
         android:layout_column="1"
         android:text="2"
         tools:ignore="HardcodedText" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         style="@style/NumericKeyboardBtnStyle"
         android:layout_row="0"
         android:layout_column="2"
         android:text="3"
         tools:ignore="HardcodedText" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         style="@style/NumericKeyboardBtnStyle"
         android:layout_row="1"
         android:layout_column="0"
         android:text="4"
         tools:ignore="HardcodedText" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         style="@style/NumericKeyboardBtnStyle"
         android:layout_row="1"
         android:layout_column="1"
         android:text="5"
         tools:ignore="HardcodedText" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         style="@style/NumericKeyboardBtnStyle"
         android:layout_row="1"
         android:layout_column="2"
         android:text="6"
         tools:ignore="HardcodedText" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         style="@style/NumericKeyboardBtnStyle"
         android:layout_row="2"
         android:layout_column="0"
         android:text="7"
         tools:ignore="HardcodedText" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         style="@style/NumericKeyboardBtnStyle"
         android:layout_row="2"
         android:layout_column="1"
         android:text="8"
         tools:ignore="HardcodedText" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         style="@style/NumericKeyboardBtnStyle"
         android:layout_row="2"
         android:layout_column="2"
         android:text="9"
         tools:ignore="HardcodedText" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         style="@style/NumericKeyboardBtnStyle"
         android:layout_row="3"
         android:layout_column="1"

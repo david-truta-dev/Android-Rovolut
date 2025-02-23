@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import com.tdavidc.dev.R
 import com.tdavidc.dev.databinding.ActivityLauncherBinding
@@ -23,6 +24,7 @@ class LauncherActivity : BaseActivity<ActivityLauncherBinding>() {
         ActivityLauncherBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -32,7 +34,7 @@ class LauncherActivity : BaseActivity<ActivityLauncherBinding>() {
         viewModel.viewIsCreated()
     }
 
-     override fun bindViewModel() {
+    override fun bindViewModel() {
         viewModel.continueAfterSplashAnimation.observe(this) {
             if (it) {
                 goToAuthorize()

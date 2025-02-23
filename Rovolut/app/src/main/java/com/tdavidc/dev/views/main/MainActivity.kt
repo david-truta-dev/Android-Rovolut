@@ -17,7 +17,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.navigationBarColor = getColor(R.color.black2)
         setupNavigation()
     }
 

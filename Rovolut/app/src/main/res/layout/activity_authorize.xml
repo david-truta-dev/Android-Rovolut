@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    android:padding="24dp">
+    android:paddingHorizontal="@dimen/screen_horizontal_padding"
+    android:paddingVertical="@dimen/screen_vertical_padding">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -29,7 +30,7 @@
         android:id="@+id/welcomingTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/spacing_s"
         android:gravity="center"
         android:text="@string/authorize_welcoming_text"
         android:textColor="@color/white"
@@ -43,7 +44,7 @@
         android:id="@+id/authByCodeContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="@dimen/spacing_s"
         android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ProgressBar
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.viewbinding.ViewBinding
@@ -15,6 +16,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     private lateinit var loadingOverlay: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         binding = inflateView()
 
