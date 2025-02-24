@@ -8,6 +8,7 @@ import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import com.tdavidc.dev.R
 import com.tdavidc.dev.databinding.ActivityAuthorizeBinding
+import com.tdavidc.dev.utilities.extensions.getDuration
 import com.tdavidc.dev.viewmodels.authorize.AuthorizationStatus
 import com.tdavidc.dev.viewmodels.authorize.AuthorizeViewModel
 import com.tdavidc.dev.viewmodels.authorize.PasscodeLastStatus
@@ -133,10 +134,10 @@ class AuthorizeActivity : BaseActivity<ActivityAuthorizeBinding>() {
     private fun showHidePasscodeViews(show: Boolean) {
         binding.authByCodeContainer.animate().apply {
             if (show) {
-                duration = 500
+                duration = resources.getDuration(R.integer.anim_duration_long)
                 alpha(1f)
             } else {
-                duration = 300
+                duration = resources.getDuration(R.integer.anim_duration_normal)
                 alpha(0f)
             }
         }.start()

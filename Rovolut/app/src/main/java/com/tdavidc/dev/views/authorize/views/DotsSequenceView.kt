@@ -9,6 +9,7 @@ import androidx.core.animation.doOnEnd
 import androidx.core.view.children
 import com.tdavidc.dev.R
 import com.tdavidc.dev.databinding.ViewDotsSequenceBinding
+import com.tdavidc.dev.utilities.extensions.getDuration
 import com.tdavidc.dev.views.base.BaseView
 
 class DotsSequenceView @JvmOverloads constructor(
@@ -25,7 +26,6 @@ class DotsSequenceView @JvmOverloads constructor(
     fun highlightDot(index: Int) {
         (binding.linearLayout.children.toList().getOrNull(index) as? ImageView?)?.let { imgView ->
             imgView.setColorFilter(context.getColor(R.color.white))
-
             animateScale(imgView, "scaleX")
             animateScale(imgView, "scaleY")
         }
@@ -48,17 +48,17 @@ class DotsSequenceView @JvmOverloads constructor(
             "translationX",
             0f, 40f, -40f, 40f, -40f, 40f, -40f, 0f
         ).apply {
-            duration = ANIMATION_DURATION * 5
+            duration = context.resources.getDuration(R.integer.anim_duration_longer)
             start()
         }
     }
 
     private fun animateScale(view: ImageView, scaleProperty: String) {
         ObjectAnimator.ofFloat(view, scaleProperty, 1f, 1.25f).apply {
-            duration = ANIMATION_DURATION / 2
+            duration = context.resources.getDuration(R.integer.anim_duration_short) / 2
             doOnEnd {
                 ObjectAnimator.ofFloat(view, scaleProperty, 1.25f, 1f).apply {
-                    duration = ANIMATION_DURATION / 2
+                    duration = context.resources.getDuration(R.integer.anim_duration_short) / 2
                     start()
                 }
             }
@@ -67,19 +67,13 @@ class DotsSequenceView @JvmOverloads constructor(
     }
 
     private fun animateColor(view: ImageView, startColorResId: Int, endColorResId: Int) {
-        val startColor = context.getColor(startColorResId)
-        val endColor = context.getColor(endColorResId)
-
-        ValueAnimator.ofArgb(startColor, endColor).apply {
-            duration = ANIMATION_DURATION
-            addUpdateListener { animator ->
-                view.setColorFilter(animator.animatedValue as Int)
+        ValueAnimator.ofArgb(context.getColor(startColorResId), context.getColor(endColorResId))
+            .apply {
+                duration = context.resources.getDuration(R.integer.anim_duration_short)
+                addUpdateListener { animator ->
+                    view.setColorFilter(animator.animatedValue as Int)
+                }
+                start()
             }
-            start()
-        }
-    }
-
-    companion object {
-        const val ANIMATION_DURATION = 150L
     }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="anim_duration_extra_short">75</integer>
+    <integer name="anim_duration_shorter">100</integer>
+    <integer name="anim_duration_short">150</integer>
+    <integer name="anim_duration_fast">200</integer>
+    <integer name="anim_duration_normal">300</integer>
+    <integer name="anim_duration_long">500</integer>
+    <integer name="anim_duration_longer">750</integer>
+    <integer name="anim_duration_extra_long">1000</integer>
+
+</resources>

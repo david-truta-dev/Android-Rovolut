@@ -6,6 +6,9 @@
 
         <!-- Background -->
         <item name="android:windowBackground">@color/black</item>
+
+        <!-- enable window content transitions -->
+        <item name="android:windowActivityTransitions">true</item>
     </style>
 
     <style name="Theme.Rovolut" parent="Theme.Rovolut.Base"/>

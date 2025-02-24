@@ -2,8 +2,7 @@
 <resources>
 
     <style name="CircleButton">
-        <item name="android:layout_height">65dp</item>
-        <item name="android:layout_width">65dp</item>
+
         <item name="android:layout_gravity">center</item>
         <item name="android:textColor">@color/color_button_text</item>
         <item name="android:tint">@color/color_button_text</item>
@@ -12,10 +11,14 @@
     </style>
 
     <style name="CircleButton.Black.Large" parent="CircleButton">
+        <item name="android:layout_height">65dp</item>
+        <item name="android:layout_width">65dp</item>
         <item name="android:background">@drawable/bg_button_circle_black</item>
     </style>
 
     <style name="CircleButton.Gray.Large" parent="CircleButton">
+        <item name="android:layout_height">65dp</item>
+        <item name="android:layout_width">65dp</item>
         <item name="android:background">@drawable/bg_button_circle_gray</item>
     </style>
 

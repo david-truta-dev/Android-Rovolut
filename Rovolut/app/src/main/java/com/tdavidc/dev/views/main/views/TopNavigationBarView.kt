@@ -14,4 +14,8 @@ class TopNavigationBarView @JvmOverloads constructor(
     attrs,
     defStyleAttr,
     ViewTopNavigationBarBinding::inflate
-)
+) {
+    fun setOnClickProfilePicture(onClick: () -> Unit) {
+        binding.profilePicture.setOnClickListener { onClick() }
+    }
+}
