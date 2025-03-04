@@ -87,6 +87,8 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.biometric)
+    implementation(libs.lottie)
+    implementation(libs.coil)
 
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler)

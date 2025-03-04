@@ -1,7 +1,16 @@
 <resources>
-    <string name="welcome_to_rovolut">Welcome to</string>
+    <string name="welcome_to_rovolut">Welcome to Rovolut</string>
     <string name="biometric_authorization_text">Unlock with your fingerprint</string>
     <string name="cancel_biometric_authorization">Cancel</string>
     <string name="authorize_welcoming_text">Good evening, David</string>
     <string name="top_navigation_bar_search">Search</string>
+    <string name="welcome_title_1">This is breakthrough banking</string>
+    <string name="welcome_title_2">Easy to pay, at home, and away</string>
+    <string name="welcome_description_2">Some cards available on paid plans only</string>
+    <string name="welcome_title_3">Send near, far, wherever they are</string>
+    <string name="welcome_description_3">Limits, fees, and T&amp;Cs apply</string>
+    <string name="welcome_title_4">Invest your way, from 1$</string>
+    <string name="welcome_description_4">Capital at risk</string>
+    <string name="welcome_top_button">Create account</string>
+    <string name="welcome_bottom_button">Login</string>
 </resources>
