@@ -46,6 +46,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
         }
         viewModel.currentScreenIndex.observe(this) { index ->
             viewModel.welcomeScreens.value?.let { screens ->
+                stopTimerAndAnimation()
                 updateUI(screens, index)
                 startTimerAndAnimation()
             }
@@ -184,7 +185,6 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
             }
 
             override fun onFinish() {
-                stopTimerAndAnimation()
                 viewModel.goToNextScreen()
             }
         }.start()
