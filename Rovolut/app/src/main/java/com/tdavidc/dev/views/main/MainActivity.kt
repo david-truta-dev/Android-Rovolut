@@ -13,6 +13,11 @@ import com.tdavidc.dev.views.profile.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 import android.util.Pair
 import android.widget.ImageView
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.tdavidc.dev.views.main.views.TopNavigationBarView
 
 //TODO: move logic to VM
 @AndroidEntryPoint
@@ -21,10 +26,31 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun inflateView(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        handleInsets = false
+
         super.onCreate(savedInstanceState)
 
+        handleSystemInsets()
         setupNavigation()
         setupListeners()
+    }
+
+    private fun handleSystemInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            insets.getInsets(
+                WindowInsetsCompat.Type.systemBars()
+                        or WindowInsetsCompat.Type.displayCutout()
+            ).also {
+                val verticalPadding =
+                    resources.getDimension(R.dimen.screen_vertical_padding).toInt()
+                val topNavBar = v.findViewById<TopNavigationBarView>(R.id.top_navigation_bar)
+                val bottomNavBar =
+                    v.findViewById<BottomNavigationView>(R.id.main_bottom_navigation_bar)
+                topNavBar.updatePadding(top = it.top + verticalPadding)
+                bottomNavBar.updatePadding(bottom = it.bottom + verticalPadding)
+            }
+            WindowInsetsCompat.CONSUMED
+        }
     }
 
     private fun setupListeners() {

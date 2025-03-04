@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:transitionName="profile_picture_container"
-        app:cardCornerRadius="35dp">
+        app:cardCornerRadius="18dp">
 
         <ImageView
             android:id="@+id/profile_picture"
@@ -30,7 +30,7 @@
         android:layout_marginHorizontal="@dimen/spacing_s"
         android:layout_weight="1"
         app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="45dp">
+        app:cardCornerRadius="18dp">
 
         <LinearLayout
             android:layout_width="match_parent"

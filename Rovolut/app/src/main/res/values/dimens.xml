@@ -11,8 +11,8 @@
     <dimen name="spacing_xxs">6dp</dimen>
     <dimen name="spacing_xxxs">4dp</dimen>
 
-    <dimen name="screen_horizontal_padding">@dimen/spacing_l</dimen>
-    <dimen name="screen_vertical_padding">@dimen/spacing_l</dimen>
+    <dimen name="screen_horizontal_padding">@dimen/spacing_m</dimen>
+    <dimen name="screen_vertical_padding">@dimen/spacing_xs</dimen>
 
     <dimen name="bottom_navigation_bar_height">56dp</dimen>
 

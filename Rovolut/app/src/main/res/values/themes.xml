@@ -9,6 +9,12 @@
 
         <!-- enable window content transitions -->
         <item name="android:windowActivityTransitions">true</item>
+
+        <!-- Set the system bars to transparent -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
     </style>
 
     <style name="Theme.Rovolut" parent="Theme.Rovolut.Base"/>

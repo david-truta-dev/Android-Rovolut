@@ -1,12 +1,17 @@
 package com.tdavidc.dev.views.base
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ProgressBar
+import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
@@ -15,13 +20,16 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     private var loadingCounter: Int = 0
     private lateinit var loadingOverlay: ProgressBar
 
+    protected var handleInsets: Boolean = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
+        handleEdgeToEdge()
+
         super.onCreate(savedInstanceState)
         binding = inflateView()
-
         setContentView(setupViewWithLoading())
 
+        handleSystemInsets()
         bindViewModel()
     }
 
@@ -31,6 +39,21 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     // Implement this method to bind the viewModel data to the view
     protected open fun bindViewModel() {}
 
+    private fun handleEdgeToEdge() {
+        enableEdgeToEdge(navigationBarStyle = SystemBarStyle.dark(Color.TRANSPARENT))
+    }
+
+    private fun handleSystemInsets() {
+        if (handleInsets) {
+            ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+                insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars()
+                            or WindowInsetsCompat.Type.displayCutout()
+                ).also { v.updatePadding(top = it.top, bottom = it.bottom) }
+                WindowInsetsCompat.CONSUMED
+            }
+        }
+    }
 
     fun showLoading() {
         if (++loadingCounter > 0) {
@@ -40,7 +63,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
 
     fun hideLoading() {
         loadingCounter = maxOf(--loadingCounter, 0)
-        if(loadingCounter == 0) {
+        if (loadingCounter == 0) {
             loadingOverlay.isVisible = false
         }
     }
@@ -72,6 +95,6 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
 
         rootLayout.addView(loadingOverlay, params)
 
-        return  rootLayout
+        return rootLayout
     }
 }
