@@ -16,6 +16,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true" />
 
+    <com.tdavidc.dev.views.welcome.views.storybarview.StoryBarView
+        android:id="@+id/story_bar_view"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/spacing_xs"
+        android:layout_marginHorizontal="@dimen/spacing_xs"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/header_text_view"
         android:layout_width="match_parent"
@@ -24,12 +34,12 @@
         android:layout_marginTop="@dimen/screen_vertical_padding"
         android:drawablePadding="0dp"
         android:gravity="center_vertical"
-        android:scaleX="0.6"
-        android:scaleY="0.6"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
         android:text="@string/welcome_to_rovolut"
         android:textColor="@color/white"
-        android:textSize="30sp"
-        android:translationX="-88dp"
+        android:textSize="34sp"
+        android:translationX="-100dp"
         app:drawableStartCompat="@drawable/ic_home"
         app:drawableTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,6 +73,7 @@
         app:layout_constraintTop_toBottomOf="@id/title_text_view" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/create_account_button"
         style="@style/RoundedButton.Black.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

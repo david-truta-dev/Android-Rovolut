@@ -1,6 +1,7 @@
 package com.tdavidc.dev.views.welcome
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -15,6 +16,7 @@ import com.tdavidc.dev.R
 import com.tdavidc.dev.databinding.ActivityWelcomeBinding
 import com.tdavidc.dev.viewmodels.welcome.WelcomeScreen
 import com.tdavidc.dev.viewmodels.welcome.WelcomeViewModel
+import com.tdavidc.dev.views.authorize.AuthorizeActivity
 import com.tdavidc.dev.views.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,6 +42,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
     override fun bindViewModel() {
         viewModel.welcomeScreens.observe(this) { screens ->
             viewModel.currentScreenIndex.value?.let { index ->
+                binding.storyBarView.setup(screens.size, SCREEN_CHANGE_INTERVAL)
                 updateUI(screens, index)
                 resumeTimerAndAnimation()
             }
@@ -129,6 +132,16 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
                 else -> return@setOnTouchListener false
             }
         }
+
+        binding.createAccountButton.setOnClickListener {
+            //TODO: modify this to create account
+            Intent(this, AuthorizeActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            }.also {
+                startActivity(it)
+                overridePendingTransition(R.anim.slide_from_bottom, R.anim.fade_out)
+            }
+        }
     }
 
     private fun updateUI(screens: List<WelcomeScreen>, index: Int) {
@@ -174,7 +187,9 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
     }
 
     private fun updateScreensDataUI(screens: List<WelcomeScreen>, index: Int) {
-        // You can add any other UI updates if needed
+        screens.getOrNull(index)?.dark?.let {
+            binding.storyBarView.setCurrentBar(index, it)
+        }
     }
 
     private fun startTimer() {
@@ -198,6 +213,9 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
 
     private fun pauseTimerAndAnimation() {
         binding.backgroundView.pauseAnimation()
+        viewModel.currentScreenIndex.value?.let {
+            binding.storyBarView.pause(it)
+        }
         countDownTimer?.cancel()
         isTimerRunning = false
     }
@@ -205,12 +223,18 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
     private fun resumeTimerAndAnimation() {
         if (!isTimerRunning) {
             binding.backgroundView.resumeAnimation()
+            viewModel.currentScreenIndex.value?.let {
+                binding.storyBarView.resume(it)
+            }
             startTimer()
         }
     }
 
     private fun stopTimerAndAnimation() {
         binding.backgroundView.pauseAnimation()
+        viewModel.currentScreenIndex.value?.let {
+            binding.storyBarView.pause(it)
+        }
         countDownTimer?.cancel()
         countDownTimer = null
         isTimerRunning = false
@@ -218,7 +242,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
     }
 
     companion object {
-        private const val LONG_PRESS_PAUSE_THRESHOLD = 250L
+        private const val LONG_PRESS_PAUSE_THRESHOLD = 200L
         private const val SCREEN_CHANGE_INTERVAL = 4500L
         private const val SCREEN_CHANGE_TIMER_INTERVAL = 100L
     }
