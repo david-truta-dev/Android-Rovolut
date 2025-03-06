@@ -1,4 +1,4 @@
-package com.tdavidc.dev.views.welcome.views.storybarview
+package com.tdavidc.dev.views.welcome.views
 
 import android.animation.ObjectAnimator
 import android.content.Context

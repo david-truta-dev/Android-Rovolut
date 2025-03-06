@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.view.MotionEvent
@@ -14,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.TextViewCompat
 import com.tdavidc.dev.R
 import com.tdavidc.dev.databinding.ActivityWelcomeBinding
+import com.tdavidc.dev.viewmodels.welcome.LastInputCommand
 import com.tdavidc.dev.viewmodels.welcome.WelcomeScreen
 import com.tdavidc.dev.viewmodels.welcome.WelcomeViewModel
 import com.tdavidc.dev.views.authorize.AuthorizeActivity
@@ -23,11 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
     private val viewModel: WelcomeViewModel by viewModels()
-
-    //TODO: move timer logic to the viewModel
-    private var countDownTimer: CountDownTimer? = null
-    private var remainingTime = SCREEN_CHANGE_INTERVAL // Time remaining for the current cycle
-    private var isTimerRunning = false
 
     override fun inflateView(): ActivityWelcomeBinding =
         ActivityWelcomeBinding.inflate(layoutInflater)
@@ -42,33 +37,62 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
     override fun bindViewModel() {
         viewModel.welcomeScreens.observe(this) { screens ->
             viewModel.currentScreenIndex.value?.let { index ->
-                binding.storyBarView.setup(screens.size, SCREEN_CHANGE_INTERVAL)
+                binding.storyBarView.setup(
+                    screens.size, WelcomeViewModel.SCREEN_CHANGE_INTERVAL, index,
+                    screens.getOrNull(index)?.dark ?: false
+                )
                 updateUI(screens, index)
-                resumeTimerAndAnimation()
             }
         }
         viewModel.currentScreenIndex.observe(this) { index ->
             viewModel.welcomeScreens.value?.let { screens ->
-                stopTimerAndAnimation()
+                viewModel.stopAnimation()
                 updateUI(screens, index)
-                startTimerAndAnimation()
+                viewModel.startTimer()
+                viewModel.startAnimation()
+            }
+        }
+        viewModel.lastInputCommand.observe(this) { state ->
+            when (state) {
+                LastInputCommand.PLAY -> {
+                    binding.backgroundView.playAnimation()
+                }
+
+                LastInputCommand.PAUSE -> {
+                    binding.backgroundView.pauseAnimation()
+                    viewModel.currentScreenIndex.value?.let {
+                        binding.storyBarView.pause(it)
+                    }
+                }
+
+                LastInputCommand.RESUME -> {
+                    if (binding.backgroundView.frame != binding.backgroundView.maxFrame.toInt()) {
+                        // only resume if the animation is not at the end
+                        binding.backgroundView.resumeAnimation()
+                    }
+                    viewModel.currentScreenIndex.value?.let {
+                        binding.storyBarView.resume(it)
+                    }
+                }
+
+                else -> {}
             }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        resumeTimerAndAnimation()
+        viewModel.resumeAnimation()
     }
 
     override fun onPause() {
         super.onPause()
-        pauseTimerAndAnimation()
+        viewModel.pauseAnimation()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        stopTimerAndAnimation()
+        viewModel.stopAnimation()
     }
 
     private fun setWelcomeScreens() {
@@ -112,7 +136,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
                     isLongPress = false
                     checkLongPressHandler.postDelayed({
                         isLongPress = true
-                        pauseTimerAndAnimation()
+                        viewModel.pauseAnimation()
                     }, LONG_PRESS_PAUSE_THRESHOLD)
                     true
                 }
@@ -120,7 +144,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
                 MotionEvent.ACTION_UP -> {
                     checkLongPressHandler.removeCallbacksAndMessages(null)
                     if (isLongPress) {
-                        resumeTimerAndAnimation()
+                        viewModel.resumeAnimation()
                     } else {
                         val isLeftHalf = event.x < binding.root.width / 2
                         if (isLeftHalf) viewModel.goToPreviousScreen()
@@ -192,58 +216,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
         }
     }
 
-    private fun startTimer() {
-        if (isTimerRunning) return
-        countDownTimer = object : CountDownTimer(remainingTime, SCREEN_CHANGE_TIMER_INTERVAL) {
-            override fun onTick(millisUntilFinished: Long) {
-                remainingTime = millisUntilFinished
-            }
-
-            override fun onFinish() {
-                viewModel.goToNextScreen()
-            }
-        }.start()
-        isTimerRunning = true
-    }
-
-    private fun startTimerAndAnimation() {
-        startTimer()
-        binding.backgroundView.playAnimation()
-    }
-
-    private fun pauseTimerAndAnimation() {
-        binding.backgroundView.pauseAnimation()
-        viewModel.currentScreenIndex.value?.let {
-            binding.storyBarView.pause(it)
-        }
-        countDownTimer?.cancel()
-        isTimerRunning = false
-    }
-
-    private fun resumeTimerAndAnimation() {
-        if (!isTimerRunning) {
-            binding.backgroundView.resumeAnimation()
-            viewModel.currentScreenIndex.value?.let {
-                binding.storyBarView.resume(it)
-            }
-            startTimer()
-        }
-    }
-
-    private fun stopTimerAndAnimation() {
-        binding.backgroundView.pauseAnimation()
-        viewModel.currentScreenIndex.value?.let {
-            binding.storyBarView.pause(it)
-        }
-        countDownTimer?.cancel()
-        countDownTimer = null
-        isTimerRunning = false
-        remainingTime = SCREEN_CHANGE_INTERVAL // Reset remaining time
-    }
-
     companion object {
-        private const val LONG_PRESS_PAUSE_THRESHOLD = 200L
-        private const val SCREEN_CHANGE_INTERVAL = 4500L
-        private const val SCREEN_CHANGE_TIMER_INTERVAL = 100L
+        private const val LONG_PRESS_PAUSE_THRESHOLD = 150L
     }
 }
