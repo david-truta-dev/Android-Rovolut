@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/balance_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/logo_card"
@@ -40,7 +42,8 @@
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            tools:ignore="SmallSp" />
 
     </LinearLayout>
 
@@ -48,39 +51,51 @@
         android:id="@+id/balance_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="lei 300"
+        android:text="lei 30"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textSize="32sp"
         android:textStyle="bold"
-        android:translationY="-4dp"
+        android:translationY="-2dp"
+        app:layout_constraintBottom_toTopOf="@+id/accounts_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_chainStyle="packed" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/page_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/accounts_button"
+        style="@style/RoundedButton.White.Small"
+        android:paddingHorizontal="@dimen/spacing_s"
+        android:text="@string/accounts_button"
+        app:layout_constraintBottom_toTopOf="@+id/page_indicator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/balance_text" />
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/page_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_marginBottom="@dimen/spacing_m"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@id/buttons_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/buttons_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/spacing_m"
+        android:layout_marginHorizontal="@dimen/spacing_xxxl"
+        android:layout_marginTop="@dimen/spacing_xxs"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/page_indicator">
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            style="@style/CircleButton.Gray.Large"
+            style="@style/CircleButton.Gray.Medium"
             android:contentDescription="@null"
             android:src="@drawable/ic_chart" />
 
@@ -90,7 +105,7 @@
             android:layout_weight="1" />
 
         <ImageButton
-            style="@style/CircleButton.Gray.Large"
+            style="@style/CircleButton.Gray.Medium"
             android:contentDescription="@null"
             android:src="@drawable/ic_chart" />
 
@@ -100,7 +115,7 @@
             android:layout_weight="1" />
 
         <ImageButton
-            style="@style/CircleButton.Gray.Large"
+            style="@style/CircleButton.Gray.Medium"
             android:contentDescription="@null"
             android:src="@drawable/ic_chart" />
 
@@ -110,7 +125,7 @@
             android:layout_weight="1" />
 
         <ImageButton
-            style="@style/CircleButton.Gray.Large"
+            style="@style/CircleButton.Gray.Medium"
             android:contentDescription="@null"
             android:src="@drawable/ic_chart" />
 
