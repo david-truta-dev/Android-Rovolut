@@ -53,6 +53,18 @@
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/profile_picture_container" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xxs"
+            android:text="\@davidhatz"
+            android:textAlignment="center"
+            android:drawablePadding="@dimen/spacing_xxxs"
+            android:drawableEnd="@drawable/ic_chart"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/profile_picture_container" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

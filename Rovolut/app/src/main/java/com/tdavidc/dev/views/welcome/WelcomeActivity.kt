@@ -18,6 +18,7 @@ import com.tdavidc.dev.viewmodels.welcome.WelcomeScreen
 import com.tdavidc.dev.viewmodels.welcome.WelcomeViewModel
 import com.tdavidc.dev.views.authorize.AuthorizeActivity
 import com.tdavidc.dev.views.base.BaseActivity
+import com.tdavidc.dev.views.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -154,6 +155,12 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
                 }
 
                 else -> return@setOnTouchListener false
+            }
+        }
+
+        binding.loginButton.setOnClickListener {
+            Intent(this, LoginActivity::class.java).also {
+                startActivity(it)
             }
         }
 
