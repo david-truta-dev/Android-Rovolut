@@ -1,12 +1,16 @@
 # Android-Rovolut
 
 This project is a **"production-ready"** and **"industry-standard" banking application** (aka Revolut clone) built in Android.
-<br><br>!!! DISCLAIMER !!! This project is NOT a real banking app. It's purpouse is to showcase my software enginering skills and to help me learn along the way! <br><br>What this project includes / will include:
+<br>
+#### !!! DISCLAIMER !!! This project is NOT a real banking app. It's purpouse is to showcase my software enginering skills and to help me learn along the way!
+##### Also Important to note: Since this project serves the purpose of learning also, sometimes I might not stick with one way of doing things, for example for viewmodel-view communication I used multiple variants, while only using RxKotlin would have sufficed!
+What this project includes / will include:
 <ul>
 <li> A fraction of the features of a real banking app (login, passcode, edit profile, create payment account, make (fake) transactions, etc...)
 <li> Dev, Stage and Prod Flavours + communication with a <b>REST API</b> using <b>Retrofit</b>
 <li> Coroutines and lazy init for the best performence
 <li> A <b>MVVM architecture</b> respecting the SOLID principles
+<li> Views built with XML layout
 <li> <b>RxKotlin, RxJava and LiveData</b> for the communication between layers
 <li> Authentication using <b>JWT tokens</b> and a <b>refresh token mechanism</b>
 <li> <b>Encrypted local storage</b>
