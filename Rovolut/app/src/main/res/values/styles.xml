@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CircleButton">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/color_button_text</item>
+        <item name="android:tint">@color/color_button_text</item>
+        <item name="android:elevation">0dp</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="CircleButton.Black.Large" parent="CircleButton">
+        <item name="android:layout_height">@dimen/button_height_extra_large</item>
+        <item name="android:layout_width">@dimen/button_height_extra_large</item>
+        <item name="android:background">@drawable/bg_button_circle_black</item>
+    </style>
+
+    <style name="CircleButton.Black.Small" parent="CircleButton">
+        <item name="android:layout_height">@dimen/button_height_small</item>
+        <item name="android:layout_width">@dimen/button_height_small</item>
+        <item name="android:background">@drawable/bg_button_circle_black</item>
+    </style>
+
+    <style name="CircleButton.Gray.Large" parent="CircleButton">
+        <item name="android:layout_height">@dimen/button_height_extra_large</item>
+        <item name="android:layout_width">@dimen/button_height_extra_large</item>
+        <item name="android:background">@drawable/bg_button_circle_gray</item>
+    </style>
+
+    <style name="CircleButton.Gray.Medium" parent="CircleButton">
+        <item name="android:layout_height">@dimen/button_height_medium</item>
+        <item name="android:layout_width">@dimen/button_height_medium</item>
+        <item name="android:background">@drawable/bg_button_circle_gray</item>
+    </style>
+
+    <style name="CircleButton.Gray.Small" parent="CircleButton">
+        <item name="android:layout_height">@dimen/button_height_small</item>
+        <item name="android:layout_width">@dimen/button_height_small</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:background">@drawable/bg_button_circle_gray</item>
+    </style>
+
+    <style name="NumericKeyboardBtnStyle" parent="CircleButton.Black.Large">
+        <item name="android:layout_marginBottom">@dimen/spacing_s</item>
+        <item name="android:layout_rowWeight">1</item>
+        <item name="android:layout_columnWeight">1</item>
+    </style>
+
+    <style name="RoundedButton">
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/color_button_text</item>
+        <item name="android:tint">@color/color_button_text</item>
+        <item name="android:elevation">0dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="RoundedButton.Black.Medium" parent="RoundedButton">
+        <item name="android:layout_height">@dimen/button_height_medium</item>
+        <item name="android:layout_width">@dimen/button_height_medium</item>
+        <item name="android:background">@drawable/bg_button_black</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="RoundedButton.White.Medium" parent="RoundedButton">
+        <item name="android:layout_height">@dimen/button_height_medium</item>
+        <item name="android:layout_width">@dimen/button_height_medium</item>
+        <item name="android:background">@drawable/bg_button_white</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="RoundedButton.White.Small" parent="RoundedButton">
+        <item name="android:layout_height">@dimen/button_height_small</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingHorizontal">@dimen/spacing_s</item>
+        <item name="android:background">@drawable/bg_button_white</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+</resources>
