@@ -37,13 +37,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
 
     override fun bindViewModel() {
         viewModel.welcomeScreens.observe(this) { screens ->
-            viewModel.currentScreenIndex.value?.let { index ->
-                binding.storyBarView.setup(
-                    screens.size, WelcomeViewModel.SCREEN_CHANGE_INTERVAL, index,
-                    screens.getOrNull(index)?.dark ?: false
-                )
-                updateUI(screens, index)
-            }
+           binding.storyBarView.setup(screens.size, WelcomeViewModel.SCREEN_CHANGE_INTERVAL)
         }
         viewModel.currentScreenIndex.observe(this) { index ->
             viewModel.welcomeScreens.value?.let { screens ->
@@ -120,6 +114,16 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
                     title = R.string.welcome_title_4,
                     description = R.string.welcome_description_4,
                     background = R.raw.anim_welcome_coin,
+                    dark = true
+                ),
+                WelcomeScreen(
+                    title = R.string.welcome_title_5,
+                    background = R.raw.anim_welcome_secure,
+                    dark = false
+                ),
+                WelcomeScreen(
+                    title = R.string.welcome_title_6,
+                    background = R.raw.anim_welcome_support,
                     dark = true
                 )
             )
@@ -198,19 +202,13 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
             if (screen.dark) {
                 mainContainer.setBackgroundColor(getColor(R.color.black))
                 headerTextView.setTextColor(getColor(R.color.white))
-                TextViewCompat.setCompoundDrawableTintList(
-                    headerTextView,
-                    ColorStateList.valueOf(getColor(R.color.white))
-                )
+                headerIcon.setColorFilter(getColor(R.color.white))
                 titleTextView.setTextColor(getColor(R.color.white))
                 descriptionTextView.setTextColor(getColor(R.color.white))
             } else {
                 mainContainer.setBackgroundColor(getColor(R.color.white))
                 headerTextView.setTextColor(getColor(R.color.black))
-                TextViewCompat.setCompoundDrawableTintList(
-                    headerTextView,
-                    ColorStateList.valueOf(getColor(R.color.black))
-                )
+                headerIcon.setColorFilter(getColor(R.color.black))
                 titleTextView.setTextColor(getColor(R.color.black))
                 descriptionTextView.setTextColor(getColor(R.color.black))
             }

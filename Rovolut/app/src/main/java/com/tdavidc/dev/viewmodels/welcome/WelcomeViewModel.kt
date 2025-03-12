@@ -33,14 +33,17 @@ class WelcomeViewModel : BaseViewModel() {
     fun goToNextScreen() {
         if (_currentScreenIndex.value == _welcomeScreens.value?.size?.minus(1)) {
             _currentScreenIndex.value = 0
-            return
+        } else {
+            _currentScreenIndex.value = _currentScreenIndex.value?.plus(1)
         }
-        _currentScreenIndex.value = _currentScreenIndex.value?.plus(1)
     }
 
     fun goToPreviousScreen() {
-        if (_currentScreenIndex.value == 0) return
-        _currentScreenIndex.value = _currentScreenIndex.value?.minus(1)
+        if (_currentScreenIndex.value == 0) {
+            _currentScreenIndex.value = 0
+        } else {
+            _currentScreenIndex.value = _currentScreenIndex.value?.minus(1)
+        }
     }
 
     fun startTimer() {
