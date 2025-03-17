@@ -96,6 +96,7 @@ data class WelcomeScreen(
     val description: Int? = null,
     val background: Int,
     val dark: Boolean,
+    val repeatAnimation: Boolean = false
 )
 
 enum class LastInputCommand {

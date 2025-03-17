@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.TextViewCompat
+import com.airbnb.lottie.LottieDrawable
 import com.tdavidc.dev.R
 import com.tdavidc.dev.databinding.ActivityWelcomeBinding
 import com.tdavidc.dev.viewmodels.welcome.LastInputCommand
@@ -124,7 +125,8 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
                 WelcomeScreen(
                     title = R.string.welcome_title_6,
                     background = R.raw.anim_welcome_support,
-                    dark = true
+                    dark = true,
+                    repeatAnimation = true
                 )
             )
         )
@@ -211,6 +213,11 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
                 headerIcon.setColorFilter(getColor(R.color.black))
                 titleTextView.setTextColor(getColor(R.color.black))
                 descriptionTextView.setTextColor(getColor(R.color.black))
+            }
+            if (screen.repeatAnimation) {
+                backgroundView.repeatCount = LottieDrawable.INFINITE
+            } else {
+                backgroundView.repeatCount = 0
             }
         }
     }
