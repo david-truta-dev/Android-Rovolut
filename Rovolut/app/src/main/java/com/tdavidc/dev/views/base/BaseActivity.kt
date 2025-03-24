@@ -82,7 +82,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
         // Add a loading ProgressBar
         loadingOverlay = ProgressBar(this).apply {
             isIndeterminate = true
-            visibility = View.GONE // Initially hidden
+            visibility = View.GONE
         }
 
         // Center the ProgressBar

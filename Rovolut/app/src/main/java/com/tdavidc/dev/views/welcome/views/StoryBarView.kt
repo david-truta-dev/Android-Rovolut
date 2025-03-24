@@ -17,7 +17,7 @@ class StoryBarView @JvmOverloads constructor(
         orientation = HORIZONTAL
     }
 
-    fun setup(barCount: Int, duration: Long, currentBar: Int = 0, dark: Boolean = false) {
+    fun setup(barCount: Int, duration: Long) {
         this.fillBarDuration = duration
         removeAllViews()
         for (i in 0 until barCount) {
@@ -28,7 +28,6 @@ class StoryBarView @JvmOverloads constructor(
             }
             addView(barView)
         }
-        setCurrentBar(currentBar, dark)
     }
 
     fun setCurrentBar(currentBar: Int, dark: Boolean) {

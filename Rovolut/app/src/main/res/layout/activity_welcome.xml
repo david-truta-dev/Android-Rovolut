@@ -19,32 +19,46 @@
     <com.tdavidc.dev.views.welcome.views.StoryBarView
         android:id="@+id/story_bar_view"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/spacing_xs"
-        android:layout_marginHorizontal="@dimen/spacing_xs"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_xs"
+        android:layout_marginTop="@dimen/spacing_xs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/header_text_view"
+    <LinearLayout
+        android:id="@+id/header_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/screen_horizontal_padding"
-        android:layout_marginTop="@dimen/screen_vertical_padding"
-        android:drawablePadding="0dp"
+        android:layout_marginHorizontal="@dimen/spacing_xxxs"
+        android:layout_marginTop="@dimen/spacing_s"
         android:gravity="center_vertical"
-        android:scaleX="0.5"
-        android:scaleY="0.5"
-        android:text="@string/welcome_to_rovolut"
-        android:textColor="@color/white"
-        android:textSize="34sp"
-        android:translationX="-100dp"
-        app:drawableStartCompat="@drawable/ic_home"
-        app:drawableTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/story_bar_view">
+
+        <ImageView
+            android:id="@+id/header_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_home"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/header_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="0dp"
+            android:gravity="center_vertical"
+            android:text="@string/welcome_to_rovolut"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/title_text_view"
@@ -57,7 +71,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_text_view" />
+        app:layout_constraintTop_toBottomOf="@id/header_text" />
 
     <TextView
         android:id="@+id/description_text_view"

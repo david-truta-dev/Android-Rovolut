@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.tdavidc.dev.viewmodels.base.BaseViewModel
 
 class WelcomeViewModel : BaseViewModel() {
-
     private var countDownTimer: CountDownTimer? = null
     private var remainingTime = SCREEN_CHANGE_INTERVAL // Time remaining for the current cycle
     private var isTimerRunning = false
@@ -33,14 +32,17 @@ class WelcomeViewModel : BaseViewModel() {
     fun goToNextScreen() {
         if (_currentScreenIndex.value == _welcomeScreens.value?.size?.minus(1)) {
             _currentScreenIndex.value = 0
-            return
+        } else {
+            _currentScreenIndex.value = _currentScreenIndex.value?.plus(1)
         }
-        _currentScreenIndex.value = _currentScreenIndex.value?.plus(1)
     }
 
     fun goToPreviousScreen() {
-        if (_currentScreenIndex.value == 0) return
-        _currentScreenIndex.value = _currentScreenIndex.value?.minus(1)
+        if (_currentScreenIndex.value == 0) {
+            _currentScreenIndex.value = 0
+        } else {
+            _currentScreenIndex.value = _currentScreenIndex.value?.minus(1)
+        }
     }
 
     fun startTimer() {
@@ -93,6 +95,7 @@ data class WelcomeScreen(
     val description: Int? = null,
     val background: Int,
     val dark: Boolean,
+    val repeatAnimation: Boolean = false
 )
 
 enum class LastInputCommand {

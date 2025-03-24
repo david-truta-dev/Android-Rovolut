@@ -29,7 +29,14 @@ What this project includes / will include:
 
 <img src="readme_assets/welcom_screen_showcase.gif" width="200" /> <img src="readme_assets/welcom_screen_showcase.gif" width="200" /> <img src="readme_assets/welcom_screen_showcase.gif" width="200" />
 
-#
+##### TODO next:
+<ul>
+<li> store encrypted SessionData (accTkn + refTkn) to dataStore
+<li> handle startup logic (check if sessionData exists and redirect to correct screen)
+<li> add logout logic (remove SessionData and redirect to welcome screen)
+<li> add communication with Coroutine flows
+<li> organize/refactor
+</ul>
 
 ##### Other wanted features:
 <ul>

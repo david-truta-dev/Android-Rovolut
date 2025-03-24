@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-//TODO: add app update popUp mechanism logic
 class LauncherViewModel: ViewModel() {
     private val _continueAfterSplashAnimation by lazy { MutableLiveData(false) }
     val continueAfterSplashAnimation: LiveData<Boolean> = _continueAfterSplashAnimation

@@ -1,11 +1,16 @@
 package com.tdavidc.dev.data.sources.remote.services
 
-import com.tdavidc.dev.data.sources.remote.models.LoginRequest
 import com.tdavidc.dev.data.sources.remote.models.LoginResponse
-import retrofit2.http.Body
-import retrofit2.http.POST
+import io.reactivex.rxjava3.core.Single
+import retrofit2.Response
+import retrofit2.http.GET
 
 interface AuthService {
-    @POST("auth/login")
-    suspend fun login(@Body loginRequest: LoginRequest): LoginResponse
+
+//    @POST("users/authenticate")
+//    suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
+
+    @GET("users/authenticate")
+    fun login(): Single<Response<LoginResponse>>
+
 }

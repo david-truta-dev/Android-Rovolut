@@ -1,8 +1,14 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.google.dagger.hilt.android)
+}
+
+val secretProperties = Properties().apply {
+    load(rootProject.file("secrets.properties").inputStream())
 }
 
 android {
@@ -38,15 +44,30 @@ android {
             dimension = "environment"
             applicationIdSuffix = ".dev"
             manifestPlaceholders["appName"] = "Rovolut Dev"
+            buildConfigField(
+                "String", "API_KEY",
+                (System.getenv("API_KEY_PRODUCTION")
+                    ?: secretProperties["apiKey.dev"]) as String
+            )
         }
         create("stage") {
             dimension = "environment"
             applicationIdSuffix = ".stage"
             manifestPlaceholders["appName"] = "Rovolut Stage"
+            buildConfigField(
+                "String", "API_KEY",
+                (System.getenv("API_KEY_PRODUCTION")
+                    ?: secretProperties["apiKey.stage"]) as String
+            )
         }
         create("prod") {
             dimension = "environment"
             manifestPlaceholders["appName"] = "Rovolut"
+            buildConfigField(
+                "String", "API_KEY",
+                (System.getenv("API_KEY_PRODUCTION")
+                    ?: secretProperties["apiKey.production"]) as String
+            )
         }
     }
 
@@ -60,6 +81,7 @@ android {
     }
 
     buildFeatures {
+        buildConfig = true
         compose = true
         viewBinding = true
     }
@@ -88,9 +110,14 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.biometric)
     implementation(libs.retrofit)
+    implementation(libs.rxJavaAdapter)
     implementation(libs.retrofit.gson)
+    implementation(libs.httpLogging)
     implementation(libs.lottie)
     implementation(libs.coil)
+    implementation(libs.rxAndroid)
+    implementation(libs.rxKotlin)
+    implementation(libs.protoDataStore)
 
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler)

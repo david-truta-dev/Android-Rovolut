@@ -1,6 +1,5 @@
 package com.tdavidc.dev.views.authorize
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
@@ -8,13 +7,13 @@ import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import com.tdavidc.dev.R
 import com.tdavidc.dev.databinding.ActivityAuthorizeBinding
+import com.tdavidc.dev.utilities.Navigator
 import com.tdavidc.dev.utilities.extensions.getDuration
 import com.tdavidc.dev.viewmodels.authorize.AuthorizationStatus
 import com.tdavidc.dev.viewmodels.authorize.AuthorizeViewModel
 import com.tdavidc.dev.viewmodels.authorize.PasscodeLastStatus
 import com.tdavidc.dev.viewmodels.base.UIModel
 import com.tdavidc.dev.views.base.BaseActivity
-import com.tdavidc.dev.views.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -59,13 +58,7 @@ class AuthorizeActivity : BaseActivity<ActivityAuthorizeBinding>() {
                 is UIModel.Success -> {
                     when (it.data) {
                         AuthorizationStatus.AUTHORIZED -> {
-                            Intent(this@AuthorizeActivity, MainActivity::class.java).apply {
-                                flags =
-                                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                            }.also { intent ->
-                                startActivity(intent)
-                                overridePendingTransition(R.anim.slide_from_bottom, R.anim.fade_out)
-                            }
+                            Navigator.goToAuthorize(this@AuthorizeActivity)
                         }
 
                         AuthorizationStatus.REJECTED -> {

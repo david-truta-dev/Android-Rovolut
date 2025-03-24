@@ -1,17 +1,19 @@
 package com.tdavidc.dev.data.sources.remote.di
 
 import com.tdavidc.dev.data.sources.remote.APIConfig
+import com.tdavidc.dev.data.sources.remote.interceptors.HeaderInterceptor
 import com.tdavidc.dev.data.sources.remote.services.AuthService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
-
 import javax.inject.Qualifier
+import javax.inject.Singleton
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
@@ -28,7 +30,13 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder().build()
+        HttpLoggingInterceptor()
+        return OkHttpClient.Builder()
+            .addNetworkInterceptor(HeaderInterceptor())
+            .addNetworkInterceptor(HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT).apply {
+                setLevel(HttpLoggingInterceptor.Level.BODY)
+            })
+            .build()
     }
 
     @Provides
@@ -38,6 +46,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(APIConfig.BASE_URL)
             .client(okHttpClient)
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

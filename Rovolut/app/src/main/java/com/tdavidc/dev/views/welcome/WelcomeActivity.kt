@@ -1,8 +1,6 @@
 package com.tdavidc.dev.views.welcome
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,15 +8,14 @@ import android.view.MotionEvent
 import androidx.activity.viewModels
 import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
-import androidx.core.widget.TextViewCompat
+import com.airbnb.lottie.LottieDrawable
 import com.tdavidc.dev.R
 import com.tdavidc.dev.databinding.ActivityWelcomeBinding
+import com.tdavidc.dev.utilities.Navigator
 import com.tdavidc.dev.viewmodels.welcome.LastInputCommand
 import com.tdavidc.dev.viewmodels.welcome.WelcomeScreen
 import com.tdavidc.dev.viewmodels.welcome.WelcomeViewModel
-import com.tdavidc.dev.views.authorize.AuthorizeActivity
 import com.tdavidc.dev.views.base.BaseActivity
-import com.tdavidc.dev.views.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,13 +34,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
 
     override fun bindViewModel() {
         viewModel.welcomeScreens.observe(this) { screens ->
-            viewModel.currentScreenIndex.value?.let { index ->
-                binding.storyBarView.setup(
-                    screens.size, WelcomeViewModel.SCREEN_CHANGE_INTERVAL, index,
-                    screens.getOrNull(index)?.dark ?: false
-                )
-                updateUI(screens, index)
-            }
+           binding.storyBarView.setup(screens.size, WelcomeViewModel.SCREEN_CHANGE_INTERVAL)
         }
         viewModel.currentScreenIndex.observe(this) { index ->
             viewModel.welcomeScreens.value?.let { screens ->
@@ -121,6 +112,17 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
                     description = R.string.welcome_description_4,
                     background = R.raw.anim_welcome_coin,
                     dark = true
+                ),
+                WelcomeScreen(
+                    title = R.string.welcome_title_5,
+                    background = R.raw.anim_welcome_secure,
+                    dark = false
+                ),
+                WelcomeScreen(
+                    title = R.string.welcome_title_6,
+                    background = R.raw.anim_welcome_support,
+                    dark = true,
+                    repeatAnimation = true
                 )
             )
         )
@@ -159,19 +161,11 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
         }
 
         binding.loginButton.setOnClickListener {
-            Intent(this, LoginActivity::class.java).also {
-                startActivity(it)
-            }
+            Navigator.goToLogin(this)
         }
 
         binding.createAccountButton.setOnClickListener {
-            //TODO: modify this to create account
-            Intent(this, AuthorizeActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            }.also {
-                startActivity(it)
-                overridePendingTransition(R.anim.slide_from_bottom, R.anim.fade_out)
-            }
+            Navigator.goToCreateAccount(this)
         }
     }
 
@@ -198,21 +192,20 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
             if (screen.dark) {
                 mainContainer.setBackgroundColor(getColor(R.color.black))
                 headerTextView.setTextColor(getColor(R.color.white))
-                TextViewCompat.setCompoundDrawableTintList(
-                    headerTextView,
-                    ColorStateList.valueOf(getColor(R.color.white))
-                )
+                headerIcon.setColorFilter(getColor(R.color.white))
                 titleTextView.setTextColor(getColor(R.color.white))
                 descriptionTextView.setTextColor(getColor(R.color.white))
             } else {
                 mainContainer.setBackgroundColor(getColor(R.color.white))
                 headerTextView.setTextColor(getColor(R.color.black))
-                TextViewCompat.setCompoundDrawableTintList(
-                    headerTextView,
-                    ColorStateList.valueOf(getColor(R.color.black))
-                )
+                headerIcon.setColorFilter(getColor(R.color.black))
                 titleTextView.setTextColor(getColor(R.color.black))
                 descriptionTextView.setTextColor(getColor(R.color.black))
+            }
+            if (screen.repeatAnimation) {
+                backgroundView.repeatCount = LottieDrawable.INFINITE
+            } else {
+                backgroundView.repeatCount = 0
             }
         }
     }
