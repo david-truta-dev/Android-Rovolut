@@ -12,10 +12,14 @@ material3 = "1.12.0"
 splash = "1.0.1"
 retrofit = "2.11.0"
 gson = "2.11.0"
-hilt = "2.52"
+httpLogging = "4.12.0"
+hilt = "2.51.1"
 biometric = "1.1.0"
 coil = "2.4.0"
 lottie = "6.0.0"
+rxAndroid = "3.0.2"
+rxKotlin = "3.0.0"
+protoDataStore = "1.1.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -33,11 +37,16 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-material3 = { group = "com.google.android.material", name = "material", version.ref = "material3" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "gson" }
+rxJavaAdapter = { group = "com.squareup.retrofit2", name = "adapter-rxjava3", version.ref = "retrofit" }
+httpLogging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "httpLogging" }
 dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 androidx-biometric = { group = "androidx.biometric", name = "biometric", version.ref = "biometric" }
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
+rxAndroid = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref = "rxAndroid" }
+rxKotlin = { group = "io.reactivex.rxjava3", name = "rxkotlin", version.ref = "rxKotlin" }
+protoDataStore = { group = "androidx.datastore", name = "datastore", version.ref = "protoDataStore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -1,8 +1,6 @@
 package com.tdavidc.dev.views.welcome
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,16 +8,14 @@ import android.view.MotionEvent
 import androidx.activity.viewModels
 import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
-import androidx.core.widget.TextViewCompat
 import com.airbnb.lottie.LottieDrawable
 import com.tdavidc.dev.R
 import com.tdavidc.dev.databinding.ActivityWelcomeBinding
+import com.tdavidc.dev.utilities.Navigator
 import com.tdavidc.dev.viewmodels.welcome.LastInputCommand
 import com.tdavidc.dev.viewmodels.welcome.WelcomeScreen
 import com.tdavidc.dev.viewmodels.welcome.WelcomeViewModel
-import com.tdavidc.dev.views.authorize.AuthorizeActivity
 import com.tdavidc.dev.views.base.BaseActivity
-import com.tdavidc.dev.views.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -165,19 +161,11 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
         }
 
         binding.loginButton.setOnClickListener {
-            Intent(this, LoginActivity::class.java).also {
-                startActivity(it)
-            }
+            Navigator.goToLogin(this)
         }
 
         binding.createAccountButton.setOnClickListener {
-            //TODO: modify this to create account
-            Intent(this, AuthorizeActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            }.also {
-                startActivity(it)
-                overridePendingTransition(R.anim.slide_from_bottom, R.anim.fade_out)
-            }
+            Navigator.goToCreateAccount(this)
         }
     }
 

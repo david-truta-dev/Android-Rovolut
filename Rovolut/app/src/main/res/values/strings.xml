@@ -18,4 +18,5 @@
     <string name="login_title">Welcome back</string>
     <string name="login_description">Enter the phone number associated with yout Rovolut account</string>
     <string name="accounts_button">Accounts</string>
+    <string name="login_continue_button">Continue</string>
 </resources>

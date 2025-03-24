@@ -1,5 +1,7 @@
 package com.tdavidc.dev.viewmodels.di
 
+import com.tdavidc.dev.data.repositories.AuthRepository
+import com.tdavidc.dev.viewmodels.login.LoginViewModel
 import com.tdavidc.dev.viewmodels.main.MainViewModel
 import dagger.Module
 import dagger.Provides
@@ -13,4 +15,8 @@ object ViewModelsModule {
     @Provides
     @ViewModelScoped
     fun provideMainViewModel(): MainViewModel = MainViewModel()
+
+    @Provides
+    @ViewModelScoped
+    fun provideLoginViewModel(authRepository: AuthRepository): LoginViewModel = LoginViewModel(authRepository)
 }

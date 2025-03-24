@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.tdavidc.dev.viewmodels.base.BaseViewModel
 
 class WelcomeViewModel : BaseViewModel() {
-
     private var countDownTimer: CountDownTimer? = null
     private var remainingTime = SCREEN_CHANGE_INTERVAL // Time remaining for the current cycle
     private var isTimerRunning = false

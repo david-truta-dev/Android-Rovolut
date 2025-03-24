@@ -1,17 +1,14 @@
 package com.tdavidc.dev.views
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.activity.viewModels
-import com.tdavidc.dev.R
 import com.tdavidc.dev.databinding.ActivityLauncherBinding
+import com.tdavidc.dev.utilities.Navigator
 import com.tdavidc.dev.viewmodels.LauncherViewModel
-import com.tdavidc.dev.views.authorize.AuthorizeActivity
 import com.tdavidc.dev.views.base.BaseActivity
-import com.tdavidc.dev.views.welcome.WelcomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 // LauncherActivity is used only as the initial cold start of the application!
@@ -36,7 +33,7 @@ class LauncherActivity : BaseActivity<ActivityLauncherBinding>() {
     override fun bindViewModel() {
         viewModel.continueAfterSplashAnimation.observe(this) {
             if (it) {
-                goToWelcomeActivity()
+                Navigator.goToWelcomeActivity(this@LauncherActivity)
             }
         }
     }
@@ -54,23 +51,5 @@ class LauncherActivity : BaseActivity<ActivityLauncherBinding>() {
                     }
                 }
             })
-    }
-
-    private fun goToAuthorizeActivity() {
-        Intent(this, AuthorizeActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        }.also {
-            startActivity(it)
-            overridePendingTransition(R.anim.slide_from_bottom, R.anim.fade_out)
-        }
-    }
-
-    private fun goToWelcomeActivity() {
-        Intent(this, WelcomeActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        }.also {
-            startActivity(it)
-            overridePendingTransition(R.anim.slide_from_bottom, R.anim.fade_out)
-        }
     }
 }
