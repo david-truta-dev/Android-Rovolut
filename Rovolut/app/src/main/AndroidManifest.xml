@@ -18,7 +18,7 @@
         android:theme="@style/Theme.Rovolut"
         tools:targetApi="31">
         <activity
-            android:name=".views.LauncherActivity"
+            android:name=".ui.view.LauncherActivity"
             android:exported="true"
             android:theme="@style/Theme.Rovolut">
             <intent-filter>
@@ -27,11 +27,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.welcome.WelcomeActivity" />
-        <activity android:name=".views.login.LoginActivity" />
-        <activity android:name=".views.authorize.AuthorizeActivity" />
-        <activity android:name=".views.main.MainActivity" />
-        <activity android:name=".views.profile.ProfileActivity" />
+        <activity android:name=".ui.view.welcome.WelcomeActivity" />
+        <activity android:name=".ui.view.login.LoginActivity" />
+        <activity android:name=".ui.view.authorize.AuthorizeActivity" />
+        <activity android:name=".ui.view.main.MainActivity" />
+        <activity android:name=".ui.view.profile.ProfileActivity" />
     </application>
 
 </manifest>

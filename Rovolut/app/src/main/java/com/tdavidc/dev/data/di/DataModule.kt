@@ -1,7 +1,8 @@
 package com.tdavidc.dev.data.di
 
-import com.tdavidc.dev.data.repositories.AuthRepository
-import com.tdavidc.dev.data.sources.remote.services.AuthService
+import com.tdavidc.dev.data.repository.AuthRepository
+import com.tdavidc.dev.data.source.local.DataStoreLocalStorage
+import com.tdavidc.dev.data.source.remote.service.AuthService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,6 +15,9 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideAuthRepository(authService: AuthService): AuthRepository =
-        AuthRepository(authService)
+    fun provideAuthRepository(
+        authService: AuthService,
+        localStorage: DataStoreLocalStorage
+    ): AuthRepository = AuthRepository(authService, localStorage)
+
 }

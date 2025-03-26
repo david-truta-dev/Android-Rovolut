@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.google.dagger.hilt.android)
+    alias(libs.plugins.serialization)
 }
 
 val secretProperties = Properties().apply {
@@ -20,7 +21,7 @@ android {
         minSdk = 26
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -110,14 +111,16 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.biometric)
     implementation(libs.retrofit)
-    implementation(libs.rxJavaAdapter)
+    implementation(libs.rx.java.adapter)
     implementation(libs.retrofit.gson)
-    implementation(libs.httpLogging)
+    implementation(libs.http.logging)
     implementation(libs.lottie)
     implementation(libs.coil)
-    implementation(libs.rxAndroid)
-    implementation(libs.rxKotlin)
-    implementation(libs.protoDataStore)
+    implementation(libs.rx.android)
+    implementation(libs.rx.kotlin)
+    implementation(libs.datastore)
+    implementation(libs.protobuf.serialization)
+    implementation(libs.security.crypto)
 
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler)

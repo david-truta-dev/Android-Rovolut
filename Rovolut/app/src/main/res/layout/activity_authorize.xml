@@ -50,7 +50,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomingTextView">
 
-        <com.tdavidc.dev.views.authorize.views.DotsSequenceView
+        <com.tdavidc.dev.ui.view.authorize.views.DotsSequenceView
             android:id="@+id/passcodeView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.tdavidc.dev.views.authorize.views.NumericKeyboardView
+        <com.tdavidc.dev.ui.view.authorize.views.NumericKeyboardView
             android:id="@+id/numericKeyboardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
