@@ -8,7 +8,7 @@ import androidx.activity.viewModels
 import com.tdavidc.dev.databinding.ActivityLauncherBinding
 import com.tdavidc.dev.ui.view.base.BaseActivity
 import com.tdavidc.dev.ui.viewmodel.LauncherViewModel
-import com.tdavidc.dev.utility.Navigator
+import com.tdavidc.dev.utility.navigation.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 
 // LauncherActivity is used only as the initial cold start of the application!

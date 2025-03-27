@@ -11,7 +11,7 @@ import androidx.core.view.isVisible
 import com.airbnb.lottie.LottieDrawable
 import com.tdavidc.dev.R
 import com.tdavidc.dev.databinding.ActivityWelcomeBinding
-import com.tdavidc.dev.utility.Navigator
+import com.tdavidc.dev.utility.navigation.Navigator
 import com.tdavidc.dev.ui.viewmodel.welcome.LastInputCommand
 import com.tdavidc.dev.ui.viewmodel.welcome.WelcomeScreen
 import com.tdavidc.dev.ui.viewmodel.welcome.WelcomeViewModel

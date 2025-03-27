@@ -12,7 +12,7 @@ import com.tdavidc.dev.ui.viewmodel.authorize.AuthorizationStatus
 import com.tdavidc.dev.ui.viewmodel.authorize.AuthorizeViewModel
 import com.tdavidc.dev.ui.viewmodel.authorize.PasscodeLastStatus
 import com.tdavidc.dev.ui.viewmodel.base.UIModel
-import com.tdavidc.dev.utility.Navigator
+import com.tdavidc.dev.utility.navigation.Navigator
 import com.tdavidc.dev.utility.extensions.getDuration
 import dagger.hilt.android.AndroidEntryPoint
 

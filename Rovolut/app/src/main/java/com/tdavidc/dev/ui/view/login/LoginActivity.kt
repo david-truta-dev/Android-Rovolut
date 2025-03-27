@@ -6,7 +6,7 @@ import com.tdavidc.dev.databinding.ActivityLoginBinding
 import com.tdavidc.dev.ui.view.base.BaseActivity
 import com.tdavidc.dev.ui.viewmodel.base.UIModel
 import com.tdavidc.dev.ui.viewmodel.login.LoginViewModel
-import com.tdavidc.dev.utility.Navigator
+import com.tdavidc.dev.utility.navigation.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

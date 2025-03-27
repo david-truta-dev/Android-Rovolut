@@ -120,7 +120,6 @@ dependencies {
     implementation(libs.rx.kotlin)
     implementation(libs.datastore)
     implementation(libs.protobuf.serialization)
-    implementation(libs.security.crypto)
 
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler)

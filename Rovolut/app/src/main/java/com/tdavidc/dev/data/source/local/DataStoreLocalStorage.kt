@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.tdavidc.dev.data.source.model.SessionData
+import com.tdavidc.dev.utility.encryption.CryptoData
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -28,11 +29,11 @@ class DataStoreLocalStorage @Inject constructor(@ApplicationContext appContext: 
     private val myDataStore = appContext.dataStore
 
     override fun getSessionData(): Flow<SessionData?> =
-        getCustomClassPreference(KEY_SESSION_DATA, SessionData.serializer())
+        getCustomClassPreference(KEY_SESSION_DATA, SessionData.serializer(), true)
 
 
     override suspend fun setSessionData(value: SessionData?) {
-        setCustomClassPreference(KEY_SESSION_DATA, SessionData.serializer(), value)
+        setCustomClassPreference(KEY_SESSION_DATA, SessionData.serializer(), value, true)
     }
 
     private companion object {
@@ -41,7 +42,8 @@ class DataStoreLocalStorage @Inject constructor(@ApplicationContext appContext: 
 
     private fun <T> getCustomClassPreference(
         key: Preferences.Key<ByteArray>,
-        deserializer: DeserializationStrategy<T>
+        deserializer: DeserializationStrategy<T>,
+        encrypted: Boolean = false
     ): Flow<T?> = myDataStore.data.catch { exception ->
         if (exception is IOException) {
             emit(emptyPreferences())
@@ -49,21 +51,34 @@ class DataStoreLocalStorage @Inject constructor(@ApplicationContext appContext: 
             throw exception
         }
     }.map { preferences ->
-        val byteArray = preferences[key] ?: return@map null
-        ProtoBuf.decodeFromByteArray(deserializer, byteArray)
+        val byteArray = preferences[key]
+            ?: return@map null
+        if (encrypted) {
+            val decryptedData = CryptoData.getInstance().decrypt(byteArray)
+                ?: return@map null
+            ProtoBuf.decodeFromByteArray(deserializer, decryptedData)
+        } else {
+            ProtoBuf.decodeFromByteArray(deserializer, byteArray)
+        }
     }
 
     private suspend fun <T> setCustomClassPreference(
         key: Preferences.Key<ByteArray>,
         serializer: KSerializer<T>,
-        value: T?
+        value: T?,
+        encrypted: Boolean = false
     ) {
         if (value == null) {
             myDataStore.edit { preferences -> preferences.remove(key) }
             return
         }
         val serializedValue = ProtoBuf.encodeToByteArray(serializer, value)
-        myDataStore.edit { preferences -> preferences[key] = serializedValue }
+        if (encrypted) {
+            val encryptedValue = CryptoData.getInstance().encrypt(serializedValue)
+            myDataStore.edit { preferences -> preferences[key] = encryptedValue }
+        } else {
+            myDataStore.edit { preferences -> preferences[key] = serializedValue }
+        }
     }
 }
 

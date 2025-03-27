@@ -8,8 +8,8 @@ import com.tdavidc.dev.R
 import com.tdavidc.dev.databinding.ActivityProfileBinding
 import com.tdavidc.dev.ui.view.base.BaseActivity
 import com.tdavidc.dev.ui.viewmodel.profile.ProfileViewModel
-import com.tdavidc.dev.utility.Navigator
 import com.tdavidc.dev.utility.extensions.getDuration
+import com.tdavidc.dev.utility.navigation.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

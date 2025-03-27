@@ -1,4 +1,4 @@
-package com.tdavidc.dev.utility
+package com.tdavidc.dev.utility.navigation
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
