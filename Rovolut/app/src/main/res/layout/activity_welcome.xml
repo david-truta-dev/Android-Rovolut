@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true" />
 
-    <com.tdavidc.dev.ui.view.welcome.views.StoryBarView
+    <com.tdavidc.dev.ui.screens.welcome.views.StoryBarView
         android:id="@+id/story_bar_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

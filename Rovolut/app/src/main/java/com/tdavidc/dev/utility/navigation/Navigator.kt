@@ -3,10 +3,10 @@ package com.tdavidc.dev.utility.navigation
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import com.tdavidc.dev.R
-import com.tdavidc.dev.ui.view.authorize.AuthorizeActivity
-import com.tdavidc.dev.ui.view.login.LoginActivity
-import com.tdavidc.dev.ui.view.main.MainActivity
-import com.tdavidc.dev.ui.view.welcome.WelcomeActivity
+import com.tdavidc.dev.ui.screens.authorize.AuthorizeActivity
+import com.tdavidc.dev.ui.screens.login.LoginActivity
+import com.tdavidc.dev.ui.screens.main.MainActivity
+import com.tdavidc.dev.ui.screens.welcome.WelcomeActivity
 
 object Navigator {
 

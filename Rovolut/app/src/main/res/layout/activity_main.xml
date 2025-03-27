@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/black3">
 
-    <com.tdavidc.dev.ui.view.main.views.TopNavigationBarView
+    <com.tdavidc.dev.ui.screens.main.views.TopNavigationBarView
         android:id="@+id/top_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/main_container"
-        android:name="com.tdavidc.dev.ui.view.main.HomeFragment"
+        android:name="com.tdavidc.dev.ui.screens.main.home.HomeFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/black3"
