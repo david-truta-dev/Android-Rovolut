@@ -41,7 +41,7 @@
     </style>
 
     <style name="NumericKeyboardBtnStyle" parent="CircleButton.Black.Large">
-        <item name="android:layout_marginBottom">@dimen/spacing_s</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_xxxs</item>
         <item name="android:layout_rowWeight">1</item>
         <item name="android:layout_columnWeight">1</item>
     </style>

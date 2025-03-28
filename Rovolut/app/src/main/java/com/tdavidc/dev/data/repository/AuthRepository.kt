@@ -23,6 +23,14 @@ class AuthRepository @Inject constructor(
             return@withContext response
         }
 
+    fun didAllowBiometrics(): Flow<Boolean> {
+        return localStorage.didAllowBiometrics()
+    }
+
+    suspend fun allowBiometrics(value: Boolean) = withContext(Dispatchers.IO) {
+        localStorage.allowBiometrics(value)
+    }
+
     fun getSessionData(): Flow<SessionData?> {
         return localStorage.getSessionData()
     }

@@ -9,6 +9,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/account_actions_top_spacing"
         android:gravity="center"
         app:layout_constraintBottom_toTopOf="@id/balance_text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,12 +21,12 @@
             android:id="@+id/logo_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="6dp">
+            app:cardCornerRadius="9dp">
 
             <ImageView
-                android:id="@+id/logo"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
+                android:id="@+id/currencyImage"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_app_icon" />
@@ -33,17 +34,18 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
+            android:id="@+id/account_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_xxxs"
-            android:text="Personal · RON"
+            android:layout_marginStart="@dimen/spacing_xxs"
             android:textAlignment="center"
-            android:textColor="@color/gray"
-            android:textSize="10sp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-            tools:ignore="SmallSp" />
+            tools:ignore="SmallSp"
+            tools:text="Personal · RON" />
 
     </LinearLayout>
 
@@ -51,85 +53,136 @@
         android:id="@+id/balance_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="lei 30"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="32sp"
+        android:textSize="42sp"
         android:textStyle="bold"
         android:translationY="-2dp"
         app:layout_constraintBottom_toTopOf="@+id/accounts_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="lei 30" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/accounts_button"
         style="@style/RoundedButton.White.Small"
-        android:paddingHorizontal="@dimen/spacing_s"
+        android:layout_marginTop="@dimen/spacing_xxxs"
+        android:layout_marginBottom="@dimen/account_actions_bottom_spacing_including_indicator"
+        android:paddingHorizontal="@dimen/spacing_l"
         android:text="@string/accounts_button"
-        app:layout_constraintBottom_toTopOf="@+id/page_indicator"
+        app:layout_constraintBottom_toTopOf="@id/buttons_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/balance_text" />
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/page_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="16dp"
-        android:layout_marginBottom="@dimen/spacing_m"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@id/buttons_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/buttons_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/spacing_xxxl"
         android:layout_marginTop="@dimen/spacing_xxs"
-        android:gravity="center"
+        android:baselineAligned="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageButton
-            style="@style/CircleButton.Gray.Medium"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_chart" />
+        <LinearLayout
+            android:id="@+id/firstAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            <ImageButton
+                android:id="@+id/first_action_icon_btn"
+                style="@style/CircleButton.Gray.Medium"
+                android:layout_marginBottom="@dimen/spacing_xxs"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_add" />
 
-        <ImageButton
-            style="@style/CircleButton.Gray.Medium"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_chart" />
+            <TextView
+                android:id="@+id/firstActionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                tools:text="Add money" />
+        </LinearLayout>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+        <LinearLayout
+            android:id="@+id/secondAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <ImageButton
-            style="@style/CircleButton.Gray.Medium"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_chart" />
+            <ImageButton
+                android:id="@+id/second_action_icon_btn"
+                style="@style/CircleButton.Gray.Medium"
+                android:layout_marginBottom="@dimen/spacing_xxs"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_payment" />
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            <TextView
+                android:id="@+id/secondActionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                tools:text="Move" />
+        </LinearLayout>
 
-        <ImageButton
-            style="@style/CircleButton.Gray.Medium"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_chart" />
+        <LinearLayout
+            android:id="@+id/thirdAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/third_action_icon_btn"
+                style="@style/CircleButton.Gray.Medium"
+                android:layout_marginBottom="@dimen/spacing_xxs"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_bank" />
+
+            <TextView
+                android:id="@+id/thirdActionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                tools:text="Details" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fourthAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/fourth_action_icon_btn"
+                style="@style/CircleButton.Gray.Medium"
+                android:layout_marginBottom="@dimen/spacing_xxs"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_more" />
+
+            <TextView
+                android:id="@+id/fourthActionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                tools:text="More" />
+        </LinearLayout>
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

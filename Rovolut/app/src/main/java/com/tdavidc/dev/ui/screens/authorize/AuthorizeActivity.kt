@@ -68,7 +68,7 @@ class AuthorizeActivity : BaseActivity<ActivityAuthorizeBinding>() {
                             biometricPrompt.authenticate(promptInfo)
                         }
 
-                        AuthorizationStatus.BIOMETRIC_CANCELLED -> showHidePasscodeViews(true)
+                        AuthorizationStatus.SHOW_KEYBOARD -> showHidePasscodeViews(true)
                     }
                     binding.numericKeyboardView.enable()
                 }

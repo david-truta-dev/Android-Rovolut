@@ -8,6 +8,9 @@ interface ILocalStorage {
     fun getSessionData(): Flow<SessionData?>
     suspend fun setSessionData(value: SessionData?)
 
+    fun didAllowBiometrics(): Flow<Boolean>
+    suspend fun allowBiometrics(value: Boolean?)
+
 //    suspend fun getSessionData(): Flow<SessionData?>
 //    suspend fun setSessionData(value: SessionData)
 }

@@ -24,7 +24,10 @@ class AuthorizeViewModel : BaseViewModel() {
     // INPUT: --------------
 
     fun startBiometricAuth() {
+        //TODO: check if user allowed biometric, if yes:
         _isAuthorized.value = UIModel.Success(AuthorizationStatus.SHOW_BIOMETRIC)
+        //TODO: Otherwise,
+        // _isAuthorized.value = UIModel.Success(AuthorizationStatus.SHOW_KEYBOARD)
     }
 
     fun biometricAuthSuccess() {
@@ -32,7 +35,7 @@ class AuthorizeViewModel : BaseViewModel() {
     }
 
     fun biometricAuthCancelled() {
-        _isAuthorized.value = UIModel.Success(AuthorizationStatus.BIOMETRIC_CANCELLED)
+        _isAuthorized.value = UIModel.Success(AuthorizationStatus.SHOW_KEYBOARD)
     }
 
     fun digitClicked(digit: String) {
@@ -59,6 +62,7 @@ class AuthorizeViewModel : BaseViewModel() {
 
     private fun validatePasscode() {
         viewModelScope.launch {
+            //TODO: get the actual passcode from the local storage
             _isAuthorized.value = UIModel.Loading()
             delay(300) // add fake delay for now
             if (_passcode.value == "123456") {
@@ -79,7 +83,7 @@ enum class AuthorizationStatus {
     AUTHORIZED,
     REJECTED,
     SHOW_BIOMETRIC,
-    BIOMETRIC_CANCELLED,
+    SHOW_KEYBOARD,
 }
 
 sealed class PasscodeLastStatus(val passcode: String) {

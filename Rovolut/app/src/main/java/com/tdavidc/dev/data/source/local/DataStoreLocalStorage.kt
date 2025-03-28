@@ -4,6 +4,7 @@ package com.tdavidc.dev.data.source.local
 import android.content.Context
 import androidx.datastore.core.IOException
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.byteArrayPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
@@ -31,13 +32,38 @@ class DataStoreLocalStorage @Inject constructor(@ApplicationContext appContext: 
     override fun getSessionData(): Flow<SessionData?> =
         getCustomClassPreference(KEY_SESSION_DATA, SessionData.serializer(), true)
 
-
     override suspend fun setSessionData(value: SessionData?) {
         setCustomClassPreference(KEY_SESSION_DATA, SessionData.serializer(), value, true)
     }
 
+    override fun didAllowBiometrics(): Flow<Boolean> =
+        getPrimitiveClassPreference(KEY_ALLOW_BIOMETRICS).map { it ?: false }
+
+    override suspend fun allowBiometrics(value: Boolean?) {
+        setPrimitiveClassPreference(KEY_ALLOW_BIOMETRICS, value)
+    }
+
     private companion object {
         val KEY_SESSION_DATA = byteArrayPreferencesKey("session_data")
+        val KEY_ALLOW_BIOMETRICS = booleanPreferencesKey("allowed_biometrics")
+    }
+
+    private fun <T> getPrimitiveClassPreference(
+        key: Preferences.Key<T>
+    ): Flow<T?> = myDataStore.data.catch { exception ->
+        if (exception is IOException) {
+            emit(emptyPreferences())
+        } else {
+            throw exception
+        }
+    }.map { preferences -> preferences[key] }
+
+    private suspend fun <T> setPrimitiveClassPreference(key: Preferences.Key<T>, value: T?) {
+        if (value == null) {
+            myDataStore.edit { preferences -> preferences.remove(key) }
+            return
+        }
+        myDataStore.edit { preferences -> preferences[key] = value }
     }
 
     private fun <T> getCustomClassPreference(

@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/screen_horizontal_padding">
 
+<!--    TODO: Move this to a separate custom view: -->
     <ImageButton
         android:id="@+id/back_button"
         style="@style/CircleButton.Black.Small"
@@ -38,6 +39,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_text" />
 
+<!--    ^^^^   -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/continue_btn"
         style="@style/RoundedButton.White.Medium"
