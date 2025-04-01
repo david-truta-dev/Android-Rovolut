@@ -2,9 +2,9 @@
 
 This project is a **"production-ready"** and **"industry-standard" banking application** (aka Revolut clone) built in Android.
 <br>
-#### !!! DISCLAIMER !!! This project is NOT a real banking app. It's purpouse is to showcase my software enginering skills and to help me learn along the way!
-##### Also Important to note: Since this project serves the purpose of learning also, sometimes I might not stick with one way of doing things, for example for viewmodel-view communication I used multiple variants, while only using RxKotlin would have sufficed!
-What this project includes / will include:
+#### ⚠️ DISCLAIMER! This project is NOT a real banking app. It's purpouse is to showcase my software enginering skills and to help me learn along the way!
+##### 📘 Also Important to note: Since this project serves the purpose of learning also, sometimes I might not stick with one way of doing things, for example for viewmodel-view communication I used multiple variants, while only using RxKotlin would have sufficed!
+☑️ What this project includes / will include:
 <ul>
 <li> A fraction of the features of a real banking app (login, passcode, edit profile, create payment account, make (fake) transactions, etc...)
 <li> Dev, Stage and Prod Flavours + communication with a <b>REST API</b> using <b>Retrofit</b>
@@ -25,16 +25,18 @@ What this project includes / will include:
 </ul>
 
 
-### Highlights from the app (I disabled the ss/sr restriction for these 😁)
+### Highlights from the app 📱 (I will update these as development advances 😉)
 
-<img src="readme_assets/welcom_screen_showcase.gif" width="200" /> <img src="readme_assets/welcom_screen_showcase.gif" width="200" /> <img src="readme_assets/welcom_screen_showcase.gif" width="200" />
+<img src="readme_assets/welcom_screen_showcase.gif" width="200" /> <img src="readme_assets/auth_and_home_screen_showcase.gif" width="200" />
 
 ##### TODO next:
-<ul>
-<li> organize/refactor
-</ul>
 
-##### Other wanted features:
 <ul>
+<li> create base fragment
+<li> create generic dialog
+<li> create allow biometric authentication dialog
+<li> create generic viw with titleBar with back navigation and animation inside scollview
+<li> organize/refactor
+<li> some UI tests
 <li> custom in-app force update mechanism (this will display when there is an update available for the app. Mandatory updates do not let the user access the app unless he updates)
 </ul>

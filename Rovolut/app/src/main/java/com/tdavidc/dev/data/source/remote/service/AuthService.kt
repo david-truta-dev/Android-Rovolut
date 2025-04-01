@@ -6,10 +6,9 @@ import retrofit2.http.GET
 
 interface AuthService {
 
-//    @POST("users/authenticate")
-//    suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
-
     @GET("users/authenticate")
+    // Should be POST, andi t should have LoginRequest() as body,
+    // but I am limited by mock json server
     suspend fun login(): Response<SessionData>
 
 }

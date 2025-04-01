@@ -11,8 +11,8 @@ import androidx.core.view.isVisible
 import com.airbnb.lottie.LottieDrawable
 import com.tdavidc.dev.R
 import com.tdavidc.dev.databinding.ActivityWelcomeBinding
-import com.tdavidc.dev.utility.navigation.Navigator
 import com.tdavidc.dev.ui.common.base.BaseActivity
+import com.tdavidc.dev.utility.navigation.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -77,11 +77,6 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
     override fun onPause() {
         super.onPause()
         viewModel.pauseAnimation()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.stopAnimation()
     }
 
     private fun setWelcomeScreens() {

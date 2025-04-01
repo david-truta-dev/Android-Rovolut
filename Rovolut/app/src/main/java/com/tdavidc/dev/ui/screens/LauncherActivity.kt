@@ -31,11 +31,8 @@ class LauncherActivity : BaseActivity<ActivityLauncherBinding>() {
 
     override fun bindViewModel() {
         viewModel.hasActiveSession.observe(this@LauncherActivity) {
-            if (it) {
-                Navigator.goToAuthorize(this@LauncherActivity)
-            } else {
-                Navigator.goToWelcomeActivity(this@LauncherActivity)
-            }
+            if (it) Navigator.goToAuthorize(this@LauncherActivity)
+            else Navigator.goToWelcomeActivity(this@LauncherActivity)
         }
     }
 

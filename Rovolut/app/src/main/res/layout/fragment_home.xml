@@ -8,8 +8,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black3"
         android:animateLayoutChanges="true"
+        android:background="@color/black3"
         android:paddingVertical="@dimen/screen_vertical_padding">
 
         <androidx.viewpager2.widget.ViewPager2
@@ -22,12 +22,23 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <FrameLayout
-            android:id="@+id/tabLayoutContainer"
-            android:layout_width="match_parent"
+            android:id="@+id/scrollingIndicatorContainer"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@id/accountViewPager"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
+                android:id="@+id/scrollingIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:spi_dotColor="@color/white"
+                app:spi_dotSelectedColor="@color/white"
+                app:spi_dotSelectedSize="6dp"
+                app:spi_dotSize="4dp"
+                app:spi_dotSpacing="4dp" />
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/fakeLst"
@@ -38,63 +49,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/accountViewPager">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="100dp">
-
-                <ImageView
-                    android:id="@+id/logo"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:contentDescription="@null"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_app_icon" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="100dp">
-
-                <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:contentDescription="@null"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_app_icon" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="100dp">
-
-                <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:contentDescription="@null"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_app_icon" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="100dp">
-
-                <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:contentDescription="@null"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_app_icon" />
-            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 

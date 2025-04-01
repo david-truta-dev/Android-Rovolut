@@ -21,6 +21,7 @@ rxAndroid = "3.0.2"
 rxKotlin = "3.0.0"
 dataStore = "1.1.4"
 protobufSerialization = "1.6.0"
+scrollingIndicator = "1.2.5"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -49,6 +50,7 @@ rx-android = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref =
 rx-kotlin = { group = "io.reactivex.rxjava3", name = "rxkotlin", version.ref = "rxKotlin" }
 datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
 protobuf-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf", version.ref = "protobufSerialization" }
+scrollingIndicator = { group = "ru.tinkoff.scrollingpagerindicator", name = "scrollingpagerindicator", version.ref = "scrollingIndicator" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
