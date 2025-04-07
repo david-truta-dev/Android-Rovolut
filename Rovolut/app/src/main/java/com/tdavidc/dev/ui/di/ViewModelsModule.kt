@@ -1,6 +1,9 @@
 package com.tdavidc.dev.ui.di
 
-import com.tdavidc.dev.data.repository.AuthRepository
+import com.tdavidc.dev.data.repository.auth.AuthRepository
+import com.tdavidc.dev.data.repository.auth.IAuthRepository
+import com.tdavidc.dev.data.repository.user.IUserRepository
+import com.tdavidc.dev.data.repository.user.UserRepository
 import com.tdavidc.dev.ui.screens.LauncherViewModel
 import com.tdavidc.dev.ui.screens.login.LoginViewModel
 import com.tdavidc.dev.ui.screens.main.MainViewModel
@@ -30,6 +33,9 @@ object ViewModelsModule {
 
     @Provides
     @ViewModelScoped
-    fun provideProfileViewModel(authRepository: AuthRepository): ProfileViewModel =
-        ProfileViewModel(authRepository)
+    fun provideProfileViewModel(
+        userRepository: UserRepository,
+        authRepository: AuthRepository
+    ): ProfileViewModel =
+        ProfileViewModel(userRepository, authRepository)
 }

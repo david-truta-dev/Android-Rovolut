@@ -3,7 +3,7 @@ package com.tdavidc.dev.ui.screens.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.tdavidc.dev.data.repository.AuthRepository
+import com.tdavidc.dev.data.repository.auth.IAuthRepository
 import com.tdavidc.dev.ui.common.base.BaseViewModel
 import com.tdavidc.dev.ui.common.base.UIModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val authRepository: IAuthRepository
 ) : BaseViewModel() {
 
     private val _loginResponse by lazy { MutableLiveData<UIModel<Exception?>>() }

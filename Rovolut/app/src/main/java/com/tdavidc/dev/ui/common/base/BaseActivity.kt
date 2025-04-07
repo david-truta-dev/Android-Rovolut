@@ -21,6 +21,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     private lateinit var loadingOverlay: ProgressBar
 
     protected var handleInsets: Boolean = true
+    protected var verticalPadding: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         handleEdgeToEdge()

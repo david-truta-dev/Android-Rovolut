@@ -32,7 +32,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         handleInsets = false
-
         super.onCreate(savedInstanceState)
 
         handleSystemInsets()

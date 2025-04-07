@@ -3,6 +3,7 @@ package com.tdavidc.dev.data.source.remote.di
 import com.tdavidc.dev.data.source.remote.APIConfig
 import com.tdavidc.dev.data.source.remote.interceptor.HeaderInterceptor
 import com.tdavidc.dev.data.source.remote.service.AuthService
+import com.tdavidc.dev.data.source.remote.service.UserService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,6 +47,17 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(APIConfig.BASE_URL)
             .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    @StandardRetrofit
+    fun provideUserRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(APIConfig.BASE_URL)
+            .client(okHttpClient)
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -55,5 +67,11 @@ object NetworkModule {
     @Singleton
     fun provideAuthService(@AuthRetrofit retrofit: Retrofit): AuthService {
         return retrofit.create(AuthService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserService(@StandardRetrofit retrofit: Retrofit): UserService {
+        return retrofit.create(UserService::class.java)
     }
 }

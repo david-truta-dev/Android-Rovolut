@@ -1,4 +1,4 @@
-package com.tdavidc.dev.data.repository
+package com.tdavidc.dev.data.repository.auth
 
 import com.tdavidc.dev.data.source.local.ILocalStorage
 import com.tdavidc.dev.data.source.model.SessionData
@@ -13,8 +13,8 @@ import javax.inject.Inject
 class AuthRepository @Inject constructor(
     private val authService: AuthService,
     private val localStorage: ILocalStorage
-) {
-    suspend fun login(countryCode: String, phoneNumber: String): Response<SessionData> =
+) : IAuthRepository {
+    override suspend fun login(countryCode: String, phoneNumber: String): Response<SessionData> =
         withContext(Dispatchers.IO) {
             val response = authService.login()
             if (response.isSuccessful && response.body() != null) {
@@ -23,19 +23,19 @@ class AuthRepository @Inject constructor(
             return@withContext response
         }
 
-    fun didAllowBiometrics(): Flow<Boolean> {
+    override fun didAllowBiometrics(): Flow<Boolean> {
         return localStorage.didAllowBiometrics()
     }
 
-    suspend fun allowBiometrics(value: Boolean) = withContext(Dispatchers.IO) {
+    override suspend fun allowBiometrics(value: Boolean) = withContext(Dispatchers.IO) {
         localStorage.allowBiometrics(value)
     }
 
-    fun getSessionData(): Flow<SessionData?> {
+    override fun getSessionData(): Flow<SessionData?> {
         return localStorage.getSessionData()
     }
 
-    suspend fun clearSessionData() = withContext(Dispatchers.IO) {
+    override suspend fun clearSessionData() = withContext(Dispatchers.IO) {
         localStorage.setSessionData(null)
     }
 }

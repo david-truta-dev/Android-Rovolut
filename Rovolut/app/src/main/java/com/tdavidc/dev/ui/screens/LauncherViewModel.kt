@@ -7,14 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.tdavidc.dev.data.repository.AuthRepository
+import com.tdavidc.dev.data.repository.auth.IAuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LauncherViewModel @Inject constructor(authRepository: AuthRepository) : ViewModel() {
+class LauncherViewModel @Inject constructor(authRepository: IAuthRepository) : ViewModel() {
     private val _continueAfterSplashAnimation by lazy { MutableLiveData(false) }
     val continueAfterSplashAnimation: LiveData<Boolean> = _continueAfterSplashAnimation
 
