@@ -7,11 +7,9 @@ import com.tdavidc.dev.data.repository.auth.IAuthRepository
 import com.tdavidc.dev.data.repository.user.IUserRepository
 import com.tdavidc.dev.data.source.model.User
 import com.tdavidc.dev.ui.common.base.BaseRxViewModel
-import com.tdavidc.dev.ui.common.base.BaseViewModel
 import com.tdavidc.dev.ui.common.base.UIModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -39,7 +37,7 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun getUser() {
+    private fun getUser() {
         compositeDisposable.add(
             userRepository.getUserData()
                 .subscribeOn(Schedulers.io())

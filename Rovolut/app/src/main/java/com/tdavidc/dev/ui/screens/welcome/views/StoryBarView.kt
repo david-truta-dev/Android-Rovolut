@@ -17,34 +17,6 @@ class StoryBarView @JvmOverloads constructor(
         orientation = HORIZONTAL
     }
 
-    override fun onStartTemporaryDetach() {
-        super.onStartTemporaryDetach()
-    }
-
-    override fun onFinishTemporaryDetach() {
-        super.onFinishTemporaryDetach()
-    }
-
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-    }
-
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-    }
-
-    override fun onFinishInflate() {
-        super.onFinishInflate()
-    }
-
-    override fun onAnimationStart() {
-        super.onAnimationStart()
-    }
-
-    override fun onAnimationEnd() {
-        super.onAnimationEnd()
-    }
-
     fun setup(barCount: Int, duration: Long) {
         this.fillBarDuration = duration
         removeAllViews()

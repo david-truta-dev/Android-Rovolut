@@ -29,37 +29,31 @@ class CryptoData private constructor() {
         }
     }
 
-    private fun getKey(): SecretKey {
-        // Retrieves or generates a secret key
-        val existingKey = keyStore.getEntry("secret", null) as? KeyStore.SecretKeyEntry
-        return existingKey?.secretKey ?: createKey()
-    }
+    private fun currentKey(): SecretKey? =
+        (keyStore.getEntry("secret", null) as? KeyStore.SecretKeyEntry)?.secretKey
 
-    private fun createKey(): SecretKey {
-        // Generates a new key if not already present
-        return KeyGenerator.getInstance(ALGORITHM).apply {
-            init(
-                KeyGenParameterSpec.Builder(
-                    "secret",
-                    KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
-                ).setBlockModes(BLOCK_MODE)
-                    .setEncryptionPaddings(PADDING)
-                    .build()
-            )
-        }.generateKey()
-    }
+    private fun createKey(): SecretKey = KeyGenerator.getInstance(ALGORITHM).apply {
+        init(
+            KeyGenParameterSpec.Builder(
+                "secret",
+                KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+            ).setBlockModes(BLOCK_MODE)
+                .setEncryptionPaddings(PADDING)
+                .build()
+        )
+    }.generateKey()
 
     fun encrypt(bytes: ByteArray): ByteArray {
-        cipher.init(Cipher.ENCRYPT_MODE, getKey())
+        cipher.init(Cipher.ENCRYPT_MODE, currentKey() ?: createKey())
         val iv = cipher.iv
         val encrypted = cipher.doFinal(bytes)
         return iv + encrypted
     }
 
-    fun decrypt(bytes: ByteArray): ByteArray? {
+    fun decrypt(bytes: ByteArray): ByteArray? = currentKey()?.let {
         val iv = bytes.copyOfRange(0, cipher.blockSize)
         val data = bytes.copyOfRange(cipher.blockSize, bytes.size)
-        cipher.init(Cipher.DECRYPT_MODE, getKey(), IvParameterSpec(iv))
-        return cipher.doFinal(data)
+        cipher.init(Cipher.DECRYPT_MODE, it, IvParameterSpec(iv))
+        cipher.doFinal(data)
     }
 }

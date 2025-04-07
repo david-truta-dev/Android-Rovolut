@@ -1,8 +1,6 @@
 package com.tdavidc.dev.ui.screens.profile
 
 import android.annotation.SuppressLint
-import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.transition.Slide
 import android.view.Gravity
@@ -15,8 +13,6 @@ import com.tdavidc.dev.ui.common.base.UIModel
 import com.tdavidc.dev.utility.extensions.getDuration
 import com.tdavidc.dev.utility.navigation.Navigator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.io.encoding.Base64
-import kotlin.io.encoding.ExperimentalEncodingApi
 
 @AndroidEntryPoint
 class ProfileActivity : BaseActivity<ActivityProfileBinding>() {
@@ -76,4 +72,5 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>() {
             userTagTextView.text = "@${user.userTag}"
         }
     }
+
 }

@@ -2,7 +2,6 @@ package com.tdavidc.dev.utility.navigation
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
-import com.tdavidc.dev.R
 import com.tdavidc.dev.ui.screens.authorize.AuthorizeActivity
 import com.tdavidc.dev.ui.screens.login.LoginActivity
 import com.tdavidc.dev.ui.screens.main.MainActivity
@@ -15,7 +14,7 @@ object Navigator {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         }.also {
             context.startActivity(it)
-            context.overridePendingTransition(R.anim.slide_from_bottom, R.anim.fade_out)
+//            context.overridePendingTransition(R.anim.slide_from_bottom, R.anim.fade_out)
         }
     }
 
@@ -35,7 +34,7 @@ object Navigator {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         }.also {
             context.startActivity(it)
-            context.overridePendingTransition(R.anim.slide_from_bottom, R.anim.fade_out)
+//            context.overridePendingTransition(R.anim.slide_from_bottom, R.anim.fade_out)
         }
     }
 
@@ -45,7 +44,7 @@ object Navigator {
                 Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         }.also { intent ->
             context.startActivity(intent)
-            context.overridePendingTransition(R.anim.slide_from_bottom, R.anim.fade_out)
+//            context.overridePendingTransition(R.anim.slide_from_bottom, R.anim.fade_out)
         }
     }
 

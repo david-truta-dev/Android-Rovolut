@@ -4,6 +4,7 @@ This project is a **"production-ready"** and **"industry-standard" banking appli
 <br>
 #### ⚠️ DISCLAIMER! This project is NOT a real banking app. It's purpouse is to showcase my software enginering skills and to help me learn along the way!
 ##### 📘 Also Important to note: Since this project serves the purpose of learning also, sometimes I might not stick with one way of doing things, for example for viewmodel-view communication I used multiple variants, while only using RxKotlin would have sufficed!
+
 ☑️ What this project includes / will include:
 <ul>
 <li> A fraction of the features of a real banking app (login, passcode, edit profile, create payment account, make (fake) transactions, etc...)
@@ -24,12 +25,7 @@ This project is a **"production-ready"** and **"industry-standard" banking appli
 <li> etc..
 </ul>
 
-
-### Highlights from the app 📱 (I will update these as development advances 😉)
-
-<img src="readme_assets/welcom_screen_showcase.gif" width="200" /> <img src="readme_assets/auth_and_home_screen_showcase.gif" width="200" />
-
-##### TODO next:
+##### 🔨 TODO next:
 
 <ul>
 <li> create base fragment

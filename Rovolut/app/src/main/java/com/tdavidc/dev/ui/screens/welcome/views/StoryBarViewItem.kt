@@ -30,12 +30,12 @@ class StoryBarViewItem @JvmOverloads constructor(
 
     fun fill() {
         animation?.cancel()
-        binding.progressBar.progress = 100
+        binding.progressBar.post { binding.progressBar.progress = 100 }
     }
 
     fun empty() {
         animation?.cancel()
-        binding.progressBar.progress = 0
+        binding.progressBar.post { binding.progressBar.progress = 0 }
     }
 
     fun animate(fillBarDuration: Long) {
