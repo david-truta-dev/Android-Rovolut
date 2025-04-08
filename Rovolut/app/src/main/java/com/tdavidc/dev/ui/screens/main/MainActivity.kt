@@ -58,6 +58,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun setupListeners() {
+        // Transition animations causes memory leak!!!
+        // TODO: Find alternatives to shared element transitions which don't cause memory leaks!
         val imgContainer = findViewById<CardView>(R.id.profile_picture_container)
         val imgView = findViewById<ImageView>(R.id.profile_picture)
 
