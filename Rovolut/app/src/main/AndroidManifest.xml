@@ -25,11 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.screens.welcome.WelcomeActivity" />
-        <activity android:name=".ui.screens.login.LoginActivity" />
-        <activity android:name=".ui.screens.authorize.AuthorizeActivity" />
-        <activity android:name=".ui.screens.main.MainActivity" />
-        <activity android:name=".ui.screens.profile.ProfileActivity" />
     </application>
 
 </manifest>
