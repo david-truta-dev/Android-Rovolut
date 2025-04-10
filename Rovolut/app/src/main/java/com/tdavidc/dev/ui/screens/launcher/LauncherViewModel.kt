@@ -1,4 +1,4 @@
-package com.tdavidc.dev.ui.screens
+package com.tdavidc.dev.ui.screens.launcher
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -27,8 +27,8 @@ class LauncherViewModel @Inject constructor(authRepository: IAuthRepository) : V
     init {
         hasActiveSession.addSource(continueAfterSplashAnimation) { value1 ->
             val value2 = doesHaveSession.value
-            if (value1 != null && value2 != null) {
-                hasActiveSession.value = value2!!
+            if (value2 != null && value1 != null) {
+                hasActiveSession.value = value2 == true
             }
         }
 

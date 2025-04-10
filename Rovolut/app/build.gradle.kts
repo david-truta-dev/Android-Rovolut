@@ -99,7 +99,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.splash)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -108,7 +107,7 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
+    implementation(libs.androidx.material3.android)
     implementation(libs.androidx.biometric)
     implementation(libs.retrofit)
     implementation(libs.rx.java.adapter)
@@ -121,10 +120,12 @@ dependencies {
     implementation(libs.datastore)
     implementation(libs.protobuf.serialization)
     implementation(libs.scrollingIndicator)
-
+    // Hilt:
+    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.dagger.hilt)
+    implementation(libs.androidx.runtime.livedata)
     ksp(libs.dagger.hilt.compiler)
-
+    // Testing and Debug Tools
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

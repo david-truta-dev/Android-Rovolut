@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Rovolut">
         <activity
-            android:name=".ui.screens.LauncherActivity"
+            android:name=".ui.LauncherActivity"
             android:exported="true"
             android:theme="@style/Theme.Rovolut">
             <intent-filter>

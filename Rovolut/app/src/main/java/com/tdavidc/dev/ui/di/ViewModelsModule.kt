@@ -1,7 +1,7 @@
 package com.tdavidc.dev.ui.di
 
 import com.tdavidc.dev.data.repository.auth.AuthRepository
-import com.tdavidc.dev.ui.screens.LauncherViewModel
+import com.tdavidc.dev.ui.screens.launcher.LauncherViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
