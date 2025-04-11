@@ -113,7 +113,7 @@ dependencies {
     implementation(libs.rx.java.adapter)
     implementation(libs.retrofit.gson)
     implementation(libs.http.logging)
-    implementation(libs.lottie)
+    implementation(libs.lottie.compose)
     implementation(libs.coil)
     implementation(libs.rx.android)
     implementation(libs.rx.kotlin)

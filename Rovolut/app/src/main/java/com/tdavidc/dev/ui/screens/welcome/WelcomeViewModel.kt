@@ -14,23 +14,21 @@ class WelcomeViewModel : BaseViewModel() {
 
     private val _currentScreenIndex by lazy { MutableLiveData(0) }
 
-    private val _lastInputCommand by lazy { MutableLiveData<LastInputCommand>() }
-
-    private val _storyBarProgress by lazy { MutableLiveData<Float>() }
+    private val _currentScreenProgress by lazy { MutableLiveData<Float>() }
 
     // OUTPUT: ------------
     val currentScreenIndex: LiveData<Int> = _currentScreenIndex
 
-    val lastInputCommand: LiveData<LastInputCommand> = _lastInputCommand
-
     val welcomeScreens: LiveData<ArrayList<WelcomeScreen>> = _welcomeScreens
 
-    val storyBarProgress: LiveData<Float> = _storyBarProgress
+    val currentScreenProgress: LiveData<Float> = _currentScreenProgress
 
     // INPUT: --------------
 
     fun setWelcomeScreens(screens: ArrayList<WelcomeScreen>) {
         _welcomeScreens.value = screens
+        resetAnimation()
+        startTimer()
     }
 
     fun goToNextScreen() {
@@ -39,6 +37,8 @@ class WelcomeViewModel : BaseViewModel() {
         } else {
             _currentScreenIndex.value = _currentScreenIndex.value?.plus(1)
         }
+        resetAnimation()
+        startTimer()
     }
 
     fun goToPreviousScreen() {
@@ -47,15 +47,28 @@ class WelcomeViewModel : BaseViewModel() {
         } else {
             _currentScreenIndex.value = _currentScreenIndex.value?.minus(1)
         }
+        resetAnimation()
+        startTimer()
     }
 
-    fun startTimer() {
+    fun pauseAnimation() {
+        countDownTimer?.cancel()
+        isTimerRunning = false
+    }
+
+    fun resumeAnimation() {
+        if (!isTimerRunning) {
+            startTimer()
+        }
+    }
+
+    private fun startTimer() {
         if (isTimerRunning) return
 
         countDownTimer = object : CountDownTimer(remainingTime, SCREEN_CHANGE_TIMER_INTERVAL) {
             override fun onTick(millisUntilFinished: Long) {
                 remainingTime = millisUntilFinished
-                _storyBarProgress.value =
+                _currentScreenProgress.value =
                     1.0f - millisUntilFinished.toFloat() / SCREEN_CHANGE_INTERVAL
             }
 
@@ -67,24 +80,7 @@ class WelcomeViewModel : BaseViewModel() {
         isTimerRunning = true
     }
 
-    fun startAnimation() {
-        _lastInputCommand.value = LastInputCommand.PLAY
-    }
-
-    fun pauseAnimation() {
-        countDownTimer?.cancel()
-        isTimerRunning = false
-        _lastInputCommand.value = LastInputCommand.PAUSE
-    }
-
-    fun resumeAnimation() {
-        if (!isTimerRunning) {
-            startTimer()
-            _lastInputCommand.value = LastInputCommand.RESUME
-        }
-    }
-
-    fun stopAnimation() {
+    private fun resetAnimation() {
         countDownTimer?.cancel()
         countDownTimer = null
         isTimerRunning = false
@@ -93,7 +89,7 @@ class WelcomeViewModel : BaseViewModel() {
 
     companion object {
         const val SCREEN_CHANGE_INTERVAL = 4500L
-        private const val SCREEN_CHANGE_TIMER_INTERVAL = SCREEN_CHANGE_INTERVAL / 100
+        private const val SCREEN_CHANGE_TIMER_INTERVAL = SCREEN_CHANGE_INTERVAL / 1000
     }
 }
 
@@ -104,7 +100,3 @@ data class WelcomeScreen(
     val dark: Boolean,
     val repeatAnimation: Boolean = false
 )
-
-enum class LastInputCommand {
-    PLAY, PAUSE, RESUME
-}

@@ -3,6 +3,7 @@ package com.tdavidc.dev.ui.screens.launcher
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
@@ -18,27 +19,7 @@ import com.tdavidc.dev.ui.theme.AppTheme
 fun LauncherScreen(modifier: Modifier = Modifier) {
     Surface {
         Box(
-            contentAlignment = Alignment.Center, modifier = modifier
-        ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "Welcome to Rovolut!",
-                )
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                Button(onClick = { }) {
-                    Text("Continue")
-                }
-            }
-        }
-    }
-}
-
-@Preview(showBackground = true, widthDp = 300, heightDp = 600)
-@Composable
-fun OnboardingPreview() {
-    AppTheme {
-        LauncherScreen()
+            modifier = modifier.fillMaxSize()
+        )
     }
 }

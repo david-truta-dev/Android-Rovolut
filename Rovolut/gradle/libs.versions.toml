@@ -50,7 +50,7 @@ dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref 
 dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 androidx-biometric = { group = "androidx.biometric", name = "biometric", version.ref = "biometric" }
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
-lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
+lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
 rx-android = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref = "rxAndroid" }
 rx-kotlin = { group = "io.reactivex.rxjava3", name = "rxkotlin", version.ref = "rxKotlin" }
 datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }

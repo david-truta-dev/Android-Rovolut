@@ -6,6 +6,7 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,20 +16,28 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionResult
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.tdavidc.dev.R
+import com.tdavidc.dev.ui.common.views.SetStatusBarStyle
 import com.tdavidc.dev.ui.screens.welcome.views.StoryBarView
 
 
@@ -36,7 +45,7 @@ import com.tdavidc.dev.ui.screens.welcome.views.StoryBarView
 fun WelcomeScreen(
     viewModel: WelcomeViewModel = hiltViewModel()
 ) {
-    val initScreens = remember {
+    val initScreens = rememberSaveable {
         arrayListOf(
             WelcomeScreen(
                 title = R.string.welcome_title_1,
@@ -77,20 +86,20 @@ fun WelcomeScreen(
 
     val currentIndex by viewModel.currentScreenIndex.observeAsState(0)
     val screens by viewModel.welcomeScreens.observeAsState(arrayListOf())
-    val storyBarProgress by viewModel.storyBarProgress.observeAsState()
+    val currentScreenProgress by viewModel.currentScreenProgress.observeAsState()
 
     val currentScreen = screens.getOrNull(currentIndex)
     val surfaceColor = if (currentScreen?.dark == true) Color.Black else Color.White
     val onSurfaceColor = if (currentScreen?.dark == true) Color.White else Color.Black
-
-    LaunchedEffect(Unit) {
-        viewModel.setWelcomeScreens(initScreens)
+    val rawComposition: LottieCompositionResult? = currentScreen?.background?.let {
+        rememberLottieComposition(spec = LottieCompositionSpec.RawRes(it))
     }
 
-    LaunchedEffect(currentIndex) {
-        viewModel.stopAnimation()
-        viewModel.startTimer()
-        viewModel.startAnimation()
+    SetStatusBarStyle(useDarkIcons = currentScreen?.dark == false)
+
+    LaunchedEffect(Unit) {
+        // init screens
+        viewModel.setWelcomeScreens(initScreens)
     }
 
     Surface(color = surfaceColor) {
@@ -108,16 +117,24 @@ fun WelcomeScreen(
                             viewModel.goToNextScreen()
                         }
                     }
-                }
+                },
+            contentAlignment = Alignment.Center
         ) {
+            if (rawComposition != null)
+                LottieAnimation(
+                    composition = rawComposition.value,
+                    progress = { currentScreenProgress ?: 0f },
+                    contentScale = ContentScale.Fit,
+                )
             Column(
                 modifier = Modifier
                     .background(Color.Transparent)
+                    .fillMaxHeight()
             ) {
                 StoryBarView(
                     screens.count(),
                     currentIndex,
-                    storyBarProgress ?: 0f,
+                    currentScreenProgress ?: 0f,
                     currentScreen?.dark ?: false,
                     modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                 )
