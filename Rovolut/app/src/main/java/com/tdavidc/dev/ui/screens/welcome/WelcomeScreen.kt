@@ -1,17 +1,27 @@
 package com.tdavidc.dev.ui.screens.welcome
 
+import android.widget.Space
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ButtonElevation
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,6 +39,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -39,6 +50,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.tdavidc.dev.R
 import com.tdavidc.dev.ui.common.views.SetStatusBarStyle
 import com.tdavidc.dev.ui.screens.welcome.views.StoryBarView
+import kotlin.coroutines.cancellation.CancellationException
 
 
 @Composable
@@ -118,7 +130,7 @@ fun WelcomeScreen(
                         }
                     }
                 },
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             if (rawComposition != null)
                 LottieAnimation(
@@ -157,6 +169,47 @@ fun WelcomeScreen(
                         fontSize = 13.sp
                     )
                 }
+                if (currentScreen?.title != null)
+                    Text(
+                        stringResource(currentScreen.title).uppercase(),
+                        modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp),
+                        style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold),
+                        color = onSurfaceColor
+                    )
+                if (currentScreen?.description != null)
+                    Text(
+                        stringResource(currentScreen.description),
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = onSurfaceColor
+                    )
+                Spacer(modifier = Modifier.weight(1f))
+                Button(
+                    onClick = { },
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp)
+                        .height(48.dp)
+                        .fillMaxWidth(),
+                    elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 5.dp),
+                    colors = ButtonDefaults.buttonColors()
+                        .copy(containerColor = Color.Black, contentColor = Color.White)
+                ) {
+                    Text(text = "Create account")
+                }
+                Spacer(modifier = Modifier.size(16.dp))
+                Button(
+                    onClick = { },
+                    modifier = Modifier
+                        .height(48.dp)
+                        .padding(horizontal = 20.dp)
+                        .fillMaxWidth(),
+                    elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 5.dp),
+                    colors = ButtonDefaults.buttonColors()
+                        .copy(containerColor = Color.White, contentColor = Color.Black)
+                ) {
+                    Text(text = "Login")
+                }
+                Spacer(modifier = Modifier.size(40.dp))
             }
         }
     }

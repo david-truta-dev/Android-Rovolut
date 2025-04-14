@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.google.dagger.hilt.android)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.parcelize)
 }
 
 val secretProperties = Properties().apply {
@@ -120,6 +121,7 @@ dependencies {
     implementation(libs.datastore)
     implementation(libs.protobuf.serialization)
     implementation(libs.scrollingIndicator)
+    implementation(libs.androidx.navigation.compose)
     // Hilt:
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.dagger.hilt)

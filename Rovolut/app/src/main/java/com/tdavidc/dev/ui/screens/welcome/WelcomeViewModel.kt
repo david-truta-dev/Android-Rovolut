@@ -1,9 +1,11 @@
 package com.tdavidc.dev.ui.screens.welcome
 
 import android.os.CountDownTimer
+import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tdavidc.dev.ui.common.base.BaseViewModel
+import kotlinx.parcelize.Parcelize
 
 class WelcomeViewModel : BaseViewModel() {
     private var countDownTimer: CountDownTimer? = null
@@ -93,10 +95,11 @@ class WelcomeViewModel : BaseViewModel() {
     }
 }
 
+@Parcelize
 data class WelcomeScreen(
     val title: Int,
     val description: Int? = null,
     val background: Int,
     val dark: Boolean,
     val repeatAnimation: Boolean = false
-)
+): Parcelable
