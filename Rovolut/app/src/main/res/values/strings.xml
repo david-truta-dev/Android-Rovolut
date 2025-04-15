@@ -16,7 +16,7 @@
     <string name="welcome_top_button">Create account</string>
     <string name="welcome_bottom_button">Login</string>
     <string name="login_title">Welcome back</string>
-    <string name="login_description">Enter the phone number associated with yout Rovolut account</string>
+    <string name="login_description">Enter the phone number associated with your Rovolut account</string>
     <string name="accounts_button">Accounts</string>
     <string name="login_continue_button">Continue</string>
     <string name="profile_logout_btn">Logout</string>

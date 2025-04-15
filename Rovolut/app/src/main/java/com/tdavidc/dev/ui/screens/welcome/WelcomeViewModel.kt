@@ -4,7 +4,7 @@ import android.os.CountDownTimer
 import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.tdavidc.dev.ui.common.base.BaseViewModel
+import com.tdavidc.dev.ui.base.BaseViewModel
 import kotlinx.parcelize.Parcelize
 
 class WelcomeViewModel : BaseViewModel() {

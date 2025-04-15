@@ -1,11 +1,8 @@
 package com.tdavidc.dev.ui.screens.welcome
 
-import android.widget.Space
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,23 +10,15 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonElevation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,13 +37,18 @@ import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.tdavidc.dev.R
-import com.tdavidc.dev.ui.common.views.SetStatusBarStyle
 import com.tdavidc.dev.ui.screens.welcome.views.StoryBarView
-import kotlin.coroutines.cancellation.CancellationException
+import com.tdavidc.dev.ui.theme.black
+import com.tdavidc.dev.ui.theme.white
+import com.tdavidc.dev.ui.views.RoundedTextButton
+import com.tdavidc.dev.ui.views.SetStatusBarStyle
 
 
 @Composable
 fun WelcomeScreen(
+    modifier: Modifier = Modifier,
+    onClickCreateAccount: () -> Unit,
+    onClickLogin: () -> Unit,
     viewModel: WelcomeViewModel = hiltViewModel()
 ) {
     val initScreens = rememberSaveable {
@@ -114,11 +108,9 @@ fun WelcomeScreen(
         viewModel.setWelcomeScreens(initScreens)
     }
 
-    Surface(color = surfaceColor) {
+    Surface(color = surfaceColor, modifier = Modifier.fillMaxSize()) {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .systemBarsPadding()
+            modifier = modifier
                 .pointerInput(Unit) {
                     detectTapGestures { event ->
                         val isLeftHalf = event.x < this.size.width / 2
@@ -184,31 +176,19 @@ fun WelcomeScreen(
                         color = onSurfaceColor
                     )
                 Spacer(modifier = Modifier.weight(1f))
-                Button(
-                    onClick = { },
-                    modifier = Modifier
-                        .padding(horizontal = 20.dp)
-                        .height(48.dp)
-                        .fillMaxWidth(),
-                    elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 5.dp),
-                    colors = ButtonDefaults.buttonColors()
-                        .copy(containerColor = Color.Black, contentColor = Color.White)
-                ) {
-                    Text(text = "Create account")
-                }
+                RoundedTextButton(
+                    onClickCreateAccount,
+                    stringResource(R.string.welcome_top_button),
+                    containerColor = white,
+                    contentColor = black,
+                    modifier = Modifier.padding(horizontal = 20.dp)
+                )
                 Spacer(modifier = Modifier.size(16.dp))
-                Button(
-                    onClick = { },
-                    modifier = Modifier
-                        .height(48.dp)
-                        .padding(horizontal = 20.dp)
-                        .fillMaxWidth(),
-                    elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 5.dp),
-                    colors = ButtonDefaults.buttonColors()
-                        .copy(containerColor = Color.White, contentColor = Color.Black)
-                ) {
-                    Text(text = "Login")
-                }
+                RoundedTextButton(
+                    onClickLogin,
+                    stringResource(R.string.welcome_bottom_button),
+                    modifier = Modifier.padding(horizontal = 20.dp)
+                )
                 Spacer(modifier = Modifier.size(40.dp))
             }
         }

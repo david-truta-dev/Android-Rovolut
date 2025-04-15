@@ -1,4 +1,4 @@
-package com.tdavidc.dev.ui.common.views
+package com.tdavidc.dev.ui.views
 
 import android.app.Activity
 import androidx.compose.runtime.Composable

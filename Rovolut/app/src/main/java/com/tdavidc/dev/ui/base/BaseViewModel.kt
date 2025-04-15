@@ -1,4 +1,4 @@
-package com.tdavidc.dev.ui.common.base
+package com.tdavidc.dev.ui.base
 
 import androidx.lifecycle.ViewModel
 
