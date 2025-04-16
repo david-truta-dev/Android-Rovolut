@@ -23,3 +23,7 @@ object LoginDestination : Destination {
 object CreateAccountDestination : Destination {
     override val route = "createAccount"
 }
+
+object HomeDestination : Destination {
+    override val route = "createAccount"
+}

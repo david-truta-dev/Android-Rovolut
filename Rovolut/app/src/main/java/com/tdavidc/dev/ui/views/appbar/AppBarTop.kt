@@ -2,6 +2,7 @@ package com.tdavidc.dev.ui.views.appbar
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -36,52 +37,61 @@ internal fun AppBarTop(
     hasCloseInsteadOfBackBtn: Boolean = false
 ) {
     // fades from 0 to 1, ensuring value is between 0 and 1
-    val safeScrollProgress =
+    val contentAlphaProgress =
         if (scrollProgress < 0.5f) 0f
         else ((scrollProgress - 0.5f) / 0.5f).coerceIn(0f, 1f)
     // moves from offset 25dp to 0dp at progress >= 90%
-    val animatedOffsetY = (25 * (1f - safeScrollProgress)).dp
+    val animatedOffsetY = (25 * (1f - contentAlphaProgress)).dp
 
-    Row(
+    Box(
         modifier = modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.background),
-        verticalAlignment = Alignment.CenterVertically
+            .background(Color.Transparent)
     ) {
-        CircleImageButton(
-            painterResource(
-                if (hasCloseInsteadOfBackBtn)
-                    R.drawable.ic_close
-                else
-                    R.drawable.ic_back_arrow
-            ),
-            onClick = onBackClicked,
-            circleButtonSize = ButtonSize.Medium,
-            containerColor = Color.Transparent,
-            contentColor = MaterialTheme.colorScheme.onSurface,
-        )
-        Text(
-            title,
+        Box(
             modifier = Modifier
-                .align(Alignment.CenterVertically)
-                .padding(horizontal = 12.dp)
-                .padding(top = animatedOffsetY)
-                .graphicsLayer {
-                    alpha = safeScrollProgress
-                },
-            color = MaterialTheme.colorScheme.onSurface,
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+                .matchParentSize()
+                .background(MaterialTheme.colorScheme.background.copy(alpha = contentAlphaProgress))
         )
-        Spacer(modifier = Modifier.weight(1f))
-        if (trailingIcon != null)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             CircleImageButton(
-                trailingIcon,
-                onClick = onTrailingButtonClicked,
+                painterResource(
+                    if (hasCloseInsteadOfBackBtn)
+                        R.drawable.ic_close
+                    else
+                        R.drawable.ic_back_arrow
+                ),
+                onClick = onBackClicked,
                 circleButtonSize = ButtonSize.Medium,
                 containerColor = Color.Transparent,
-                modifier = Modifier.padding(horizontal = 4.dp)
+                contentColor = MaterialTheme.colorScheme.onBackground,
             )
+            Text(
+                title,
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .padding(horizontal = 12.dp)
+                    .padding(top = animatedOffsetY)
+                    .graphicsLayer {
+                        alpha = contentAlphaProgress
+                    },
+                color = MaterialTheme.colorScheme.onBackground,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            if (trailingIcon != null)
+                CircleImageButton(
+                    trailingIcon,
+                    onClick = onTrailingButtonClicked,
+                    circleButtonSize = ButtonSize.Medium,
+                    containerColor = Color.Transparent,
+                    modifier = Modifier.padding(horizontal = 4.dp)
+                )
+        }
     }
 }
 

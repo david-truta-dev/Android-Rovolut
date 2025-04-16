@@ -17,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -27,14 +28,15 @@ import androidx.compose.ui.zIndex
 import com.tdavidc.dev.ui.theme.AppTheme
 
 @Composable
-fun AppBarLazyScrollable(
+fun AppBarLazyScrollableScreen(
     title: String,
     modifier: Modifier = Modifier,
     headerContent: @Composable () -> Unit = {},
     onBackClicked: (() -> Unit) = {},
     onTrailingButtonClicked: (() -> Unit) = {},
     trailingIcon: Painter? = null,
-    content: LazyListScope.() -> Unit
+    columnModifier: Modifier = Modifier,
+    columnContent: LazyListScope.() -> Unit
 ) {
     val listState = rememberLazyListState()
     var topAppBarHeight by remember { mutableIntStateOf(0) }
@@ -59,13 +61,14 @@ fun AppBarLazyScrollable(
             onTrailingButtonClicked = onTrailingButtonClicked,
             trailingIcon = trailingIcon,
             modifier = Modifier
-                .zIndex(progress - 0.5f)
+                .zIndex(1f)
                 .onGloballyPositioned {
                     topAppBarHeight = it.size.height
                 }
         )
         LazyColumn(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = columnModifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
             state = listState,
             contentPadding = PaddingValues(top = with(LocalDensity.current) { topAppBarHeight.toDp() })
         ) {
@@ -83,7 +86,7 @@ fun AppBarLazyScrollable(
                 }
             }
             item { Spacer(modifier = Modifier.height(12.dp)) }
-            content()
+            columnContent()
         }
     }
 }
@@ -97,7 +100,7 @@ fun AppBarLazyScrollable(
 @Composable
 fun AppBarLazyScrollablePreview() {
     AppTheme {
-        AppBarLazyScrollable(title = "Login") {
+        AppBarLazyScrollableScreen(title = "Login") {
             items(10) {
                 Text("Item")
             }

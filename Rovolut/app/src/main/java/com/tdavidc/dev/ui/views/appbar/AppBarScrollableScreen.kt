@@ -24,7 +24,7 @@ import androidx.compose.ui.zIndex
 import com.tdavidc.dev.ui.theme.AppTheme
 
 @Composable
-fun AppBarScrollable(
+fun AppBarScrollableScreen(
     title: String,
     modifier: Modifier = Modifier,
     headerContent: @Composable () -> Unit = {},
@@ -36,7 +36,6 @@ fun AppBarScrollable(
     val scrollState = rememberScrollState()
     var topAppBarHeight by remember { mutableIntStateOf(0) }
     var headerHeight by remember { mutableIntStateOf(0) }
-
 
     val progress = if (headerHeight > 0) {
         (scrollState.value / headerHeight.toFloat()).coerceIn(0f, 1f)
@@ -50,7 +49,7 @@ fun AppBarScrollable(
             onTrailingButtonClicked = onTrailingButtonClicked,
             trailingIcon = trailingIcon,
             modifier = Modifier
-                .zIndex(progress - 0.5f)
+                .zIndex(1f)
                 .onGloballyPositioned { coordinates ->
                     topAppBarHeight = coordinates.size.height
                 }
@@ -86,6 +85,6 @@ fun AppBarScrollable(
 @Composable
 fun AppBarScrollablePreview() {
     AppTheme {
-        AppBarScrollable(title = "Login")
+        AppBarScrollableScreen(title = "Login")
     }
 }

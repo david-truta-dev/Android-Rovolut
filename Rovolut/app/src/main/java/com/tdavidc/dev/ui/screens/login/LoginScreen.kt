@@ -1,7 +1,6 @@
 package com.tdavidc.dev.ui.screens.login
 
 import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -15,21 +14,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tdavidc.dev.R
-import com.tdavidc.dev.ui.views.ButtonSize
-import com.tdavidc.dev.ui.views.CircleImageButton
-import com.tdavidc.dev.ui.views.CircleTextButton
 import com.tdavidc.dev.ui.views.RoundedTextButton
 import com.tdavidc.dev.ui.views.SetStatusBarStyle
-import com.tdavidc.dev.ui.views.appbar.AppBarLazyScrollable
+import com.tdavidc.dev.ui.views.appbar.AppBarLazyScrollableScreen
 
 @Composable
 fun LoginScreen(
-    modifier: Modifier = Modifier,
-    onBackClicked: () -> Unit = {},
+    onBackClicked: () -> Unit,
+    onLoginSuccess: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     SetStatusBarStyle(!isSystemInDarkTheme())
     Box(modifier = modifier) {
-        AppBarLazyScrollable(
+        AppBarLazyScrollableScreen(
             stringResource(R.string.login_title),
             onBackClicked = onBackClicked,
             trailingIcon = painterResource(R.drawable.ic_question),
@@ -40,35 +37,13 @@ fun LoginScreen(
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
                     color = MaterialTheme.colorScheme.onBackground
                 )
-            }
+            },
         ) {
             item {
                 RoundedTextButton(
-                    {
-                        Log.d("DEBUGGING", "MyApp: RoundedTextButton")
-                    },
+                    onLoginSuccess,
                     text = stringResource(R.string.login_continue_button),
                     modifier = Modifier.padding(horizontal = 12.dp),
-                )
-            }
-            item {
-                CircleTextButton(
-                    text = "btn",
-                    onClick = {
-                        Log.d("DEBUGGING", "MyApp: CircleTextButton")
-                    },
-                    modifier = Modifier.padding(horizontal = 12.dp),
-                    circleButtonSize = ButtonSize.Medium
-                )
-            }
-            item {
-                CircleImageButton(
-                    painter = painterResource(R.drawable.ic_card),
-                    onClick = {
-                        Log.d("DEBUGGING", "MyApp: CircleImageButton")
-                    },
-                    modifier = Modifier.padding(horizontal = 12.dp),
-                    circleButtonSize = ButtonSize.Medium
                 )
             }
             items(1000) {
@@ -88,5 +63,8 @@ fun LoginScreen(
 )
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen()
+    LoginScreen(
+        {},
+        {}
+    )
 }

@@ -39,6 +39,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.tdavidc.dev.R
 import com.tdavidc.dev.ui.screens.welcome.views.StoryBarView
 import com.tdavidc.dev.ui.theme.black
+import com.tdavidc.dev.ui.theme.lighterBlack
 import com.tdavidc.dev.ui.theme.white
 import com.tdavidc.dev.ui.views.RoundedTextButton
 import com.tdavidc.dev.ui.views.SetStatusBarStyle
@@ -187,6 +188,8 @@ fun WelcomeScreen(
                 RoundedTextButton(
                     onClickLogin,
                     stringResource(R.string.welcome_bottom_button),
+                    containerColor = lighterBlack,
+                    contentColor = white,
                     modifier = Modifier.padding(horizontal = 20.dp)
                 )
                 Spacer(modifier = Modifier.size(40.dp))

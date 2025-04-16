@@ -1,7 +1,6 @@
 package com.tdavidc.dev.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -13,12 +12,17 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.tdavidc.dev.navigation.AuthorizeDestination
 import com.tdavidc.dev.navigation.CreateAccountDestination
+import com.tdavidc.dev.navigation.HomeDestination
 import com.tdavidc.dev.navigation.LauncherDestination
 import com.tdavidc.dev.navigation.LoginDestination
 import com.tdavidc.dev.navigation.WelcomeDestination
+import com.tdavidc.dev.ui.screens.authorize.AuthorizeScreen
 import com.tdavidc.dev.ui.screens.launcher.LauncherScreen
 import com.tdavidc.dev.ui.screens.login.LoginScreen
+import com.tdavidc.dev.ui.screens.login.SignupScreen
+import com.tdavidc.dev.ui.screens.main.MainScreen
 import com.tdavidc.dev.ui.screens.welcome.WelcomeScreen
 import com.tdavidc.dev.ui.theme.AppTheme
 import com.tdavidc.dev.utility.extensions.navigateSingleTopTo
@@ -47,26 +51,32 @@ fun MyApp() {
                 navController = navController,
                 startDestination = LauncherDestination.route,
             ) {
-                composable(route = LauncherDestination.route) { LauncherScreen(navController) }
+                composable(route = LauncherDestination.route) {
+                    LauncherScreen(navController)
+                }
                 composable(route = WelcomeDestination.route) {
                     WelcomeScreen(
                         modifier = Modifier.systemBarsPadding(),
                         onClickCreateAccount = {
-                            Log.d("DEBUGGING", "MyApp: onClickCreateAccount")
-                            navController.navigateSingleTopTo(LoginDestination.route) },
+                            navController.navigateSingleTopTo(CreateAccountDestination.route)
+                        },
                         onClickLogin = { navController.navigateSingleTopTo(LoginDestination.route) })
                 }
                 composable(route = CreateAccountDestination.route) {
-                    LoginScreen(modifier = Modifier.systemBarsPadding(), onBackClicked = {
-                        Log.d("DEBUGGING", "MyApp: back clicked")
-                        navController.popBackStack()
-                    })
+                    SignupScreen()
                 }
                 composable(route = LoginDestination.route) {
-                    LoginScreen(modifier = Modifier.systemBarsPadding(), onBackClicked = {
-                        Log.d("DEBUGGING", "MyApp: back clicked")
-                        navController.popBackStack()
-                    })
+                    LoginScreen(
+                        modifier = Modifier.systemBarsPadding(),
+                        onBackClicked = { navController.popBackStack() },
+                        onLoginSuccess = { navController.navigateSingleTopTo(HomeDestination.route) }
+                    )
+                }
+                composable(route = AuthorizeDestination.route) {
+                    AuthorizeScreen()
+                }
+                composable(route = HomeDestination.route) {
+                    MainScreen()
                 }
             }
         }
