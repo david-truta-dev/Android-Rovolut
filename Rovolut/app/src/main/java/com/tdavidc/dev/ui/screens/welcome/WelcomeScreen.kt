@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,8 +40,8 @@ import com.tdavidc.dev.ui.screens.welcome.views.StoryBarView
 import com.tdavidc.dev.ui.theme.black
 import com.tdavidc.dev.ui.theme.lighterBlack
 import com.tdavidc.dev.ui.theme.white
-import com.tdavidc.dev.ui.views.RoundedTextButton
 import com.tdavidc.dev.ui.views.SetStatusBarStyle
+import com.tdavidc.dev.ui.views.buttons.RoundedTextButton
 
 
 @Composable
@@ -52,43 +51,45 @@ fun WelcomeScreen(
     onClickLogin: () -> Unit,
     viewModel: WelcomeViewModel = hiltViewModel()
 ) {
-    val initScreens = rememberSaveable {
-        arrayListOf(
-            WelcomeScreen(
-                title = R.string.welcome_title_1,
-                background = R.raw.anim_welcome_rocket,
-                dark = true
-            ),
-            WelcomeScreen(
-                title = R.string.welcome_title_2,
-                description = R.string.welcome_description_2,
-                background = R.raw.anim_welcome_card,
-                dark = false
-            ),
-            WelcomeScreen(
-                title = R.string.welcome_title_3,
-                description = R.string.welcome_description_3,
-                background = R.raw.anim_welcome_world,
-                dark = true
-            ),
-            WelcomeScreen(
-                title = R.string.welcome_title_4,
-                description = R.string.welcome_description_4,
-                background = R.raw.anim_welcome_coin,
-                dark = true
-            ),
-            WelcomeScreen(
-                title = R.string.welcome_title_5,
-                background = R.raw.anim_welcome_secure,
-                dark = false
-            ),
-            WelcomeScreen(
-                title = R.string.welcome_title_6,
-                background = R.raw.anim_welcome_support,
-                dark = true,
-                repeatAnimation = true
+    LaunchedEffect(Unit) {
+        val initScreens =
+            arrayListOf(
+                WelcomeScreen(
+                    title = R.string.welcome_title_1,
+                    background = R.raw.anim_welcome_rocket,
+                    dark = true
+                ),
+                WelcomeScreen(
+                    title = R.string.welcome_title_2,
+                    description = R.string.welcome_description_2,
+                    background = R.raw.anim_welcome_card,
+                    dark = false
+                ),
+                WelcomeScreen(
+                    title = R.string.welcome_title_3,
+                    description = R.string.welcome_description_3,
+                    background = R.raw.anim_welcome_world,
+                    dark = true
+                ),
+                WelcomeScreen(
+                    title = R.string.welcome_title_4,
+                    description = R.string.welcome_description_4,
+                    background = R.raw.anim_welcome_coin,
+                    dark = true
+                ),
+                WelcomeScreen(
+                    title = R.string.welcome_title_5,
+                    background = R.raw.anim_welcome_secure,
+                    dark = false
+                ),
+                WelcomeScreen(
+                    title = R.string.welcome_title_6,
+                    background = R.raw.anim_welcome_support,
+                    dark = true,
+                    repeatAnimation = true
+                )
             )
-        )
+        viewModel.setWelcomeScreens(initScreens)
     }
 
     val currentIndex by viewModel.currentScreenIndex.observeAsState(0)
@@ -103,11 +104,6 @@ fun WelcomeScreen(
     }
 
     SetStatusBarStyle(useDarkIcons = currentScreen?.dark == false)
-
-    LaunchedEffect(Unit) {
-        // init screens
-        viewModel.setWelcomeScreens(initScreens)
-    }
 
     Surface(color = surfaceColor, modifier = Modifier.fillMaxSize()) {
         Box(
@@ -140,8 +136,8 @@ fun WelcomeScreen(
                     screens.count(),
                     currentIndex,
                     currentScreenProgress ?: 0f,
-                    currentScreen?.dark ?: false,
                     modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                    currentScreen?.dark ?: false,
                 )
                 Row(
                     modifier = Modifier

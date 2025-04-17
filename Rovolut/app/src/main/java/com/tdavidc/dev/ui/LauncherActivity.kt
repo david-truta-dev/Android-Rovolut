@@ -8,7 +8,11 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -19,12 +23,12 @@ import com.tdavidc.dev.navigation.LauncherDestination
 import com.tdavidc.dev.navigation.LoginDestination
 import com.tdavidc.dev.navigation.WelcomeDestination
 import com.tdavidc.dev.ui.screens.authorize.AuthorizeScreen
-import com.tdavidc.dev.ui.screens.launcher.LauncherScreen
 import com.tdavidc.dev.ui.screens.login.LoginScreen
 import com.tdavidc.dev.ui.screens.login.SignupScreen
 import com.tdavidc.dev.ui.screens.main.MainScreen
 import com.tdavidc.dev.ui.screens.welcome.WelcomeScreen
 import com.tdavidc.dev.ui.theme.AppTheme
+import com.tdavidc.dev.utility.extensions.navigateClearBackStackTo
 import com.tdavidc.dev.utility.extensions.navigateSingleTopTo
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,7 +46,7 @@ class LauncherActivity : ComponentActivity() {
 }
 
 @Composable
-fun MyApp() {
+fun MyApp(viewModel: LauncherViewModel = hiltViewModel()) {
     AppTheme {
         Surface(color = MaterialTheme.colorScheme.background) {
             val navController = rememberNavController()
@@ -52,7 +56,16 @@ fun MyApp() {
                 startDestination = LauncherDestination.route,
             ) {
                 composable(route = LauncherDestination.route) {
-                    LauncherScreen(navController)
+                    val hasActiveSession by viewModel.hasActiveSession.observeAsState()
+
+                    if (hasActiveSession != null)
+                        LaunchedEffect(hasActiveSession) {
+                            if (hasActiveSession == true) {
+                                navController.navigateClearBackStackTo(AuthorizeDestination.route)
+                            } else {
+                                navController.navigateClearBackStackTo(WelcomeDestination.route)
+                            }
+                        }
                 }
                 composable(route = WelcomeDestination.route) {
                     WelcomeScreen(
@@ -68,7 +81,9 @@ fun MyApp() {
                 composable(route = LoginDestination.route) {
                     LoginScreen(
                         modifier = Modifier.systemBarsPadding(),
-                        onBackClicked = { navController.popBackStack() },
+                        onBackClicked = {
+                            navController.popBackStack(WelcomeDestination.route, false)
+                        },
                         onLoginSuccess = { navController.navigateSingleTopTo(HomeDestination.route) }
                     )
                 }

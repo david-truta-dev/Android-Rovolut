@@ -1,4 +1,4 @@
-package com.tdavidc.dev.ui.screens.launcher
+package com.tdavidc.dev.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

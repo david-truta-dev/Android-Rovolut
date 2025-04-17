@@ -9,11 +9,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tdavidc.dev.ui.theme.AppTheme
 
+
 @Composable
 fun StoryBarItemView(
     progress: Float,
+    modifier: Modifier = Modifier,
     isBackgroundDark: Boolean = false,
-    modifier: Modifier = Modifier
 ) {
     LinearProgressIndicator(
         progress = { progress },

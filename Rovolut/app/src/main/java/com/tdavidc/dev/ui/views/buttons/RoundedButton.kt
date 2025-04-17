@@ -1,4 +1,4 @@
-package com.tdavidc.dev.ui.views
+package com.tdavidc.dev.ui.views.buttons
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,8 +16,8 @@ import com.tdavidc.dev.ui.theme.AppTheme
 
 @Composable
 fun RoundedTextButton(
-    onClick: () -> Unit,
     text: String,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     containerColor: Color = MaterialTheme.colorScheme.surface,
     contentColor: Color = MaterialTheme.colorScheme.onSurface,

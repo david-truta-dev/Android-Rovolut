@@ -15,8 +15,8 @@ fun StoryBarView(
     count: Int,
     currentPosition: Int,
     currentProgress: Float,
+    modifier: Modifier = Modifier,
     isBackgroundDark: Boolean = false,
-    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier

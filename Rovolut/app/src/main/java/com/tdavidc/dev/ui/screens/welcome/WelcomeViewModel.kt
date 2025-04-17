@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.tdavidc.dev.ui.base.BaseViewModel
 import kotlinx.parcelize.Parcelize
 
+
 class WelcomeViewModel : BaseViewModel() {
     private var countDownTimer: CountDownTimer? = null
     private var remainingTime = SCREEN_CHANGE_INTERVAL // Time remaining for the current cycle
@@ -102,4 +103,4 @@ data class WelcomeScreen(
     val background: Int,
     val dark: Boolean,
     val repeatAnimation: Boolean = false
-): Parcelable
+) : Parcelable

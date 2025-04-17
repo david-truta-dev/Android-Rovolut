@@ -1,4 +1,4 @@
-package com.tdavidc.dev.ui.views
+package com.tdavidc.dev.ui.views.buttons
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

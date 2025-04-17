@@ -22,8 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tdavidc.dev.R
 import com.tdavidc.dev.ui.theme.AppTheme
-import com.tdavidc.dev.ui.views.ButtonSize
-import com.tdavidc.dev.ui.views.CircleImageButton
+import com.tdavidc.dev.ui.views.buttons.ButtonSize
+import com.tdavidc.dev.ui.views.buttons.CircleImageButton
 
 
 @Composable

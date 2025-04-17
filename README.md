@@ -7,11 +7,12 @@ This project is a **"production-ready"** and **"industry-standard" banking appli
 
 ☑️ What this project includes / will include:
 <ul>
+<li> <b>Single Activity app</b> and a UI layer built with <b>Jetpack Compose</b> (compose branch)
+<li> UI layer built with <b>XML Layout</b> (develop branch)
 <li> A fraction of the features of a real banking app (login, passcode, edit profile, create payment account, make (fake) transactions, etc...)
 <li> Dev, Stage and Prod Flavours + communication with a <b>REST API</b> using <b>Retrofit</b>
 <li> Coroutines and lazy init for the best performence
 <li> A <b>MVVM architecture</b> respecting the SOLID principles
-<li> Views built with XML layout
 <li> <b>RxKotlin, RxJava and LiveData</b> for the communication between layers
 <li> Authentication using <b>JWT tokens</b> and a <b>refresh token mechanism</b>
 <li> <b>Encrypted local storage</b>
@@ -24,6 +25,10 @@ This project is a **"production-ready"** and **"industry-standard" banking appli
 <li> Beautiful animations, custom views AND edge to edge supported on any API level
 <li> etc..
 </ul>
+
+### Highlights from the app 📱 (I will update these as development advances 😉)
+
+<img src="readme_assets/welcom_screen_showcase.gif" width="200" />
 
 ##### 🔨 TODO next:
 

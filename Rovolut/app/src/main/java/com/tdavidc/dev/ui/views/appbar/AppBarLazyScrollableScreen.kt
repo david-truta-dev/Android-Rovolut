@@ -31,6 +31,7 @@ import com.tdavidc.dev.ui.theme.AppTheme
 fun AppBarLazyScrollableScreen(
     title: String,
     modifier: Modifier = Modifier,
+    hasCloseInsteadOfBackBtn: Boolean = false,
     headerContent: @Composable () -> Unit = {},
     onBackClicked: (() -> Unit) = {},
     onTrailingButtonClicked: (() -> Unit) = {},
@@ -60,6 +61,7 @@ fun AppBarLazyScrollableScreen(
             scrollProgress = progress,
             onTrailingButtonClicked = onTrailingButtonClicked,
             trailingIcon = trailingIcon,
+            hasCloseInsteadOfBackBtn = hasCloseInsteadOfBackBtn,
             modifier = Modifier
                 .zIndex(1f)
                 .onGloballyPositioned {
