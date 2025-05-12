@@ -1,29 +1,33 @@
 package com.tdavidc.dev.navigation
 
-interface Destination {
+sealed interface Destination {
     val route: String
 }
 
-object LauncherDestination : Destination {
+data object LauncherDestination : Destination {
     override val route = "launcher"
 }
 
-object WelcomeDestination : Destination {
+data object WelcomeDestination : Destination {
     override val route = "welcome"
 }
 
-object AuthorizeDestination : Destination {
+data object AuthorizeDestination : Destination {
     override val route = "authorize"
 }
 
-object LoginDestination : Destination {
+data object LoginDestination : Destination {
     override val route = "login"
 }
 
-object CreateAccountDestination : Destination {
+data object CreateAccountDestination : Destination {
     override val route = "createAccount"
 }
 
-object HomeDestination : Destination {
-    override val route = "createAccount"
+data object PhonePrefixDestination : Destination {
+    override val route = "phonePrefix"
+}
+
+data object HomeDestination : Destination {
+    override val route = "home"
 }

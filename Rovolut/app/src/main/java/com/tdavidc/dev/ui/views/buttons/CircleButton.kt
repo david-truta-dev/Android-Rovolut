@@ -1,23 +1,30 @@
 package com.tdavidc.dev.ui.views.buttons
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tdavidc.dev.R
@@ -27,14 +34,18 @@ import com.tdavidc.dev.ui.theme.dark_primary
 import com.tdavidc.dev.ui.theme.light_primary
 import com.tdavidc.dev.ui.theme.white
 
+enum class ButtonSize {
+    Small, Medium, Large
+}
+
 @Composable
 fun CircleTextButton(
     text: String,
     onClick: () -> Unit,
     circleButtonSize: ButtonSize,
     modifier: Modifier = Modifier,
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    containerColor: Color = MaterialTheme.colorScheme.surface,
+    contentColor: Color = MaterialTheme.colorScheme.onSecondary,
+    containerColor: Color = MaterialTheme.colorScheme.secondary,
 ) {
     val fontSize = when (circleButtonSize) {
         ButtonSize.Small -> 14.sp
@@ -62,8 +73,8 @@ fun CircleImageButton(
     onClick: () -> Unit,
     circleButtonSize: ButtonSize,
     modifier: Modifier = Modifier,
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    containerColor: Color = MaterialTheme.colorScheme.surface,
+    contentColor: Color = MaterialTheme.colorScheme.onSecondary,
+    containerColor: Color = MaterialTheme.colorScheme.secondary,
 ) {
     val imageSize = when (circleButtonSize) {
         ButtonSize.Small -> 18.dp
@@ -93,34 +104,35 @@ internal fun CircleButton(
     containerColor: Color = MaterialTheme.colorScheme.surface,
     content: @Composable (() -> Unit)
 ) {
-    val newModifier = when (circleButtonSize) {
-        ButtonSize.Small -> modifier.size(32.dp)
-
-        ButtonSize.Medium -> modifier.size(50.dp)
-
-        ButtonSize.Large -> modifier.size(68.dp)
-
-        else -> modifier
+    val size = when (circleButtonSize) {
+        ButtonSize.Small -> 32.dp
+        ButtonSize.Medium -> 50.dp
+        ButtonSize.Large -> 68.dp
+        else -> Dp.Unspecified
     }
-    Box(
-        modifier = newModifier, contentAlignment = Alignment.Center
-    ) {
-        Button(
-            onClick = onClick,
-            modifier = Modifier.matchParentSize(),
-            elevation = ButtonDefaults.elevatedButtonElevation(
-                defaultElevation = if (containerColor == Color.Transparent) 0.dp else 5.dp
+
+    val interactionSource = remember { MutableInteractionSource() }
+
+    Surface(
+        modifier = modifier
+            .size(size)
+            .clip(CircleShape)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = LocalIndication.current,
+                onClick = onClick
             ),
-            colors = ButtonDefaults.buttonColors().copy(
-                containerColor = containerColor
-            )
-        ) {}
-        content()
+        shape = CircleShape,
+        color = containerColor,
+        tonalElevation = if (containerColor == Color.Transparent) 0.dp else 5.dp,
+    ) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            content()
+        }
     }
-}
-
-enum class ButtonSize {
-    Small, Medium, Large
 }
 
 @Preview

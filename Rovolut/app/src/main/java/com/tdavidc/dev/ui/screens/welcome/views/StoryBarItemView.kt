@@ -12,12 +12,12 @@ import com.tdavidc.dev.ui.theme.AppTheme
 
 @Composable
 fun StoryBarItemView(
-    progress: Float,
+    progress: () -> Float,
     modifier: Modifier = Modifier,
     isBackgroundDark: Boolean = false,
 ) {
     LinearProgressIndicator(
-        progress = { progress },
+        progress = progress,
         modifier = modifier
             .height(2.dp),
         gapSize = (-0.5).dp,
@@ -31,6 +31,6 @@ fun StoryBarItemView(
 @Composable
 fun StoryBarItemPreview() {
     AppTheme {
-        StoryBarItemView(0.3f, isBackgroundDark = false)
+        StoryBarItemView({ 0.3f }, isBackgroundDark = false)
     }
 }

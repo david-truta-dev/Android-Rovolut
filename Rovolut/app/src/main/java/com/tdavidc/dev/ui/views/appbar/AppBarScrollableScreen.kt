@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -41,7 +42,7 @@ fun AppBarScrollableScreen(
         (scrollState.value / headerHeight.toFloat()).coerceIn(0f, 1f)
     } else 0f
 
-    Box(modifier = modifier) {
+    Box(modifier = modifier.fillMaxSize()) {
         AppBarTop(
             onBackClicked = onBackClicked,
             title = title,
@@ -54,9 +55,12 @@ fun AppBarScrollableScreen(
                     topAppBarHeight = coordinates.size.height
                 }
         )
-        Column(Modifier
-            .pointerInput(Unit) { }
-            .verticalScroll(state = scrollState)) {
+        Column(
+            Modifier
+                .pointerInput(Unit) { }
+                .verticalScroll(state = scrollState)
+                .fillMaxSize()
+        ) {
             Spacer(modifier = Modifier.height(with(LocalDensity.current) {
                 topAppBarHeight.toDp()
             }))

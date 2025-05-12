@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.EnterTransition
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -21,10 +22,12 @@ import com.tdavidc.dev.navigation.CreateAccountDestination
 import com.tdavidc.dev.navigation.HomeDestination
 import com.tdavidc.dev.navigation.LauncherDestination
 import com.tdavidc.dev.navigation.LoginDestination
+import com.tdavidc.dev.navigation.PhonePrefixDestination
 import com.tdavidc.dev.navigation.WelcomeDestination
+import com.tdavidc.dev.ui.screens.authenticate.login.LoginScreen
+import com.tdavidc.dev.ui.screens.authenticate.register.SignupScreen
+import com.tdavidc.dev.ui.screens.authenticate.selectprefix.SelectPhonePrefixScreen
 import com.tdavidc.dev.ui.screens.authorize.AuthorizeScreen
-import com.tdavidc.dev.ui.screens.login.LoginScreen
-import com.tdavidc.dev.ui.screens.login.SignupScreen
 import com.tdavidc.dev.ui.screens.main.MainScreen
 import com.tdavidc.dev.ui.screens.welcome.WelcomeScreen
 import com.tdavidc.dev.ui.theme.AppTheme
@@ -67,7 +70,9 @@ fun MyApp(viewModel: LauncherViewModel = hiltViewModel()) {
                             }
                         }
                 }
-                composable(route = WelcomeDestination.route) {
+                composable(
+                    route = WelcomeDestination.route,
+                    enterTransition = { EnterTransition.None }) {
                     WelcomeScreen(
                         modifier = Modifier.systemBarsPadding(),
                         onClickCreateAccount = {
@@ -84,7 +89,23 @@ fun MyApp(viewModel: LauncherViewModel = hiltViewModel()) {
                         onBackClicked = {
                             navController.popBackStack(WelcomeDestination.route, false)
                         },
-                        onLoginSuccess = { navController.navigateSingleTopTo(HomeDestination.route) }
+                        onLoginSuccess = { navController.navigateSingleTopTo(HomeDestination.route) },
+                        onPhonePrefixClicked = {
+                            navController.navigateSingleTopTo(
+                                PhonePrefixDestination.route
+                            )
+                        }
+                    )
+                }
+                composable(route = PhonePrefixDestination.route) {
+                    SelectPhonePrefixScreen(
+                        modifier = Modifier.systemBarsPadding(),
+                        onBackClicked = {
+                            navController.popBackStack(LoginDestination.route, false)
+                        },
+                        onCountrySelected = {
+                            navController.navigateSingleTopTo(LoginDestination.route)
+                        }
                     )
                 }
                 composable(route = AuthorizeDestination.route) {

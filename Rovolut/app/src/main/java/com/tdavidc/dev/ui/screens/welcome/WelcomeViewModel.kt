@@ -31,7 +31,6 @@ class WelcomeViewModel : BaseViewModel() {
     fun setWelcomeScreens(screens: ArrayList<WelcomeScreen>) {
         _welcomeScreens.value = screens
         resetAnimation()
-        startTimer()
     }
 
     fun goToNextScreen() {
@@ -41,7 +40,7 @@ class WelcomeViewModel : BaseViewModel() {
             _currentScreenIndex.value = _currentScreenIndex.value?.plus(1)
         }
         resetAnimation()
-        startTimer()
+        startAnimation()
     }
 
     fun goToPreviousScreen() {
@@ -51,7 +50,7 @@ class WelcomeViewModel : BaseViewModel() {
             _currentScreenIndex.value = _currentScreenIndex.value?.minus(1)
         }
         resetAnimation()
-        startTimer()
+        startAnimation()
     }
 
     fun pauseAnimation() {
@@ -61,11 +60,11 @@ class WelcomeViewModel : BaseViewModel() {
 
     fun resumeAnimation() {
         if (!isTimerRunning) {
-            startTimer()
+            startAnimation()
         }
     }
 
-    private fun startTimer() {
+    fun startAnimation() {
         if (isTimerRunning) return
 
         countDownTimer = object : CountDownTimer(remainingTime, SCREEN_CHANGE_TIMER_INTERVAL) {
@@ -83,7 +82,7 @@ class WelcomeViewModel : BaseViewModel() {
         isTimerRunning = true
     }
 
-    private fun resetAnimation() {
+    fun resetAnimation() {
         countDownTimer?.cancel()
         countDownTimer = null
         isTimerRunning = false
@@ -92,7 +91,7 @@ class WelcomeViewModel : BaseViewModel() {
 
     companion object {
         const val SCREEN_CHANGE_INTERVAL = 4500L
-        private const val SCREEN_CHANGE_TIMER_INTERVAL = SCREEN_CHANGE_INTERVAL / 1000
+        private const val SCREEN_CHANGE_TIMER_INTERVAL = 10L
     }
 }
 

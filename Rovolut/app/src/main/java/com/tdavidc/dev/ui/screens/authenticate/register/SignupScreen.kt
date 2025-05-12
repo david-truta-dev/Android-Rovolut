@@ -1,4 +1,4 @@
-package com.tdavidc.dev.ui.screens.login
+package com.tdavidc.dev.ui.screens.authenticate.register
 
 import androidx.compose.runtime.Composable
 

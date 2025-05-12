@@ -31,6 +31,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.airbnb.lottie.AsyncUpdates
+import com.airbnb.lottie.RenderMode
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -42,6 +44,7 @@ import com.tdavidc.dev.ui.theme.lighterBlack
 import com.tdavidc.dev.ui.theme.white
 import com.tdavidc.dev.ui.views.SetStatusBarStyle
 import com.tdavidc.dev.ui.views.buttons.RoundedTextButton
+import kotlinx.coroutines.delay
 
 
 @Composable
@@ -96,14 +99,20 @@ fun WelcomeScreen(
     val screens by viewModel.welcomeScreens.observeAsState(arrayListOf())
     val currentScreenProgress by viewModel.currentScreenProgress.observeAsState()
 
-    val currentScreen = screens.getOrNull(currentIndex)
-    val surfaceColor = if (currentScreen?.dark == true) Color.Black else Color.White
-    val onSurfaceColor = if (currentScreen?.dark == true) Color.White else Color.Black
-    val rawComposition: LottieCompositionResult? = currentScreen?.background?.let {
-        rememberLottieComposition(spec = LottieCompositionSpec.RawRes(it))
+    val currentScreen = screens.getOrNull(currentIndex) ?: return
+    val surfaceColor = if (currentScreen.dark) Color.Black else Color.White
+    val onSurfaceColor = if (currentScreen.dark) Color.White else Color.Black
+    val rawComposition: LottieCompositionResult =
+        rememberLottieComposition(spec = LottieCompositionSpec.RawRes(currentScreen.background))
+
+    LaunchedEffect(rawComposition.isSuccess) {
+        // start animation with some delay to avoid lottie animation stutter
+        // due to initial composition
+        delay(200)
+        viewModel.startAnimation()
     }
 
-    SetStatusBarStyle(useDarkIcons = currentScreen?.dark == false)
+    SetStatusBarStyle(useDarkIcons = !currentScreen.dark)
 
     Surface(color = surfaceColor, modifier = Modifier.fillMaxSize()) {
         Box(
@@ -121,12 +130,16 @@ fun WelcomeScreen(
                 },
             contentAlignment = Alignment.Center,
         ) {
-            if (rawComposition != null)
-                LottieAnimation(
-                    composition = rawComposition.value,
-                    progress = { currentScreenProgress ?: 0f },
-                    contentScale = ContentScale.Fit,
-                )
+            LottieAnimation(
+                composition = rawComposition.value,
+                progress = { currentScreenProgress ?: 0f },
+                contentScale = ContentScale.Fit,
+                enableMergePaths = true,
+                applyShadowToLayers = false,
+                safeMode = true,
+                renderMode = RenderMode.AUTOMATIC,
+                asyncUpdates = AsyncUpdates.ENABLED
+            )
             Column(
                 modifier = Modifier
                     .background(Color.Transparent)
@@ -135,9 +148,9 @@ fun WelcomeScreen(
                 StoryBarView(
                     screens.count(),
                     currentIndex,
-                    currentScreenProgress ?: 0f,
+                    { currentScreenProgress ?: 0f },
                     modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-                    currentScreen?.dark ?: false,
+                    currentScreen.dark,
                 )
                 Row(
                     modifier = Modifier
@@ -158,14 +171,13 @@ fun WelcomeScreen(
                         fontSize = 13.sp
                     )
                 }
-                if (currentScreen?.title != null)
-                    Text(
-                        stringResource(currentScreen.title).uppercase(),
-                        modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp),
-                        style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold),
-                        color = onSurfaceColor
-                    )
-                if (currentScreen?.description != null)
+                Text(
+                    stringResource(currentScreen.title).uppercase(),
+                    modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp),
+                    style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold),
+                    color = onSurfaceColor
+                )
+                if (currentScreen.description != null)
                     Text(
                         stringResource(currentScreen.description),
                         modifier = Modifier.padding(horizontal = 16.dp),
@@ -174,16 +186,16 @@ fun WelcomeScreen(
                     )
                 Spacer(modifier = Modifier.weight(1f))
                 RoundedTextButton(
-                    onClickCreateAccount,
                     stringResource(R.string.welcome_top_button),
+                    onClickCreateAccount,
                     containerColor = white,
                     contentColor = black,
                     modifier = Modifier.padding(horizontal = 20.dp)
                 )
                 Spacer(modifier = Modifier.size(16.dp))
                 RoundedTextButton(
-                    onClickLogin,
                     stringResource(R.string.welcome_bottom_button),
+                    onClickLogin,
                     containerColor = lighterBlack,
                     contentColor = white,
                     modifier = Modifier.padding(horizontal = 20.dp)

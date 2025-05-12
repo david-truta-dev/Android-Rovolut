@@ -14,7 +14,7 @@ import com.tdavidc.dev.ui.theme.AppTheme
 fun StoryBarView(
     count: Int,
     currentPosition: Int,
-    currentProgress: Float,
+    currentProgress: () -> Float,
     modifier: Modifier = Modifier,
     isBackgroundDark: Boolean = false,
 ) {
@@ -24,9 +24,15 @@ fun StoryBarView(
         horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         for (i in 0 until count) {
-            val progress = when {
-                i < currentPosition -> 1f
-                i > currentPosition -> 0f
+            val progress: () -> Float = when {
+                i < currentPosition -> {
+                    { 1f }
+                }
+
+                i > currentPosition -> {
+                    { 0f }
+                }
+
                 else -> currentProgress
             }
             StoryBarItemView(
@@ -42,6 +48,6 @@ fun StoryBarView(
 @Composable
 fun StoryBarPreview() {
     AppTheme {
-        StoryBarView(6, 2, 0.3f)
+        StoryBarView(6, 2, { 0.3f })
     }
 }
