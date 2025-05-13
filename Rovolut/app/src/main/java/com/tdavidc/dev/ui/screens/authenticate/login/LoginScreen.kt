@@ -14,7 +14,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -26,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tdavidc.dev.R
+import com.tdavidc.dev.ui.screens.authenticate.selectprefix.CountryPhonePrefix
 import com.tdavidc.dev.ui.screens.authenticate.views.CountryPrefixView
 import com.tdavidc.dev.ui.screens.authenticate.views.PhoneTextField
 import com.tdavidc.dev.ui.views.SetStatusBarStyle
@@ -37,12 +37,12 @@ fun LoginScreen(
     onBackClicked: () -> Unit,
     onLoginSuccess: () -> Unit,
     onPhonePrefixClicked: () -> Unit,
+    phonePrefix: () -> CountryPhonePrefix,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     var phoneNumber by remember { mutableStateOf("") }
-    var phonePrefix by remember { mutableStateOf("+40") }
-    var phoneFlag by remember { mutableIntStateOf(R.drawable.ic_flag_ro) }
+
 
     SetStatusBarStyle(!isSystemInDarkTheme())
     Box(modifier = modifier) {
@@ -71,8 +71,8 @@ fun LoginScreen(
             ) {
                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                     CountryPrefixView(
-                        painterResource(phoneFlag),
-                        phonePrefix,
+                        painterResource(phonePrefix().countryFlagResId),
+                        phonePrefix().prefix,
                         onPhonePrefixClicked,
                         modifier = Modifier.height(56.dp)
                     )
@@ -102,6 +102,7 @@ fun LoginScreenPreview() {
     LoginScreen(
         {},
         {},
-        {}
+        {},
+        { CountryPhonePrefix("+40", "Romania", R.drawable.ic_flag_ro) }
     )
 }
