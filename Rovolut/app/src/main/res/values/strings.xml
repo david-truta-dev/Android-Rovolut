@@ -24,4 +24,8 @@
     <string name="phone_text_field_placeholder">Enter your phone</string>
     <string name="this_is_a_toast">This is a toast</string>
     <string name="select_prefix_search_placeholder">Search country/region</string>
+    <string name="register_title">Create your Rovolut account</string>
+    <string name="register_description">Enter your phone number. We\'ll send you a confirmation code.</string>
+    <string name="register_already_have_account">Already have a Rovolut account?</string>
+    <string name="register_continue_button">Continue</string>
 </resources>

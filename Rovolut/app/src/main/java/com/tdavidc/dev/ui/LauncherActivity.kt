@@ -25,8 +25,8 @@ import com.tdavidc.dev.navigation.LauncherDestination
 import com.tdavidc.dev.navigation.LoginDestination
 import com.tdavidc.dev.navigation.PhonePrefixDestination
 import com.tdavidc.dev.navigation.WelcomeDestination
-import com.tdavidc.dev.ui.screens.authenticate.login.LoginScreen
-import com.tdavidc.dev.ui.screens.authenticate.register.SignupScreen
+import com.tdavidc.dev.ui.screens.authenticate.LoginSignUpScreen
+import com.tdavidc.dev.ui.screens.authenticate.LoginSignUpScreenMode
 import com.tdavidc.dev.ui.screens.authenticate.selectprefix.CountryPhonePrefix
 import com.tdavidc.dev.ui.screens.authenticate.selectprefix.SelectPrefixScreen
 import com.tdavidc.dev.ui.screens.authorize.AuthorizeScreen
@@ -35,6 +35,7 @@ import com.tdavidc.dev.ui.screens.welcome.WelcomeScreen
 import com.tdavidc.dev.ui.theme.AppTheme
 import com.tdavidc.dev.utility.extensions.navigateClearBackStackTo
 import com.tdavidc.dev.utility.extensions.navigateSingleTopTo
+import com.tdavidc.dev.utility.extensions.popBackStackOnce
 import dagger.hilt.android.AndroidEntryPoint
 
 // LauncherActivity is used only as the initial cold start of the application!
@@ -82,8 +83,36 @@ fun MyApp(viewModel: LauncherViewModel = hiltViewModel()) {
                         },
                         onClickLogin = { navController.navigateSingleTopTo(LoginDestination.route) })
                 }
-                composable(route = CreateAccountDestination.route) {
-                    SignupScreen()
+                composable(route = CreateAccountDestination.route) { navBackStackEntry ->
+                    val phonePrefix by navBackStackEntry
+                        .savedStateHandle
+                        .getLiveData<CountryPhonePrefix>("countryPrefix")
+                        .observeAsState()
+
+                    LoginSignUpScreen(
+                        mode = LoginSignUpScreenMode.SignUp,
+                        modifier = Modifier.systemBarsPadding(),
+                        onBackClicked = {
+                            navController.popBackStack(WelcomeDestination.route, false)
+                        },
+                        onSignUpSuccess = { navController.navigateClearBackStackTo(HomeDestination.route) },
+                        onAlreadyHaveAccountClicked = {
+                            navController.popBackStackOnce()
+                            navController.navigateSingleTopTo(LoginDestination.route)
+                        },
+                        onPhonePrefixClicked = {
+                            navController.navigateSingleTopTo(
+                                PhonePrefixDestination.route
+                            )
+                        },
+                        phonePrefix = {
+                            phonePrefix ?: CountryPhonePrefix(
+                                "+40",
+                                "",
+                                R.drawable.ic_flag_ro
+                            )
+                        }
+                    )
                 }
                 composable(route = LoginDestination.route) { navBackStackEntry ->
                     val phonePrefix by navBackStackEntry
@@ -91,12 +120,13 @@ fun MyApp(viewModel: LauncherViewModel = hiltViewModel()) {
                         .getLiveData<CountryPhonePrefix>("countryPrefix")
                         .observeAsState()
 
-                    LoginScreen(
+                    LoginSignUpScreen(
+                        mode = LoginSignUpScreenMode.Login,
                         modifier = Modifier.systemBarsPadding(),
                         onBackClicked = {
                             navController.popBackStack(WelcomeDestination.route, false)
                         },
-                        onLoginSuccess = { navController.navigateSingleTopTo(HomeDestination.route) },
+                        onLoginSuccess = { navController.navigateClearBackStackTo(HomeDestination.route) },
                         onPhonePrefixClicked = {
                             navController.navigateSingleTopTo(
                                 PhonePrefixDestination.route
@@ -115,14 +145,14 @@ fun MyApp(viewModel: LauncherViewModel = hiltViewModel()) {
                     SelectPrefixScreen(
                         modifier = Modifier.systemBarsPadding(),
                         onBackClicked = {
-                            navController.popBackStack(LoginDestination.route, false)
+                            navController.popBackStackOnce()
                         },
                         onCountrySelected = {
                             navController.previousBackStackEntry?.savedStateHandle?.set(
                                 "countryPrefix",
                                 it
                             )
-                            navController.popBackStack(LoginDestination.route, false)
+                            navController.popBackStackOnce()
                         }
                     )
                 }
@@ -130,7 +160,7 @@ fun MyApp(viewModel: LauncherViewModel = hiltViewModel()) {
                     AuthorizeScreen()
                 }
                 composable(route = HomeDestination.route) {
-                    MainScreen()
+                    MainScreen(modifier = Modifier.systemBarsPadding())
                 }
             }
         }

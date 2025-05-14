@@ -1,4 +1,4 @@
-package com.tdavidc.dev.ui.screens.authenticate.login
+package com.tdavidc.dev.ui.screens.authenticate
 
 import android.content.res.Configuration
 import android.widget.Toast
@@ -30,35 +30,48 @@ import com.tdavidc.dev.ui.screens.authenticate.views.CountryPrefixView
 import com.tdavidc.dev.ui.screens.authenticate.views.PhoneTextField
 import com.tdavidc.dev.ui.views.SetStatusBarStyle
 import com.tdavidc.dev.ui.views.appbar.AppBarScrollableScreen
+import com.tdavidc.dev.ui.views.buttons.PlainTextButton
 import com.tdavidc.dev.ui.views.buttons.RoundedTextButton
 
+enum class LoginSignUpScreenMode {
+    Login,
+    SignUp
+}
+
 @Composable
-fun LoginScreen(
+fun LoginSignUpScreen(
+    mode: LoginSignUpScreenMode,
     onBackClicked: () -> Unit,
-    onLoginSuccess: () -> Unit,
     onPhonePrefixClicked: () -> Unit,
     phonePrefix: () -> CountryPhonePrefix,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onLoginSuccess: () -> Unit = {},
+    onSignUpSuccess: () -> Unit = {},
+    onAlreadyHaveAccountClicked: () -> Unit = {},
 ) {
     val context = LocalContext.current
     var phoneNumber by remember { mutableStateOf("") }
-
+    val isLoginMode = mode == LoginSignUpScreenMode.Login
 
     SetStatusBarStyle(!isSystemInDarkTheme())
     Box(modifier = modifier) {
         AppBarScrollableScreen(
-            stringResource(R.string.login_title),
+            stringResource(if (isLoginMode) R.string.login_title else R.string.register_title),
             onBackClicked = onBackClicked,
-            trailingIcon = painterResource(R.drawable.ic_question),
-            onTrailingButtonClicked = {
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.this_is_a_toast), Toast.LENGTH_SHORT
-                ).show()
+            trailingIcon = if (isLoginMode) painterResource(R.drawable.ic_question) else null,
+            onTrailingButtonClicked = if (isLoginMode) {
+                {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.this_is_a_toast), Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } else {
+                {}
             },
             headerContent = {
                 Text(
-                    text = stringResource(R.string.login_description),
+                    text = stringResource((if (isLoginMode) R.string.login_description else R.string.register_description)),
                     modifier = Modifier.padding(horizontal = 2.dp),
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
                     color = MaterialTheme.colorScheme.onBackground
@@ -82,9 +95,13 @@ fun LoginScreen(
                         modifier = Modifier.height(56.dp)
                     )
                 }
+                if (!isLoginMode) PlainTextButton(
+                    stringResource(R.string.register_already_have_account),
+                    onAlreadyHaveAccountClicked
+                )
                 RoundedTextButton(
                     stringResource(R.string.login_continue_button),
-                    onLoginSuccess,
+                    if (isLoginMode) onLoginSuccess else onSignUpSuccess,
                 )
                 Spacer(modifier = Modifier.height(12.dp))
             }
@@ -99,10 +116,10 @@ fun LoginScreen(
 )
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen(
+    LoginSignUpScreen(
+        mode = LoginSignUpScreenMode.SignUp,
         {},
         {},
-        {},
-        { CountryPhonePrefix("+40", "Romania", R.drawable.ic_flag_ro) }
+        { CountryPhonePrefix("+40", "Romania", R.drawable.ic_flag_ro) },
     )
 }

@@ -4,10 +4,8 @@ import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,7 +24,6 @@ fun PlainTextButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     circleButtonSize: ButtonSize? = null,
-    containerColor: Color = MaterialTheme.colorScheme.surface,
 ) {
     val size = when (circleButtonSize) {
         ButtonSize.Small -> 32.dp
@@ -47,12 +44,11 @@ fun PlainTextButton(
                 onClick = onClick
             ),
         shape = CircleShape,
-        color = containerColor,
-        tonalElevation = if (containerColor == Color.Transparent) 0.dp else 5.dp,
+        color = Color.Transparent,
+        tonalElevation = 0.dp,
     ) {
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxSize()
         ) {
             Text(text)
         }
