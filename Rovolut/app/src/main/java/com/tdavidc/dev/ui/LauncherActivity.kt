@@ -107,9 +107,9 @@ fun MyApp(viewModel: LauncherViewModel = hiltViewModel()) {
                         },
                         phonePrefix = {
                             phonePrefix ?: CountryPhonePrefix(
-                                "+40",
-                                "",
-                                R.drawable.ic_flag_ro
+                                prefix = "+40",
+                                countryName = "",
+                                countryFlagResId = R.drawable.ic_flag_ro
                             )
                         }
                     )
@@ -134,9 +134,9 @@ fun MyApp(viewModel: LauncherViewModel = hiltViewModel()) {
                         },
                         phonePrefix = {
                             phonePrefix ?: CountryPhonePrefix(
-                                "+40",
-                                "",
-                                R.drawable.ic_flag_ro
+                                prefix = "+40",
+                                countryName = "",
+                                countryFlagResId = R.drawable.ic_flag_ro
                             )
                         }
                     )

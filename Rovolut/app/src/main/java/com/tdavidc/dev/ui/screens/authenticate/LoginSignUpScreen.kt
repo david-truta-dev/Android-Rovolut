@@ -120,6 +120,12 @@ fun LoginScreenPreview() {
         mode = LoginSignUpScreenMode.SignUp,
         {},
         {},
-        { CountryPhonePrefix("+40", "Romania", R.drawable.ic_flag_ro) },
+        {
+            CountryPhonePrefix(
+                prefix = "+40",
+                countryName = "",
+                countryFlagResId = R.drawable.ic_flag_ro
+            )
+        },
     )
 }

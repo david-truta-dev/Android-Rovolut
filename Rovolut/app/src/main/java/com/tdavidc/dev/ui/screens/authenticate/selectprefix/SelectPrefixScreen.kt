@@ -167,7 +167,7 @@ fun SelectPrefixScreen(
                         shape = RoundedCornerShape(16.dp)
                     )
             ) {
-                items(filteredCountries, key = { it.prefix }) {
+                items(filteredCountries, key = { it.id }) {
                     PhonePrefixItem(it, onCountrySelected = onCountrySelected)
                 }
             }

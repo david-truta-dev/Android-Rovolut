@@ -1,6 +1,7 @@
 package com.tdavidc.dev.ui.screens.authenticate.selectprefix
 
 import android.os.Parcelable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import com.tdavidc.dev.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.parcelize.Parcelize
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -15,7 +17,7 @@ class SelectPhonePrefixViewModel @Inject constructor() : ViewModel() {
     private val _allCountries = arrayListOf<CountryPhonePrefix>()
 
     init {
-        _allCountries.addAll(countryPrefixes)
+        populateAllCountriesArray()
     }
 
     var searchedText by mutableStateOf("")
@@ -38,10 +40,32 @@ class SelectPhonePrefixViewModel @Inject constructor() : ViewModel() {
     fun clearSearch() {
         searchedText = ""
     }
+
+    private fun populateAllCountriesArray() {
+        addToAllCountriesArray()
+        addToAllCountriesArray()
+        addToAllCountriesArray()
+        addToAllCountriesArray()
+        addToAllCountriesArray()
+        addToAllCountriesArray()
+        addToAllCountriesArray()
+        addToAllCountriesArray()
+        addToAllCountriesArray()
+        addToAllCountriesArray()
+        // Add 10 times to simulate a longer list
+    }
+
+    private fun addToAllCountriesArray() {
+        countryPrefixes.forEach {
+            _allCountries.add(it.copy(id = UUID.randomUUID().toString()))
+        }
+    }
 }
 
+@Immutable
 @Parcelize
 data class CountryPhonePrefix(
+    val id: String = UUID.randomUUID().toString(),
     val prefix: String,
     val countryName: String,
     val countryFlagResId: Int
@@ -93,97 +117,5 @@ val countryPrefixes = arrayListOf(
         prefix = "+49",
         countryName = "Germany",
         countryFlagResId = R.drawable.ic_flag_de
-    ),
-    CountryPhonePrefix(
-        prefix = "+400",
-        countryName = "Romania",
-        countryFlagResId = R.drawable.ic_flag_ro
-    ),
-    CountryPhonePrefix(
-        prefix = "+350",
-        countryName = "Ireland",
-        countryFlagResId = R.drawable.ic_flag_ir
-    ),
-    CountryPhonePrefix(
-        prefix = "+440",
-        countryName = "United Kingdom",
-        countryFlagResId = R.drawable.ic_flag_uk
-    ),
-    CountryPhonePrefix(
-        prefix = "+300",
-        countryName = "Greece",
-        countryFlagResId = R.drawable.ic_flag_gr
-    ),
-    CountryPhonePrefix(
-        prefix = "+340",
-        countryName = "Spain",
-        countryFlagResId = R.drawable.ic_flag_es
-    ),
-    CountryPhonePrefix(
-        prefix = "+330",
-        countryName = "France",
-        countryFlagResId = R.drawable.ic_flag_fr
-    ),
-    CountryPhonePrefix(
-        prefix = "+360",
-        countryName = "Hungary",
-        countryFlagResId = R.drawable.ic_flag_hu
-    ),
-
-    CountryPhonePrefix(
-        prefix = "+390",
-        countryName = "Italy",
-        countryFlagResId = R.drawable.ic_flag_it
-    ),
-    CountryPhonePrefix(
-        prefix = "+490",
-        countryName = "Germany",
-        countryFlagResId = R.drawable.ic_flag_de
-    ),
-    CountryPhonePrefix(
-        prefix = "+401",
-        countryName = "Romania",
-        countryFlagResId = R.drawable.ic_flag_ro
-    ),
-    CountryPhonePrefix(
-        prefix = "+351",
-        countryName = "Ireland",
-        countryFlagResId = R.drawable.ic_flag_ir
-    ),
-    CountryPhonePrefix(
-        prefix = "+441",
-        countryName = "United Kingdom",
-        countryFlagResId = R.drawable.ic_flag_uk
-    ),
-    CountryPhonePrefix(
-        prefix = "+301",
-        countryName = "Greece",
-        countryFlagResId = R.drawable.ic_flag_gr
-    ),
-    CountryPhonePrefix(
-        prefix = "+341",
-        countryName = "Spain",
-        countryFlagResId = R.drawable.ic_flag_es
-    ),
-    CountryPhonePrefix(
-        prefix = "+331",
-        countryName = "France",
-        countryFlagResId = R.drawable.ic_flag_fr
-    ),
-    CountryPhonePrefix(
-        prefix = "+361",
-        countryName = "Hungary",
-        countryFlagResId = R.drawable.ic_flag_hu
-    ),
-
-    CountryPhonePrefix(
-        prefix = "+391",
-        countryName = "Italy",
-        countryFlagResId = R.drawable.ic_flag_it
-    ),
-    CountryPhonePrefix(
-        prefix = "+491",
-        countryName = "Germany",
-        countryFlagResId = R.drawable.ic_flag_de
-    ),
+    )
 )

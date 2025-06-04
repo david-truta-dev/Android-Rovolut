@@ -2,7 +2,11 @@ package com.tdavidc.dev.ui.screens.welcome
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.gestures.forEachGesture
+import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -45,6 +49,10 @@ import com.tdavidc.dev.ui.theme.white
 import com.tdavidc.dev.ui.views.SetStatusBarStyle
 import com.tdavidc.dev.ui.views.buttons.RoundedTextButton
 
+
+// Constants used to differentiate tap, hold and swipe on the Welcome story screen
+const val WELCOME_SCREEN_TAP_THRESHOLD = 300L
+const val WELCOME_SCREEN_SWIPE_THRESHOLD = 10f
 
 @Composable
 fun WelcomeScreen(
@@ -114,17 +122,34 @@ fun WelcomeScreen(
         Box(
             modifier = modifier
                 .pointerInput(Unit) {
-                    detectTapGestures { event ->
-                        val isLeftHalf = event.x < this.size.width / 2
+                    awaitEachGesture {
+                        val down = awaitFirstDown()
+                        val downTime = System.currentTimeMillis()
+                        val startPosition = down.position
+                        val isLeftHalf = startPosition.x < size.width / 2
 
-                        if (isLeftHalf) {
-                            viewModel.goToPreviousScreen()
-                        } else {
-                            viewModel.goToNextScreen()
+                        // Trigger hold action immediately
+                        viewModel.pauseAnimation()
+
+                        val up = waitForUpOrCancellation()
+                        // Trigger release action
+                        viewModel.resumeAnimation()
+
+                        // If the user released and didn't move too much, treat it as a tap
+                        val isTap = up != null &&
+                                (System.currentTimeMillis() - downTime < WELCOME_SCREEN_TAP_THRESHOLD) &&
+                                (up.position - startPosition).getDistance() < WELCOME_SCREEN_SWIPE_THRESHOLD
+
+                        if (isTap) {
+                            if (isLeftHalf) {
+                                viewModel.goToPreviousScreen()
+                            } else {
+                                viewModel.goToNextScreen()
+                            }
                         }
                     }
                 },
-            contentAlignment = Alignment.Center,
+            contentAlignment = Alignment.Center
         ) {
             LottieAnimation(
                 composition = rawComposition.value,
