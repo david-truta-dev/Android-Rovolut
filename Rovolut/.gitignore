@@ -109,3 +109,4 @@ fabric.properties
 
 # Secrets
 secrets.properties
+keystore.properties

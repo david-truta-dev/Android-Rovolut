@@ -51,6 +51,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -93,7 +94,7 @@ fun SelectPrefixScreen(
             ) {
                 Box(
                     modifier = Modifier
-                        .padding(horizontal = 12.dp)
+                        .padding(horizontal = dimensionResource(R.dimen.screen_horizontal_padding))
                         .padding(top = 16.dp)
                 ) {
                     SearchBar(
@@ -120,22 +121,20 @@ fun SelectPrefixScreen(
                     title = {
                         Column {
                             Text(stringResource(R.string.select_prefix_title))
-                            AnimatedVisibility(visible = scrollBehavior.state.collapsedFraction < 0.45f) {
-                                Box(
-                                    modifier = Modifier
-                                        .padding(end = 14.dp)
-                                        .padding(top = 12.dp)
-                                ) {
-                                    SearchBar(
-                                        onClick = {
-                                            searchMode = true
-                                        }
-                                    )
+                            SearchBar(
+                                modifier = Modifier
+                                    .padding(
+                                        end = dimensionResource(R.dimen.screen_horizontal_padding),
+                                        top = 12.dp
+                                    ),
+                                onClick = {
+                                    searchMode = true
                                 }
-                            }
+                            )
                         }
                     },
-                    collapsedHeight = 34.dp,
+                    collapsedHeight = 28.dp,
+                    expandedHeight = 120.dp,
                     navigationIcon = {
                         CircleImageButton(
                             painterResource(R.drawable.ic_close),
@@ -159,8 +158,8 @@ fun SelectPrefixScreen(
                 state = listState,
                 modifier = Modifier
                     .padding(padding)
-                    .padding(horizontal = 12.dp)
-                    .padding(top = 15.dp)
+                    .padding(horizontal = dimensionResource(R.dimen.screen_horizontal_padding))
+                    .padding(top = 12.dp)
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(16.dp))
                     .background(
@@ -168,41 +167,50 @@ fun SelectPrefixScreen(
                         shape = RoundedCornerShape(16.dp)
                     )
             ) {
-                items(filteredCountries, contentType = { item -> "country" }) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 10.dp, vertical = 8.dp)
-                            .clickable {
-                                onCountrySelected(it)
-                            },
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Image(
-                            painterResource(it.countryFlagResId),
-                            contentDescription = null,
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .size(32.dp)
-                                .clip(CircleShape)
-                        )
-                        Column(
-                            modifier = Modifier.padding(horizontal = 12.dp),
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Text(it.countryName, style = MaterialTheme.typography.labelLarge)
-                            Text(it.prefix)
-                        }
-                    }
+                items(filteredCountries, key = { it.prefix }) {
+                    PhonePrefixItem(it, onCountrySelected = onCountrySelected)
                 }
             }
         }
     )
 }
 
+@Composable
+fun PhonePrefixItem(
+    countryPhonePrefix: CountryPhonePrefix,
+    onCountrySelected: (CountryPhonePrefix) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 10.dp, vertical = 8.dp)
+            .clickable {
+                onCountrySelected(countryPhonePrefix)
+            },
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            painterResource(countryPhonePrefix.countryFlagResId),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .size(32.dp)
+                .clip(CircleShape)
+        )
+        Column(
+            modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.screen_horizontal_padding)),
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(countryPhonePrefix.countryName, style = MaterialTheme.typography.labelLarge)
+            Text(countryPhonePrefix.prefix)
+        }
+    }
+}
+
 
 @Composable
 fun SearchBar(
+    modifier: Modifier = Modifier,
     onClick: (() -> Unit)? = null,
     leadingIcon: Painter = painterResource(R.drawable.ic_search),
     onLeadingClick: (() -> Unit)? = null,
@@ -216,7 +224,7 @@ fun SearchBar(
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
+        modifier = modifier
             .clip(CircleShape) // Round the corners
             .background(color = MaterialTheme.colorScheme.surface) // Background color
             .clickable(

@@ -13,7 +13,19 @@ val secretProperties = Properties().apply {
     load(rootProject.file("secrets.properties").inputStream())
 }
 
+val keystoreProperties = Properties().apply {
+    load(rootProject.file("keystore.properties").inputStream())
+}
+
 android {
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPassword"] as String
+            storeFile = file(keystoreProperties["storeFile"] as String)
+            storePassword = keystoreProperties["storePassword"] as String
+        }
+    }
     namespace = "com.tdavidc.dev"
     compileSdk = 35
 
@@ -32,7 +44,9 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

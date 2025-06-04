@@ -15,11 +15,6 @@ class SelectPhonePrefixViewModel @Inject constructor() : ViewModel() {
     private val _allCountries = arrayListOf<CountryPhonePrefix>()
 
     init {
-        // Add mocked countries five times
-        _allCountries.addAll(countryPrefixes)
-        _allCountries.addAll(countryPrefixes)
-        _allCountries.addAll(countryPrefixes)
-        _allCountries.addAll(countryPrefixes)
         _allCountries.addAll(countryPrefixes)
     }
 
@@ -96,6 +91,98 @@ val countryPrefixes = arrayListOf(
     ),
     CountryPhonePrefix(
         prefix = "+49",
+        countryName = "Germany",
+        countryFlagResId = R.drawable.ic_flag_de
+    ),
+    CountryPhonePrefix(
+        prefix = "+400",
+        countryName = "Romania",
+        countryFlagResId = R.drawable.ic_flag_ro
+    ),
+    CountryPhonePrefix(
+        prefix = "+350",
+        countryName = "Ireland",
+        countryFlagResId = R.drawable.ic_flag_ir
+    ),
+    CountryPhonePrefix(
+        prefix = "+440",
+        countryName = "United Kingdom",
+        countryFlagResId = R.drawable.ic_flag_uk
+    ),
+    CountryPhonePrefix(
+        prefix = "+300",
+        countryName = "Greece",
+        countryFlagResId = R.drawable.ic_flag_gr
+    ),
+    CountryPhonePrefix(
+        prefix = "+340",
+        countryName = "Spain",
+        countryFlagResId = R.drawable.ic_flag_es
+    ),
+    CountryPhonePrefix(
+        prefix = "+330",
+        countryName = "France",
+        countryFlagResId = R.drawable.ic_flag_fr
+    ),
+    CountryPhonePrefix(
+        prefix = "+360",
+        countryName = "Hungary",
+        countryFlagResId = R.drawable.ic_flag_hu
+    ),
+
+    CountryPhonePrefix(
+        prefix = "+390",
+        countryName = "Italy",
+        countryFlagResId = R.drawable.ic_flag_it
+    ),
+    CountryPhonePrefix(
+        prefix = "+490",
+        countryName = "Germany",
+        countryFlagResId = R.drawable.ic_flag_de
+    ),
+    CountryPhonePrefix(
+        prefix = "+401",
+        countryName = "Romania",
+        countryFlagResId = R.drawable.ic_flag_ro
+    ),
+    CountryPhonePrefix(
+        prefix = "+351",
+        countryName = "Ireland",
+        countryFlagResId = R.drawable.ic_flag_ir
+    ),
+    CountryPhonePrefix(
+        prefix = "+441",
+        countryName = "United Kingdom",
+        countryFlagResId = R.drawable.ic_flag_uk
+    ),
+    CountryPhonePrefix(
+        prefix = "+301",
+        countryName = "Greece",
+        countryFlagResId = R.drawable.ic_flag_gr
+    ),
+    CountryPhonePrefix(
+        prefix = "+341",
+        countryName = "Spain",
+        countryFlagResId = R.drawable.ic_flag_es
+    ),
+    CountryPhonePrefix(
+        prefix = "+331",
+        countryName = "France",
+        countryFlagResId = R.drawable.ic_flag_fr
+    ),
+    CountryPhonePrefix(
+        prefix = "+361",
+        countryName = "Hungary",
+        countryFlagResId = R.drawable.ic_flag_hu
+    ),
+
+    CountryPhonePrefix(
+        prefix = "+391",
+        countryName = "Italy",
+        countryFlagResId = R.drawable.ic_flag_it
+    ),
+    CountryPhonePrefix(
+        prefix = "+491",
         countryName = "Germany",
         countryFlagResId = R.drawable.ic_flag_de
     ),

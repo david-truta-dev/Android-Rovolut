@@ -44,7 +44,6 @@ import com.tdavidc.dev.ui.theme.lighterBlack
 import com.tdavidc.dev.ui.theme.white
 import com.tdavidc.dev.ui.views.SetStatusBarStyle
 import com.tdavidc.dev.ui.views.buttons.RoundedTextButton
-import kotlinx.coroutines.delay
 
 
 @Composable
@@ -106,9 +105,6 @@ fun WelcomeScreen(
         rememberLottieComposition(spec = LottieCompositionSpec.RawRes(currentScreen.background))
 
     LaunchedEffect(rawComposition.isSuccess) {
-        // start animation with some delay to avoid lottie animation stutter
-        // due to initial composition
-        delay(200)
         viewModel.startAnimation()
     }
 
