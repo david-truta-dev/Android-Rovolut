@@ -51,7 +51,7 @@ import com.tdavidc.dev.ui.views.buttons.RoundedTextButton
 
 
 // Constants used to differentiate tap, hold and swipe on the Welcome story screen
-const val WELCOME_SCREEN_TAP_THRESHOLD = 300L
+const val WELCOME_SCREEN_TAP_THRESHOLD = 250L
 const val WELCOME_SCREEN_SWIPE_THRESHOLD = 10f
 
 @Composable

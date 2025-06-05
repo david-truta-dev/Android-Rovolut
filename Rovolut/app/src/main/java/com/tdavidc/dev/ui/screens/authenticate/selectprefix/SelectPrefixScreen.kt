@@ -1,6 +1,7 @@
 package com.tdavidc.dev.ui.screens.authenticate.selectprefix
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -61,6 +62,7 @@ import com.tdavidc.dev.R
 import com.tdavidc.dev.ui.views.buttons.ButtonSize
 import com.tdavidc.dev.ui.views.buttons.CircleImageButton
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SelectPrefixScreen(
@@ -82,7 +84,6 @@ fun SelectPrefixScreen(
     LaunchedEffect(listState.isScrollInProgress) {
         keyboardController?.hide()
     }
-
 
     Scaffold(
         modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -166,6 +167,7 @@ fun SelectPrefixScreen(
                         color = MaterialTheme.colorScheme.surface,
                         shape = RoundedCornerShape(16.dp)
                     )
+                    .animateContentSize()
             ) {
                 items(filteredCountries, key = { it.id }) {
                     PhonePrefixItem(it, onCountrySelected = onCountrySelected)

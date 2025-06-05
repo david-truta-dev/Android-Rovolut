@@ -29,15 +29,15 @@ This project is a **"production-ready"** and **"industry-standard" banking appli
 ### Highlights from the app 📱 (I will update these as development advances 😉)
 
 <img src="readme_assets/welcom_screen_showcase.gif" width="200" />
+<img src="readme_assets/login_register_showcase.gif" width="200" />
 
 ##### 🔨 TODO next:
 
 <ul>
-<li> create base fragment
+<li> organize/refactor AppBarScrollableScreen + others
+<li> create authorize screen
+<li> add generic field validators and validator for phone textfield
 <li> create generic dialog
 <li> create allow biometric authentication dialog
-<li> create generic viw with titleBar with back navigation and animation inside scollview
-<li> organize/refactor
 <li> some UI tests
-<li> custom in-app force update mechanism (this will display when there is an update available for the app. Mandatory updates do not let the user access the app unless he updates)
 </ul>

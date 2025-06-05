@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -38,9 +39,13 @@ fun AppBarScrollableScreen(
     var topAppBarHeight by remember { mutableIntStateOf(0) }
     var headerHeight by remember { mutableIntStateOf(0) }
 
-    val progress = if (headerHeight > 0) {
-        (scrollState.value / headerHeight.toFloat()).coerceIn(0f, 1f)
-    } else 0f
+    val progress by remember {
+        derivedStateOf {
+            if (headerHeight > 0) {
+                (scrollState.value / headerHeight.toFloat()).coerceIn(0f, 1f)
+            } else 0f
+        }
+    }
 
     Box(modifier = modifier.fillMaxSize()) {
         AppBarTop(
@@ -66,7 +71,7 @@ fun AppBarScrollableScreen(
             }))
             AppBarHeader(
                 title = title,
-                scrollProgress = progress * 2.2f,
+                scrollProgress = { progress * 2.2f },
                 modifier = Modifier
                     .padding(horizontal = 12.dp)
                     .onGloballyPositioned { coordinates ->

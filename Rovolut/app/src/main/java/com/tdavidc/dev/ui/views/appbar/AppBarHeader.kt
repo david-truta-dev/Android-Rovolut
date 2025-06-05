@@ -21,16 +21,17 @@ import com.tdavidc.dev.ui.theme.AppTheme
 internal fun AppBarHeader(
     title: String,
     modifier: Modifier = Modifier,
-    scrollProgress: Float = 0f,
+    scrollProgress: () -> Float = { 0f },
     bottomContent: @Composable () -> Unit = { Spacer(modifier = Modifier.height(0.dp)) }
 ) {
-    // fades from 0 to 1, ensuring value is between 0 and 1
-    val safeScrollProgress = 1f - scrollProgress.coerceIn(0f, 1f)
+
 
     Column(
         modifier = modifier
             .fillMaxWidth()
             .graphicsLayer {
+                // fades from 0 to 1, ensuring value is between 0 and 1
+                val safeScrollProgress = 1f - scrollProgress().coerceIn(0f, 1f)
                 alpha = safeScrollProgress
             }) {
         Text(
@@ -53,7 +54,7 @@ fun TopScreenHeaderPreview() {
     AppTheme {
         AppBarHeader(
             title = "Preview",
-            scrollProgress = 0.5f
+            scrollProgress = { 0.5f }
         )
     }
 }
