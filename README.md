@@ -28,8 +28,7 @@ This project is a **"production-ready"** and **"industry-standard" banking appli
 
 ### Highlights from the app 📱 (I will update these as development advances 😉)
 
-<img src="readme_assets/welcom_screen_showcase.gif" width="200" />
-<img src="readme_assets/login_register_showcase.gif" width="200" />
+<img src="readme_assets/welcom_screen_showcase.gif" width="200" /> <img src="readme_assets/login_register_showcase.gif" width="200" />
 
 ##### 🔨 TODO next:
 
